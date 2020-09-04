@@ -1,0 +1,7 @@
+.TurnOrderArea {
+    padding: 3rem;
+    display: inline-block;
+    border-bottom: 1px solid black;
+    font-size: .8em;
+    list-style-type: none;
+}

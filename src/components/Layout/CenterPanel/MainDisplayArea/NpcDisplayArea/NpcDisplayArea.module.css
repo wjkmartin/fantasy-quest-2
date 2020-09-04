@@ -1,0 +1,49 @@
+.NpcList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding-left: 2%;
+  padding-top: 2%;
+  width: 80%;
+}
+
+.Npc {
+  display: inline;
+  color: blue;
+  cursor: pointer;
+}
+
+.Npc:hover {
+  text-decoration: underline;
+}
+
+.hunter {
+  color: rgb(17, 207, 207);
+}
+
+.npcsHereLabel {
+  min-width: 15%;
+  border-right: 2px solid black;
+  padding: 2%;
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+
+.NpcDisplayArea {
+  display: flex;
+  border-bottom: 1px solid black;
+  max-height: 12%;
+  background-color: white;
+
+}

@@ -1,0 +1,14 @@
+
+
+
+             head
+
+neck                  eyes
+
+torso_under           torso_over
+
+weapon_main           weapon_shield_offhand
+
+legs_under            legs_over
+
+             feet 

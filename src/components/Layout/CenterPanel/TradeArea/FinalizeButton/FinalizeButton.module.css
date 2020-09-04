@@ -1,0 +1,8 @@
+.FinalizeButton {
+    border: 1px solid white;
+    background-color: gainsboro;
+}
+
+.FinalizeButton:hover {
+    border: 1px solid black;
+}

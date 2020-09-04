@@ -1,0 +1,12 @@
+.MainDisplayArea {
+    height: 65%;
+    width: 100%;
+}
+
+.mainImage {
+    display: block;
+    margin: 1rem auto;
+    max-width: 95%;
+    max-height: 80%;
+    text-align: center;
+}

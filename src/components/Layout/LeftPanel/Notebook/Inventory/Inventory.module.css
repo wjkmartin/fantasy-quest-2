@@ -1,0 +1,59 @@
+.Inventory {
+  width: 100%;
+  height: 100%;
+}
+
+.Inventory__itemArea {
+  height: 70%;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.Inventory__goldArea { 
+  border-top: 1px solid black;
+  padding-left: 1rem;
+  font-size: 1.3rem;
+}
+
+
+.Inventory__itemInfoArea {
+  display: flex;
+  align-items: center;
+  height: 19%;
+  border-top: 1px solid black;
+}
+
+.onDrag {
+  background-color: lightgray;
+  position: relative;
+}
+
+.onDrag::before {
+  position: absolute;
+  content: "Drag item here to remove from trade";
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 10rem);
+  font-weight: 700;
+}
+
+.rarity-poor {
+  color: grey;
+}
+.rarity-common {
+  color: black;
+}
+.rarity-uncommon {
+  color: green;
+}
+.rarity-rare {
+  color: blue;
+}
+.rarity-very-rare {
+  color: purple;
+}
+.rarity-legendary {
+  color: orange;
+}

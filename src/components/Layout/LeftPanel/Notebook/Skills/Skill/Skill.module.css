@@ -1,0 +1,29 @@
+.Skill {
+    height: 3rem;
+    width: 95%;
+    margin: .5rem;
+    padding: .125rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid black;
+    user-select: none;
+}
+
+.Skill__body {
+    
+}
+
+.Skill__body_title {
+    font-size: .8rem;
+    font-weight: 550;
+}
+
+.Skill__body_desc {
+    padding-left: 1rem;
+}
+
+.Skill__level {
+    font-weight: 550;
+
+}

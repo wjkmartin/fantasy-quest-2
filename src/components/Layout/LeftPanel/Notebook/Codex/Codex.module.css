@@ -1,0 +1,44 @@
+.Codex {
+    height: 95%;
+    display: flex;
+    margin: 1rem 0;
+}
+
+.Codex__selectionColumn {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid black;
+}
+
+.Codex__tabKey {
+    border: 1px solid black;
+    width: 5rem;
+    text-align: center;
+    margin: .25rem;
+    padding: .125rem;
+    font-weight: 600;
+    user-select: none;
+    cursor: pointer;
+}
+
+.Codex__tabKey:hover {
+    background-color: darkgray;
+}
+
+.Codex__textBody {
+    width: 80%;
+    height: 100%;
+    padding: 1rem
+}
+
+.Codex__textBody_title {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.Codex__textBody_body {
+    margin-left: 1rem;
+}

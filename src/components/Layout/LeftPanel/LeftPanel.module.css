@@ -1,0 +1,18 @@
+.NoteBook {
+    height: 55%;
+    border: 2px solid black;
+    font-size: .80rem;
+    margin: 2% 2% 0 2%;
+    background-color: white;
+}
+
+.TimePlaceIndicator {
+    height: 5%;
+    margin: 1% 1% 0 1%;
+}
+
+.MiniMap {
+    height: 35%;
+    margin: 1% 1% 0 1%;
+
+}

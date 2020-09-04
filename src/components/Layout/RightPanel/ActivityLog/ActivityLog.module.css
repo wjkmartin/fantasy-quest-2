@@ -1,0 +1,24 @@
+.header {
+  height: 7%;
+  border-bottom: 1px solid black;
+  padding: 2px;
+  font-size: 10pt;
+  height: 10%;
+}
+
+.wrapper {
+    height: 90%;
+    position: relative;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column-reverse;
+    text-align: right;
+    
+}
+
+.logFeed {
+    margin-right: 1em;
+    margin-bottom: 0.25em;
+    flex: 0 0 auto
+}
+

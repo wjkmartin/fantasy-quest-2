@@ -1,0 +1,40 @@
+.playerName {
+    font-size: 2em;
+}
+
+.raceLevelClass {
+    font-size: 1.2em;
+    line-height: .5;
+}
+
+.playerStats {
+    display: flex;
+    justify-content: space-around;
+    padding: 3rem 0 1rem 0;
+}
+
+.playerStats__col_1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.playerStats__col_2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.playerStatsAS {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.playerStatsAS__col_1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.playerStatsAS__col_2 {
+    display: flex;
+    flex-direction: column;
+}

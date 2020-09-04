@@ -1,0 +1,10 @@
+.Row {
+    display: flex;
+    justify-content: space-around;
+    height: 3%;
+    align-items: center;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    font-family: 'Metamorphous', cursive;
+    font-weight: 700;
+}

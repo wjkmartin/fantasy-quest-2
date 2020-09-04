@@ -1,0 +1,69 @@
+.ActiveItemArea {
+    display: flex;
+  }
+  
+  .ActiveItemArea_info {
+    width: 70%;
+  }
+  
+  .ActiveItemArea_info_itemLabel {
+    padding: .5rem 0 0 1rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+  
+  .ActiveItemArea_info_rarity {
+    padding-left: 1rem;
+  }
+  
+  .ActiveItemArea_info_flavor {
+    font-style: italic;
+    font-size: .7rem;
+    padding: .2rem 1rem 0 1rem;
+    line-height: 1.2;
+  }
+  
+  .ActiveItemArea_info_details {
+    padding: .75rem 0 0 1rem;
+  }
+  
+  .ActiveItemArea_buttons {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .ActiveItemArea_buttons_button {
+    border: none;
+    background-color: gainsboro;
+    display: inline-block;
+    margin: 0.5rem;
+    width: 6rem;
+    font-weight: 600;
+  }
+  
+  .ActiveItemArea_buttons_button:hover {
+    background-color: darkgray;
+  }
+
+  .rarity-poor {
+    color: grey;
+  }
+  .rarity-common {
+    color: black;
+  }
+  .rarity-uncommon {
+    color: green;
+  }
+  .rarity-rare {
+    color: blue;
+  }
+  .rarity-very-rare {
+    color: purple;
+  }
+  .rarity-legendary {
+    color: orange;
+  }

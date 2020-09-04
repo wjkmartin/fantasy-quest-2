@@ -1,0 +1,48 @@
+.Item__itemLine {
+    max-height: 4rem;
+    min-height: 3.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 0.5rem;
+    background-color: gainsboro;
+    margin-right: 3px;
+    margin-top: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .Item__itemLine:hover {
+    border: 1px dashed black;
+  }
+  
+  .Item__itemIcon {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid black;
+    border-radius: 50%;
+    line-height: 1.75 !important;
+    background-color: white;
+  }
+  
+  .Item__itemBasicInfo {
+    width: 90%;
+    height: 100%;
+    padding-left: 0.5rem;
+  }
+  
+  .Item__itemBasicInfo_itemLabel {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+  
+  .Item__itemBasicInfo_itemQty {
+    text-align: right;
+    padding-right: 2rem;
+    font-size: 1.2em;
+    font-weight: 750;
+  }

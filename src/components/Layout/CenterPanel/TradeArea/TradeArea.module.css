@@ -1,0 +1,75 @@
+.TradeArea {
+    margin: 3rem auto;
+    width: 90%;
+    height: 70%;
+    border: 1px solid black;
+}
+
+.TradeArea__valueArea {
+    height: 40%;
+    display: flex;
+}
+
+.TradeArea__tradingWithArea {
+    height: 60%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.TradeArea__valueArea_value {
+    width: 50%;
+    text-align: center;
+}
+
+.TradeArea__header {
+    height: 10%;
+    border-bottom: 1px solid black;    
+}
+
+.TradeArea__balanceArea {
+    height: 70%;
+    display: flex;
+    
+}
+
+.TradeArea__balanceArea_player {
+    width: 50%;
+    height: 100%;
+    border-right: 2px dashed black;
+    display: flex;
+    flex-flow: wrap;
+}
+.TradeArea__balanceArea_npc {
+    width: 50%;
+}
+
+.TradeArea__buttonArea_commentArea {
+    border-top: 1px solid black;
+}
+
+.TradeArea__buttonArea {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: middle;
+}
+
+.TradeArea__buttonArea_finalize {
+
+}
+
+.onDrag {
+    background-color: lightgray;
+    position: relative;
+}
+
+.onDrag::before {
+    position: absolute;
+    content: "Drag item here to trade";
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 10rem);
+    font-weight: 700;
+}
+

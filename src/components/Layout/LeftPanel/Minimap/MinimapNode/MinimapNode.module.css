@@ -1,0 +1,8 @@
+.MinimapNode {
+    width: 15px !important;
+    height: 15px;
+}
+
+.clickable {
+    color: red;
+}

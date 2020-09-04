@@ -1,0 +1,13 @@
+.Quests {
+
+}
+
+.Quests__active_completed_filter_buttons {
+    display: flex;
+    margin: 1rem 1rem;
+}
+
+button {
+    margin-right: 1rem;
+}
+

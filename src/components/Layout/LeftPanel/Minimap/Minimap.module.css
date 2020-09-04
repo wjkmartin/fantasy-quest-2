@@ -1,0 +1,60 @@
+.Minimap {
+  background-image: linear-gradient(
+      45deg,
+      rgba(235, 235, 235, 0.05) 0%,
+      rgba(235, 235, 235, 0.05) 47%,
+      rgba(69, 69, 69, 0.05) 47%,
+      rgba(69, 69, 69, 0.05) 100%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(231, 231, 231, 0.07) 0%,
+      rgba(231, 231, 231, 0.07) 35%,
+      rgba(63, 63, 63, 0.07) 35%,
+      rgba(63, 63, 63, 0.07) 100%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(34, 34, 34, 0.03) 0%,
+      rgba(34, 34, 34, 0.03) 21%,
+      rgba(104, 104, 104, 0.03) 21%,
+      rgba(104, 104, 104, 0.03) 100%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(231, 231, 231, 0.02) 0%,
+      rgba(231, 231, 231, 0.02) 59%,
+      rgba(136, 136, 136, 0.02) 59%,
+      rgba(136, 136, 136, 0.02) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(142, 142, 142, 0.08) 0%,
+      rgba(142, 142, 142, 0.08) 99%,
+      rgba(105, 105, 105, 0.08) 99%,
+      rgba(105, 105, 105, 0.08) 100%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(137, 137, 137, 0.05) 0%,
+      rgba(137, 137, 137, 0.05) 57%,
+      rgba(49, 49, 49, 0.05) 57%,
+      rgba(49, 49, 49, 0.05) 100%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(38, 38, 38, 0.06) 0%,
+      rgba(38, 38, 38, 0.06) 48%,
+      rgba(89, 89, 89, 0.06) 48%,
+      rgba(89, 89, 89, 0.06) 100%
+    ),
+    linear-gradient(90deg, hsl(255, 4%, 63%), hsl(255, 4%, 63%));
+  min-height: 40%;
+  display: grid;
+  padding: 2rem;
+  grid-template-columns: repeat(8, 12%);
+  justify-items: center;
+  align-items: center;
+  margin: 0 1rem 1rem 1rem;
+  border: 2px solid black;
+}

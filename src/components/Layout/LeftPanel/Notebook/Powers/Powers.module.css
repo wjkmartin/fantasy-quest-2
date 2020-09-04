@@ -1,0 +1,9 @@
+.Powers {
+    height: 100%;
+}
+
+.Powers__noPowers {
+    width: 100%;
+    height: 100%;
+    padding: 30%;
+}
