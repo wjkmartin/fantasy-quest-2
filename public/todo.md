@@ -20,9 +20,6 @@ V0.2
     Equipped:     - [ ] active abilities on equipped items -1.5h
     Active actor  - [ ] inspect equipment
 
-    Basic networking, including:
-        - session tracking
-
 **0.4 ROADMAP ***
     Aesthetic overhaul
 
