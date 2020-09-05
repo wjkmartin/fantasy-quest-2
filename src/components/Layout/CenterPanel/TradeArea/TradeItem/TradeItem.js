@@ -4,8 +4,8 @@ import styles from "./TradeItem.module.css";
 
 import { Popover, OverlayTrigger } from "react-bootstrap";
 
-import "../../../../../../node_modules/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css";
-import "../../../../../../node_modules/@fortawesome/fontawesome-free-webfonts/css/solid.css";
+import "../../../../../Assets/css/fontawesome.css"
+import "../../../../../Assets/css/solid.css";
 
 import { itemColorClass } from "../../../LeftPanel/Notebook/Inventory/util";
 import { useDrag } from "react-dnd";
