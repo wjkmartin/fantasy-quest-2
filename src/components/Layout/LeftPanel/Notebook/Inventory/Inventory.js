@@ -8,9 +8,8 @@ import ActiveItemArea from "./ActiveItemArea/ActiveItemArea";
 
 import { useDrop } from "react-dnd";
 
-
-import "../../../../../../node_modules/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css";
-import "../../../../../../node_modules/@fortawesome/fontawesome-free-webfonts/css/solid.css";
+import "../../../../../Assets/css/fontawesome.css";
+import "../../../../../Assets/css/solid.css";
 
 export default function Inventory() {
   const playerGold = useSelector(state => state.actors.actorsById[0].gold)
