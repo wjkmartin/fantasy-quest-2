@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import MainDisplayArea from "./MainDisplayArea/MainDisplayArea";
 import TextDisplayArea from "./TextDisplayArea/TextDisplayArea";
 import ButtonArea from "./ButtonArea/ButtonArea";
-import ExpBar from "./ExpBar/ExpBar";
-import HotBar from "./Hotbar/HotBar";
+// import ExpBar from "./ExpBar/ExpBar";
+// import HotBar from "./Hotbar/HotBar";
 import CombatArea from "./CombatArea/CombatArea";
 import ConversationArea from "./ConversationArea/ConversationArea";
 import TradeArea from "./TradeArea/TradeArea";
@@ -35,7 +35,7 @@ function combat(props) {
   return (
     <div className={props.className}>
       <CombatArea></CombatArea>
-      <HotBar />
+      {/* <HotBar /> */}
     </div>
   );
 }

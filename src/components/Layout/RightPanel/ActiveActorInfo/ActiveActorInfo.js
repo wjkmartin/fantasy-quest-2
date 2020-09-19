@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import { useSelector } from "react-redux";
 
 import Tabs from "react-bootstrap/Tabs";
@@ -20,26 +20,34 @@ function ActiveActorInfo(props) {
   const activeActor = actorObject.actorsById[actorObject.activeActorById];
 
   const talkButton = (
-    <TalkButton activeActor={activeActor} className={styles.actionButton} />
+    <TalkButton
+      key={"talkButton"}
+      activeActor={activeActor}
+      className={styles.actionButton}
+    />
   );
 
   const duelButton = (
     <RequestDuelButton
+      key={"requestDuelButton"}
       activeActor={activeActor}
       className={styles.actionButton}
     />
   );
 
   const tradeButton = (
-    <TradeButton activeActor={activeActor} className={styles.actionButton} />
+    <TradeButton
+      key={"tradeButton"}
+      activeActor={activeActor}
+      className={styles.actionButton}
+    />
   );
 
   const inspectButton = (
-    <InspectButton className={styles.actionButton}/>
-  )
+    <InspectButton key={"inspectButton"} className={styles.actionButton} />
+  );
 
-
-  const buttons = [talkButton, duelButton, tradeButton, inspectButton]
+  const buttons = [talkButton, duelButton, tradeButton, inspectButton];
 
   return activeActor === undefined ? (
     <div className={props.className}>
@@ -67,22 +75,21 @@ function ActiveActorInfo(props) {
       >
         <Tab eventKey="info" title="Info">
           <div className={styles.tabContent}>
-            <p class={styles.actorDetailsString}>
+            <p className={styles.actorDetailsString}>
               {activeActor.raceLevelClassString}
             </p>
             <p className={styles.actorHealth}>
               <span>Health: </span>
-              {getFancyNameForDamage(activeActor.health, activeActor.maxHealth)}
+              {activeActor.health}
             </p>
 
             {/* <p>Stamina: {actorData !== undefined ? actorData.stamina : ""}</p>
           <p>Mana: {actorData !== undefined ? actorData.mana : ""}</p> */}
           </div>
         </Tab>
-        <Tab eventKey="actions" title="Actions">
+        <Tab className={styles.tabby} eventKey="actions" title="Actions">
           <div className={styles.tabContent}>
-            {inCombat ? " " : buttons.map(button => button)}
-
+            {inCombat ? " " : buttons.map((button) => button)}
           </div>
         </Tab>
       </Tabs>

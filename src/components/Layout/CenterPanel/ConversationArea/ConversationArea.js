@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import styles from "./ConversationArea.module.css";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import actions from "../../../../DataHandlers/redux/actions";
 
+import TextArea from "./TextArea/TextArea";
 import ConversationButton from "./ConversationButton/ConversationButton";
 
 export default function ConversationArea(props) {
-  let [dialogueState, setDialogueState] = useState("meet"); //this should be changed to be the current actor variable dialogue state
+  const [dialogueState, setDialogueState] = useState("meet");
+  const dispatch = useDispatch();
 
   const activeActorId = useSelector((state) => state.actors.activeActorById);
   const activeActor = useSelector((state) => state.actors.actorsById)[
     activeActorId
   ];
-  const currentDialogue = activeActor.dialogue[dialogueState];
-  const dialogueNPC = [currentDialogue.text];
-  
+  const currentDialogueText = useSelector(
+    (state) => state.UI.currentDialogueText
+  );
+
+  let currentDialogue = activeActor.dialogue[dialogueState];
+
+  if (
+    currentDialogueText[currentDialogueText.length - 1] !== currentDialogue.text
+  ) {
+    dispatch(actions.addtoCurrentDialogueText(currentDialogue.text));
+  }
+
   if (currentDialogue.actionsOnShow === undefined) {
   } else if (currentDialogue.actionsOnShow.length > 0) {
     currentDialogue.actionsOnShow.forEach((action) => {
@@ -33,9 +45,7 @@ export default function ConversationArea(props) {
 
   return (
     <div className={styles.ConversationArea}>
-      <div className={styles.ConversationArea_dialogue}>
-        {dialogueNPC.map((e) => e)}
-      </div>
+      <TextArea dialogue={currentDialogueText} />
       <div className={styles.ConversationArea_buttons}>{buttons}</div>
     </div>
   );

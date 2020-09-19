@@ -1,10 +1,11 @@
-import * as images from '../../../Assets/imgList'
+import * as images from "../../../Assets/imgList";
 
 const initalState = {
   activityLog: {},
   inConversation: false,
   actorInConversation: undefined,
-  mainImage: images['tavern']
+  mainImage: images["tavern"],
+  currentDialogueText: [],
 };
 
 export default function (state = initalState, action) {
@@ -13,15 +14,15 @@ export default function (state = initalState, action) {
       return {
         ...state,
         inConversation: true,
-        actorInConversation: action.id
-      }
+        actorInConversation: action.id,
+      };
     }
     case "END_CONVERSATION": {
       return {
         ...state,
         inConversation: false,
-        actorInConversation: undefined
-      }
+        actorInConversation: undefined,
+      };
     }
     case "ADD_MESSAGE_TO_ACTIVITY_LOG": {
       return {
@@ -35,10 +36,22 @@ export default function (state = initalState, action) {
     case "SET_MAIN_IMAGE": {
       return {
         ...state,
-        mainImage: images[action.image]
+        mainImage: images[action.image],
+      };
+    }
+    case "ADD_TO_CURRENT_DIALOGUE_TEXT": {
+      return {
+        ...state,
+        currentDialogueText: [...state.currentDialogueText, action.text]
       }
     }
-    
+    case "CLEAR_CURRENT_DIALOGUE_TEXT": {
+      return {
+        ...state,
+      currentDialogueText: []
+      }
+      
+    }
     default: {
       return state;
     }

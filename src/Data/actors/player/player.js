@@ -1,3 +1,5 @@
+import token from '../../../Assets/img/combat_tokens/player.png'
+
 export default {
   actorName: "Zaster", //change everywhere to be just name
   level: 1,
@@ -16,7 +18,7 @@ export default {
     strength: 10,
     dexterity: 10,
     constitution: 10,
-    charisma: 10,
+    charisma: 12,
     wisdom: 10,
     intelligence: 10,
   },
@@ -24,6 +26,7 @@ export default {
   hasFocusSpell: false,
   location: "",
   gold: 3,
-  speed: 3,
-  type: 'hunter'
+  speed: 2,
+  type: 'hunter',
+  token: token
 };

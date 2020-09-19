@@ -5,7 +5,7 @@ import CombatAreaSquare from '../CombatAreaSquare/CombatAreaSquare'
 
 
 export default function generateMapFromData(mapData) {
-    const rowLength = Math.sqrt(mapData.flat().length)
+    const rowLength = mapData[0].length
     let combatMap = [];
     let coords = [0, 0];
   

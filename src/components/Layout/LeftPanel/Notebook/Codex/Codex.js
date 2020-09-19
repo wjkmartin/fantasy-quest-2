@@ -31,6 +31,7 @@ export default function Codex(props) {
   const codexTabs = TEST_UNLOCKED_ENTRIES.map((key) => {
     return (
       <div
+        key={`codexTab-${key}`}
         onClick={() => onClickCodexKey(key)}
         className={styles.Codex__tabKey}
       >

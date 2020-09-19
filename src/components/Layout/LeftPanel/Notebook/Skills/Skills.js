@@ -24,7 +24,7 @@ const TEST_SKILLS_STATE = [ //refactor to use this
 export default function Skills(props) {
   const skills = Object.keys(TEST_SKILLS_DATA).map((key) => {
     return (
-      <Skill skillData={TEST_SKILLS_DATA[key]} />
+      <Skill key={`skill-${key}`} skillData={TEST_SKILLS_DATA[key]} />
     );
   });
 

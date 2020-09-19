@@ -1,4 +1,6 @@
 import dialogueAjwar from './d_ajwar.js';
+import token from '../../../Assets/img/combat_tokens/ajwar.png'
+
 
 // import { Item }  from '../js/item.js';
 
@@ -32,11 +34,12 @@ export default {
   hasFocusSpell: false,
   location: "tavern",
   gold: 999,
-  speed: 3,
+  speed: 1,
   dialogue: dialogueAjwar,
   // itemsForTrade: [
   //   new Item(weapons.sword_splarth),
   //   new Item(heads.head_splarth)
   // ],
-  type: 'npc'
+  type: 'npc',
+  token: token
 };

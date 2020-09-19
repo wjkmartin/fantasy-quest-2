@@ -124,7 +124,7 @@ export default function (state = initalState, action) {
           ...state.actorsById,
           [actorID]: {
             ...state.actorsById[actorID],
-            movementRemaining: state.actorsById[actorID].movementPerTurn,
+            movementRemaining: state.actorsById[actorID].speed,
             actionUsed: false,
           },
         },
@@ -145,9 +145,12 @@ export default function (state = initalState, action) {
             ...state.actorsById,
             [action.actorId]: {
               ...state.actorsById[action.actorId],
-              [action.attribute]: (state.actorsById[
-                action.actorId
-              ].abilityScores[action.attribute] += action.delta),
+              abilityScores: {
+                ...state.actorsById[action.actorId].abilityScores,
+                [action.attribute]: (state.actorsById[
+                  action.actorId
+                ].abilityScores[action.attribute] += action.delta),
+              },
             },
           },
         };
@@ -161,6 +164,41 @@ export default function (state = initalState, action) {
               [action.attribute]: (state.actorsById[action.actorId][
                 action.attribute
               ] += action.delta),
+            },
+          },
+        };
+      }
+    }
+    case "SET_ACTOR_ATTRIBUTE_BY_ACTOR_ID": {
+      if (
+        action.attribute === "strength" ||
+        action.attribute === "dexterity" ||
+        action.attribute === "constitution" ||
+        action.attribute === "charisma" ||
+        action.attribute === "wisdom" ||
+        action.attribute === "intelligence"
+      ) {
+        return {
+          ...state,
+          actorsById: {
+            ...state.actorsById,
+            [action.actorId]: {
+              ...state.actorsById[action.actorId],
+              abilityScores: {
+                ...state.actorsById[action.actorId].abilityScores,
+                [action.attribute]: action.value
+              },
+            },
+          },
+        };
+      } else {
+        return {
+          ...state,
+          actorsById: {
+            ...state.actorsById,
+            [action.actorId]: {
+              ...state.actorsById[action.actorId],
+              [action.attribute]: action.value
             },
           },
         };

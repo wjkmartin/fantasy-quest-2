@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from './ButtonArea.module.css'
+import styles from "./ButtonArea.module.css";
 
 import { useSelector } from "react-redux";
 import LocationButton from "./LocationButton/LocationButton";
@@ -19,6 +19,7 @@ export default function ButtonArea() {
 
       return (
         <LocationButton
+          key={label}
           currentLocation={currentSubLocation}
           action={action}
           label={label}
@@ -32,6 +33,7 @@ export default function ButtonArea() {
 
       return (
         <LocationButton
+          key={label}
           currentLocation={currentLocation}
           action={action}
           label={label}
@@ -40,5 +42,5 @@ export default function ButtonArea() {
     });
   }
 
-return <div className={styles.ButtonArea}>{buttons}</div>;
+  return <div className={styles.ButtonArea}>{buttons}</div>;
 }

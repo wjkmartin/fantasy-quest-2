@@ -26,7 +26,7 @@ export default {
   },
   isDead: false,
   hasFocusSpell: false,
-  location: "tavern",
+  location: "tavern_inside",
   gold: 999,
   speed: 3,
   dialogue: dialogue,

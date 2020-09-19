@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import _ from "underscore";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -11,15 +11,28 @@ import actions from "../../../../../DataHandlers/redux/actions";
 //ITS FUCKING TERRIBLE
 
 export default function CombatAreaSquare(props) {
-  let coordsState = useState(props.coords);
-  let actorHereById = undefined;
+  const coords = props.coords;
 
   const actorsById = useSelector((state) => state.actors.actorsById);
   const combatState = useSelector((state) => state.combat);
 
-  const actorsInCombatById = combatState.actorsInCombatById.map(id => {
-    return actorsById[id]
-  })
+  const actorOnThisSquare = Object.values(actorsById).find((actor) =>
+    _.isEqual(actor.coords, coords)
+  ); //should actually be just actors in combat
+
+  const actorOnThisSquareId =
+    actorOnThisSquare !== undefined ? actorOnThisSquare.id : undefined;
+
+  let actorToken;
+  if (actorOnThisSquareId !== undefined) {
+    actorToken = (
+      <img
+        className={styles.actorToken}
+        alt={""}
+        src={actorsById[actorOnThisSquareId].token}
+      />
+    );
+  }
 
   const validMovesPlayer = combatState.actorValidMovesById[0];
   const validAttacksPlayer = combatState.actorValidAttackTargetsById[0];
@@ -29,83 +42,57 @@ export default function CombatAreaSquare(props) {
 
   let dispatch = useDispatch();
 
-  const changeActorLocation = useCallback(
-    (id, coords) => dispatch(actions.setActorLocationCombat(id, coords)),
-    [dispatch]
-  );
-
-  const attackActorWithAbility = useCallback(
-    (attackerId, targetId, ability) =>
-      dispatch(actions.attackTargetWithAbility(attackerId, targetId, ability)),
-    [dispatch]
-  );
-
-  const setActiveActorInfoWindowById = useCallback(
-    (id) => dispatch(actions.setActiveActorInfoWindowById(id)),
-    [dispatch]
-  );
-
   let moveStyle,
     attackStyle = " ";
-  let actorName = "";
-  let isValidToMoveHere = undefined;
-  let isActorHereThatIsValidAttackTarget = undefined;
-  let coords = coordsState[0];
-  let nonPlayerActorIsHere;
+  let isValidToMoveHere = actorOnThisSquareId === undefined ? true : false;
 
+  let nonPlayerActorIsHere = actorOnThisSquareId !== 0 ? true : false;
 
-  for (const key in actorsInCombatById) {
-    let isClickable =
-      validMovesPlayer.find((element) => _.isEqual(element, coords)) !==
-      undefined;
-    isValidToMoveHere = isClickable && moveIsToggled;
+  let isClickable =
+    validMovesPlayer.find((element) => _.isEqual(element, coords)) !==
+    undefined;
+  isValidToMoveHere = isClickable && moveIsToggled;
 
-    let isAttackable =
-      validAttacksPlayer.find((element) => _.isEqual(element, coords)) !==
-      undefined;
+  let isAttackable =
+    validAttacksPlayer.find((element) => _.isEqual(element, coords)) !==
+    undefined;
 
-    isActorHereThatIsValidAttackTarget = isAttackable && attackIsToggled;
+  let isActorHereThatIsValidAttackTarget = isAttackable && attackIsToggled;
 
-    if (_.isEqual(actorsInCombatById[key].coords, coords)) {
-      actorName = actorsInCombatById[key].actorName;
-      isValidToMoveHere = false;
-      if (Number(key) !== 0) {
-        nonPlayerActorIsHere = true;
-        actorHereById = key;
-      }
-    }
-
-    if (isActorHereThatIsValidAttackTarget) {
-      attackStyle = styles.validAttackArea;
-    }
+  if (isActorHereThatIsValidAttackTarget) {
+    attackStyle = styles.validAttackArea;
   }
 
   if (isValidToMoveHere) {
     moveStyle = styles.validMoveArea;
   }
 
-  function onClickMovement() {
-    changeActorLocation(0, coords);
+  function onClickMovement(dispatch) {
+    dispatch(actions.setActorLocationCombat(0, coords));
     dispatch(actions.toggleMoveClick());
     moveStyle = " ";
   }
 
-  function onClickAttackSquare() {
+  function onClickAttackSquare(dispatch) {
     const ability = { damage: 5 + _.random(1, 4) }; //need generalization and this whole thing should be a seperate file
-    attackActorWithAbility(0, actorHereById, ability); //requires generalization and de-shitification
+    dispatch(
+      actions.attackTargetWithAbility(0, actorOnThisSquareId, ability)
+    ); //requires generalization and de-shitification
     dispatch(
       actions.addMessageToActivityLog(`You attack for ${ability.damage}!`)
     );
     dispatch(actions.toggleAttackClick());
     attackStyle = " ";
-    if (actorsById[actorHereById].health <= 0) { //eventually should set actor to 1hp (just a duel... not to the death)
-      dispatch(actions.endCombat())
-      dispatch(actions.addMessageToActivityLog(`You've won the duel!`))
-    } 
+    
+    if (actorsById[actorOnThisSquareId].health <= 0) {
+      //eventually should set actor to 1hp (just a duel... not to the death)
+      dispatch(actions.endCombat());
+      dispatch(actions.addMessageToActivityLog(`You've won the duel!`));
+    }
   }
 
-  function onClickShowInfo() {
-    setActiveActorInfoWindowById(actorHereById);
+  function onClickShowInfo(dispatch) {
+    dispatch(actions.setActiveActorInfoWindowById(actorOnThisSquareId));
   }
 
   return (
@@ -113,21 +100,21 @@ export default function CombatAreaSquare(props) {
       onClick={
         isValidToMoveHere
           ? () => {
-              onClickMovement();
+              onClickMovement(dispatch);
             }
           : isActorHereThatIsValidAttackTarget
           ? () => {
-              onClickAttackSquare();
+              onClickAttackSquare(dispatch);
             }
           : nonPlayerActorIsHere && !moveIsToggled && !attackIsToggled
           ? () => {
-              onClickShowInfo();
+              onClickShowInfo(dispatch);
             }
           : () => {}
       }
       className={props.className + " " + moveStyle + " " + attackStyle}
     >
-      {actorName}
+      {actorToken}
     </div>
   );
 }

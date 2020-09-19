@@ -1,9 +1,8 @@
 import basicAttack from "../CombatAbilities/basicAttack";
 
-//this needs to be refactored
+
 class Actor {
   constructor(actorData) {
-    console.log(actorData)
     this.raceLevelClassString = actorData.race + " Level " + actorData.level + " " + actorData.actorClass;
     
     this.dodge = Math.floor(actorData.abilityScores.dexterity / 10);

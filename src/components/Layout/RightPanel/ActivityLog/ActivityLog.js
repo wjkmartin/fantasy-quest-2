@@ -15,8 +15,8 @@ export default function ActivityLog(props) {
       <div className={styles.wrapper}>
         <div className={styles.logFeed}>
           {" "}
-          {Object.values(activityLogItems).map((e) => (
-            <p className={styles.activityLogItem}>{e}</p>
+          {Object.values(activityLogItems).map((e, index) => (
+            <div key={`activityLog-${index}`} className={styles.activityLogItem}>{e}</div>
           ))}{" "}
         </div>
       </div>

@@ -1,10 +1,10 @@
 import _ from "underscore";
 
+import actions from '../../../../../DataHandlers/redux/actions'
+
 export default function generateInitiative(
   actorsInCombat,
-  setInitiativeOrderById,
-  setInitiativeOrderList,
-  setCurrentTurnById
+  dispatch,
 ) {
   
   let actors = actorsInCombat; 
@@ -22,8 +22,9 @@ export default function generateInitiative(
     return sortedTurnOrder[a] - sortedTurnOrder[b];
   });
   keysSorted.forEach((elem, index) => {
-    setInitiativeOrderById(elem, index);
+    dispatch(actions.setActorInitiative(elem, index))
   });
-  setInitiativeOrderList(keysSorted);
-  setCurrentTurnById(keysSorted[0]);
+  dispatch(actions.setInitiativeOrderList(keysSorted))
+  dispatch(actions.setCurrentTurnById(keysSorted[0]))
+
 }

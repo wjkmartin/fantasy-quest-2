@@ -34,7 +34,7 @@ export default function Inventory() {
   });
 
   const playerInventoryElems = (playerInventory !== [undefined] ? playerInventory.map((item) => {
-    return <Item setActiveItem={setActiveItem} item={item} onClick={() => onClickItem(item)} />;
+    return <Item key={`item-${item.id}`} setActiveItem={setActiveItem} item={item} onClick={() => onClickItem(item)} />;
   }) : "") 
 
   return (

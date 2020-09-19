@@ -29,6 +29,11 @@
     margin-top: 1rem;
 }
 
+.actorTabs a {
+    
+    width: 40%;
+}
+
 .tabContent {
     height: 65%;
     border-left: 1px solid #dee2e6;
@@ -54,8 +59,6 @@
     padding: 0 .5rem;
 }
 
-.actorDetailsString {
-}
 
 .topLine {
     width: 100%;

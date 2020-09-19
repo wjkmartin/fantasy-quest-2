@@ -1,16 +1,23 @@
 .ConversationArea {
-    padding: 1rem;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .ConversationArea_dialogue {
-    height: 60%;
+    padding: 0 1rem;
+    height: 35%;
+    text-align: justify;
 }
 
 .ConversationArea_buttons {
-    height: 40%;
+    height: 15%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 1.5rem;
 }

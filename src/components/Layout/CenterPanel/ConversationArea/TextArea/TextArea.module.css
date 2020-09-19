@@ -1,0 +1,29 @@
+.dialogue {
+    padding: 1rem;
+}
+
+.npc {
+}
+
+.player {
+    text-align: right;
+    padding-right: 3rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.wrapper {
+    height: 35%;
+    position: relative;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column-reverse;
+    margin-top: auto;
+}
+
+.textFeed {
+    margin-bottom: 0.25em;
+    margin-top: auto;
+    flex: 0 0 auto
+}
+

@@ -8,6 +8,7 @@ import styles from "./CombatActionsPanel.module.css";
 
 import { determineValidMoves } from "../CombatLogic/determineValidMoves";
 import { determineValidAttacks } from "../CombatLogic/determineValidBasicAttack";
+
 import nextTurn from "../CombatLogic/nextTurn";
 
 export default function CombatActionsPanel() {
@@ -34,7 +35,6 @@ export default function CombatActionsPanel() {
     return actorsById[id];
   });
 
-
   const isPlayerTurn =
     Number(useSelector((state) => state.combat.currentTurnById)) === 0;
 
@@ -44,7 +44,11 @@ export default function CombatActionsPanel() {
       dispatch(
         actions.setValidMovesById(
           0,
-          determineValidMoves(impassibleMap, actorsInCombatById[0])
+          determineValidMoves(
+            impassibleMap,
+            actorsInCombatById[0],
+            actorsInCombatById
+          )
         )
       );
     } else
@@ -73,28 +77,36 @@ export default function CombatActionsPanel() {
 
   function onClickEndTurnButton() {
     if (isPlayerTurn) {
+      if (combatState.UI.moveButtonSelected) {
+        toggleMoveClick();
+      }
       nextTurn();
     }
   }
 
-  return (
+  return isPlayerTurn ? (
     <div className={styles.panel}>
-      <button
-        className={styles.move}
-        onClick={() => {
-          onClickMoveButton();
-        }}
-      >
-        Move
-      </button>
-      <button
+      {actorsById[0].movementRemaining > 0 ? (
+        <button
+          className={styles.move}
+          onClick={() => {
+            onClickMoveButton();
+          }}
+        >
+          Move
+        </button>
+      ) : (
+        ""
+      )}
+      {!actorsInCombatById[0].actionUsed ? <button // eventually make this "use selected ability"
         className={styles.attack}
         onClick={() => {
           onClickBasicAttackButton();
         }}
       >
         Basic Attack
-      </button>
+      </button> : ""} 
+      
       <button
         className={styles.endTurn}
         onClick={() => {
@@ -104,5 +116,7 @@ export default function CombatActionsPanel() {
         End Turn
       </button>
     </div>
+  ) : (
+    ""
   );
 }

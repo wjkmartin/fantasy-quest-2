@@ -72,6 +72,15 @@ const modifyActorAttributeByActorId = (actorId, attribute, delta) => {
   };
 };
 
+const setActorAttributeByActorId = (actorId, attribute, value) => {
+  return {
+    type: "SET_ACTOR_ATTRIBUTE_BY_ACTOR_ID",
+    actorId: actorId,
+    attribute: attribute,
+    value: value,
+  };
+};
+
 // =============  COMBAT  =============
 
 const startCombat = () => {
@@ -193,6 +202,19 @@ const setMainImage = (image) => {
   };
 };
 
+const addtoCurrentDialogueText = (text) => {
+  return {
+    type: "ADD_TO_CURRENT_DIALOGUE_TEXT",
+    text: text,
+  };
+};
+
+const clearCurrentDialogueText = () => {
+  return {
+    type: "CLEAR_CURRENT_DIALOGUE_TEXT",
+  };
+};
+
 const inventorySetActiveItemById = (itemId) => {
   return {
     type: "INVENTORY_SET_ACTIVE_ITEM",
@@ -289,6 +311,7 @@ export default {
   resetActionAndMovementById,
   startCombat,
   modifyActorAttributeByActorId,
+  setActorAttributeByActorId,
   setSetupToDone, //COMBAT
   addActorToCombatById,
   resetActorCombatPropsById,
@@ -307,6 +330,8 @@ export default {
   startConversationWithActorById,
   endConversation,
   setMainImage,
+  addtoCurrentDialogueText,
+  clearCurrentDialogueText,
   inventorySetActiveItemById, //ITEMS
   equippedSetActiveItemById,
   addItemToActorById,

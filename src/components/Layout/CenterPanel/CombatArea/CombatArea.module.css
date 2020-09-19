@@ -1,16 +1,49 @@
 .CombatArea {
-    height: 90%;
-    border: .05em solid black;
-    text-align: center;
+  height: 90%;
+  border: 0.05em solid black;
+}
 
+.combatGridWrapper {
+  display: flex;
+  justify-content: center;
 }
 
 .combatGrid {
-    display: grid;
-    grid-template-columns: 5rem 5rem 5rem 5rem 5rem 5rem; /* should be generated based on map size */
-    grid-template-rows: 5rem 5rem 5rem 5rem 5rem 5rem; /* should be generated based on map size */
-    justify-content: center;
-    padding-top: 10rem;
-    
+  display: grid;
+  grid-template-columns: repeat(28, 2.5rem); /* should be generated based on map size */
+  grid-template-rows: repeat(18, 2.5rem); /* should be generated based on map size */
+  justify-content: center;
+  transform: rotateX(60deg) rotateY(0deg) rotateZ(45deg);
+  width: 70rem;
+  position: relative;
+  box-shadow: 20px 10px 10px -2px #1E1C1A;
+  background-image: url('../../../../Assets/img/combat_\ maps/tavern.png');
+  /* background-attachment: fixed; */
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
+.combatGrid:after {
+    content: "";
+    width: 70rem;
+    height: 10px;
+    background-color: #A08670;
+    transform: skew(45deg) translateX(5px);
+    transform-origin: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.combatGrid:before {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 45rem;
+    background-color: #A08670;
+    transform: translateX(70rem) skewY(45deg) translateY(5px);
+    transform-origin: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}

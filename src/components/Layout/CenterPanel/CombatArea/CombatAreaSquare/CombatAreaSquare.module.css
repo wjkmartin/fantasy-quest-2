@@ -1,7 +1,13 @@
 .validMoveArea {
-    background-color: lightsalmon;
+    background-color: rgba(255, 160, 122, 0.589);
 }
 
 .validAttackArea {
     background-color: lightgreen;
+}
+
+.actorToken {
+    width: 60px;
+    height: 100px;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(-45deg) translateY(-3.5rem) translateX(1rem); 
 }
