@@ -1,23 +1,23 @@
-import tavern from "../locations/city/tavern/tavern.js";
-import market from "../locations/city/market.js";
+import tavern from "../locations/city/tavern/tavern";
+import market from "../locations/city/market";
 
 import gatehouseNorth from "../locations/city/gatehouseNorth"
-import castle from "../locations/city/castle.js";
+import castle from "../locations/city/castle";
 import palatialDist1 from "../locations/city/palatialDist/palatialDist1"
 import palatialDist2 from "../locations/city/palatialDist/palatialDist2"
 import merchantGuild from "../locations/city/merchantGuild"
 
-import docks1 from "../locations/city/docks/docks1.js";
-import docks2 from "../locations/city/docks/docks2.js";
-import docks3 from "../locations/city/docks/docks3.js";
+import docks1 from "../locations/city/docks/docks1";
+import docks2 from "../locations/city/docks/docks2";
+import docks3 from "../locations/city/docks/docks3";
 
-import slumsEnt from "../locations/city/slums/slumsEnt.js";
-import slums1 from "../locations/city/slums/slums1.js";
-import slums2 from "../locations/city/slums/slums2.js";
-import slums3 from "../locations/city/slums/slums3.js";
+import slumsEnt from "../locations/city/slums/slumsEnt";
+import slums1 from "../locations/city/slums/slums1";
+import slums2 from "../locations/city/slums/slums2";
+import slums3 from "../locations/city/slums/slums3";
 
-import gatehouseW from "../locations/city/gatehouseWest/gatehouseWest.js";
-import sewer from "../locations/city/sewer/sewer.js";
+import gatehouseW from "../locations/city/gatehouseWest/gatehouseWest"
+import sewer from "../locations/city/sewer/sewer";
 
 import centralSquare from "../locations/city/centralSquare"
 import herbalists from "../locations/city/herbalists"
