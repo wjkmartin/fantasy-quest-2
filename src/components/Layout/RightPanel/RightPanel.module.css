@@ -1,24 +1,25 @@
 .ActiveActorInfo {
     height: 29%;
     border: 2px solid black;
-    margin: 2% 2% 0 2%;
-    background-color: white;
+    margin: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .ActivityLog {
     height: 29%;
     border: 2px solid black;
-    margin: 1% 2% 0 2%;
-    background-color: white;
+    margin: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
 }
 
 .PlayerInfo {
-    height: 39%;
+    height: 32%;
     border: 2px solid black;
-    margin: 1% 2% 0 2%;
-    background-color: white;
-    padding: 1rem;
-
+    margin: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

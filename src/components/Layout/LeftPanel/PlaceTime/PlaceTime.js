@@ -22,8 +22,8 @@ function PlaceTime({ currentLocation }) {
 
   return (
     <div className={styles.Row}>
-      <div>{currentLocation.prettyName}</div>
-      <div>
+      <div className={styles.dropShadow}>{currentLocation.prettyName}</div>
+      <div className={styles.dropShadow}>
         {theTime.getHours() + ":" + (theTime.getMinutes() < 10 ? "0" : "") + theTime.getMinutes()}
       </div>
     </div>

@@ -6,13 +6,16 @@
 }
 
 .actionButton {
+    background-color: gainsboro !important;
+    color: black !important;
+    font-size: 75% !important;
+    font-weight: 600 !important;
     border: none;
     display: block;
     margin: 5px 0 0 10px;
-    background-color: lightsteelblue;
     border-radius: 0px 5px 10px 10px;
-    color: black;
     font-size: .95rem;
+    max-width: 25%;
 }
 
 .actionButton:hover {
@@ -44,8 +47,8 @@
 
 .actorName {
     font-family: 'Metamorphous', cursive;
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 750;
+    font-size: 1.5rem;
     padding: 0 .5rem;
 
 }
@@ -53,19 +56,78 @@
 .actorTitle {
     font-size: .8rem;
     align-self: center;
-    font-weight: 600;
-    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    font-family: fantasy;
     text-align: center;
     padding: 0 .5rem;
 }
 
-
-.topLine {
+.topRow {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    height: 50%;
+}
+
+.bottomRow {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 50%;
 }
 
 .hunter {
     color: rgb(17, 207, 207);
+}
+
+.characterPortrait {
+    max-height: 95%;
+    float: left;
+    display: block;
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.alignRight {
+    display: block;
+    float: right;
+}
+
+.barWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.bar {
+    position: relative;
+    width: 80%;
+    height: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.750);
+    border-radius: 10% 10% 10% 10% / 0% 50% 50% 0% ;
+    background-clip: content-box;
+}
+
+.bar__numerals {
+    width: 25%;
+    padding-left: 10px;
+    font-size: .9rem;
+    font-weight: 500;
+    font-family: fantasy;
+}
+
+
+button:hover {
+    border: none !important;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.attributeIcon {
+    display: block;
+    min-width: 20px;
+    margin: .25rem;
 }

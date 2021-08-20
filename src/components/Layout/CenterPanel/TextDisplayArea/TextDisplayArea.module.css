@@ -1,4 +1,6 @@
 .TextDisplayArea {
-    background-color: white;
-    padding: .5rem;
+    padding: 1.5rem;
+    text-align: justify;
+    font-weight: 500;
+    font-size: 1.3em;
 }

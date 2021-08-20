@@ -1,17 +1,17 @@
 import React from "react";
 import EquipButton from "./EquipButton/EquipButton";
+import ActivateItemButton from "./ActivateItemButton/ActivateItemButton"
 
 import styles from "./ActiveItemArea.module.css";
 import { itemColorClass, itemRarityName } from "../util";
 
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
 export default function ActiveItemArea(props) {
-  const inTrade = useSelector(state => state.items.inTrade)
+  const inTrade = useSelector((state) => state.items.inTrade);
 
-  const buttons = (
+  const buttonsEquipable = (
     <>
-      {" "}
       <EquipButton
         className={styles.ActiveItemArea_buttons_button}
         itemId={props.item.id}
@@ -21,6 +21,21 @@ export default function ActiveItemArea(props) {
       </button>
     </>
   );
+
+  const buttonsUsableItem = (
+    <>
+      <ActivateItemButton 
+        className={styles.ActiveItemArea_buttons_button}
+        itemId={props.item.id}
+        setActiveItem={props.setActiveItem}
+      />
+      <button className={styles.ActiveItemArea_buttons_button}>
+        Drop item
+      </button>
+    </>
+  );
+
+  const buttons = (props.item.type === 'consumable' ? buttonsUsableItem : buttonsEquipable)
 
   return (
     <>
@@ -41,7 +56,9 @@ export default function ActiveItemArea(props) {
           {props.item.descDetails}
         </p>
       </div>
-      <div className={styles.ActiveItemArea_buttons}>{(inTrade ? "" : buttons)}</div>
+      <div className={styles.ActiveItemArea_buttons}>
+        {inTrade ? "" : buttons}
+      </div>
     </>
   );
 }

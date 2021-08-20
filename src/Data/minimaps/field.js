@@ -1,4 +1,5 @@
 import gatehouseE from "../locations/field/GatehouseEast/GatehouseEast.js";
+import grassyClearing from "../locations/field/grassyClearing.js"
 
 import * as roads from "../locations/roads";
 
@@ -13,21 +14,21 @@ export default {
       roads.crossRoad,
       roads.horRoad,
       roads.crossRoad,
-      "none",
+      undefined,
       roads.crossRoad,
     ],
     [
-      "none",
-      "none",
+      undefined,
+      undefined,
       roads.crossRoad,
-      "none",
-      "none",
+      undefined,
+      undefined,
       roads.verRoad,
-      "none",
+      undefined,
       roads.verRoad,
     ],
     [
-      "none",
+      undefined,
       roads.horRoad,
       roads.crossRoad,
       roads.crossRoad,
@@ -38,20 +39,20 @@ export default {
     ],
     [
       roads.verRoad,
-      "none",
+      undefined,
       roads.verRoad,
-      "none",
-      "none",
-      roads.verRoad,
-      "none",
+      undefined,
+      undefined,
+      grassyClearing,
+      undefined,
       roads.verRoad,
     ],
     [
       roads.crossRoad,
       roads.horRoad,
       roads.crossRoad,
-      "none",
-      "none",
+      undefined,
+      undefined,
       roads.crossRoad,
       roads.horRoad,
       roads.crossRoad,

@@ -19,7 +19,7 @@ export default {
         conditional: {
           nextState: "smappleQuest",
           text: "How about we sweeten the pot a little? (CHA 15)",
-          condition: { stat: "charisma", value: 15 },
+          condition: { check: "charisma", value: 15 },
           onClick: function () {
             store.dispatch();
           },

@@ -2,20 +2,22 @@ import React from "react";
 
 import NpcDisplayArea from "./NpcDisplayArea/NpcDisplayArea";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import actions from "../../../../DataHandlers/redux/actions"
 import styles from "./MainDisplayArea.module.css"
 
-import * as images from '../../../../Assets/imgList';
-
 export default function MainDisplayArea(props) {
-
+  const dispatch = useDispatch();
+  const currentLocation = useSelector(
+    (state) => state.locations.currentLocation
+  );
+  dispatch(actions.setMainImage(currentLocation.name));
   const image = useSelector((state) => state.UI.mainImage);
- 
 
   return (
     <div className={styles.MainDisplayArea}>
       <NpcDisplayArea />
-      <img className={styles.mainImage} src={image} />
+      {(image !== undefined ? <img className={styles.mainImage} alt ={"location"} src={image} /> : "")}
     </div>
   );
 }

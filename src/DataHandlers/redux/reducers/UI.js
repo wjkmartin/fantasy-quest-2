@@ -4,7 +4,7 @@ const initalState = {
   activityLog: {},
   inConversation: false,
   actorInConversation: undefined,
-  mainImage: images["tavern"],
+  mainImage: undefined,
   currentDialogueText: [],
 };
 

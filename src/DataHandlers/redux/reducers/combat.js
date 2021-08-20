@@ -1,4 +1,4 @@
-// import actors from "./actors";
+
 
 const initalState = {
   inCombat: false,
@@ -10,18 +10,18 @@ const initalState = {
   actorValidAttackTargetsById: { 0: [] },
   actorValidMovesById: { 0: [] },
   combatMapState: {
-    impassableMap: [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
+    passableMap: []
   },
   UI: {
     moveButtonSelected: false,
     attackButtonSelected: false,
   },
+  isDuel: false
 };
 
 export default function (state = initalState, action) {
   switch (action.type) {
     case "START_COMBAT": {
-      //this should probably take the map as an arg? or current loc passes to it?
       return {
         ...state,
         inCombat: true,
@@ -94,25 +94,34 @@ export default function (state = initalState, action) {
       };
     }
     case "SET_CURRENT_TURN_BY_ID": {
-      //used?
       return {
         ...state,
         currentTurnById: action.id,
       };
     }
     case "END_TURN": {
-      let currentActorIndex = state.initiativeList.findIndex(
-        (e) => e === state.currentTurnById
-      );
-      const nextActorInTurnOrderIndex =
-        currentActorIndex === state.initiativeList.length - 1
-          ? 0
-          : currentActorIndex + 1;
-      const nextActorInTurnOrderById =
-        state.initiativeList[nextActorInTurnOrderIndex];
+      // state.initiativeList - 1d array of inits in order by id
+      // state.currentTurnById - id of current turn
+
+      console.log(state.initiativeList)
+      console.log(state.currentTurnById)
+
+
+      let indexOfNextTurn = state.initiativeList.findIndex(e => e == state.currentTurnById)
+
+      if (indexOfNextTurn === -1 ) {
+        console.log('id not found?')
+      }
+      else if (indexOfNextTurn + 1 === state.initiativeList.length) {
+        indexOfNextTurn = 0;
+      }
+      else {indexOfNextTurn += 1}
+
+      console.log(indexOfNextTurn)
+
       return {
         ...state,
-        currentTurnById: nextActorInTurnOrderById,
+        currentTurnById: state.initiativeList[indexOfNextTurn],
       };
     }
     case "END_COMBAT": {
@@ -130,8 +139,33 @@ export default function (state = initalState, action) {
           moveButtonSelected: false,
           attackButtonSelected: false,
         },
+        isDuel: false
       };
     }
+    case "SET_PASSABLE_MAP": {
+      return {
+        ...state,
+        combatMapState: {
+          passableMap: action.data
+        },
+      }
+    }
+    case "KILL_ACTOR_IN_COMBAT": {
+      let actorIdIndex = state.actorsInCombatById.findIndex(id => id === action.id)
+      let actorsInCombatByIdAfter = state.actorsInCombatById;
+      actorsInCombatByIdAfter.splice(actorIdIndex, 1)
+      return {
+        ...state,
+        actorsInCombatById: actorsInCombatByIdAfter
+      }
+    }
+    case "SET_DUEL_FLAG": {
+      return {
+        ...state,
+        isDuel: true
+      }
+    }
+
     default: {
       return state;
     }

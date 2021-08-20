@@ -8,24 +8,22 @@
   justify-content: center;
 }
 
-.combatGrid {
+/* .combatGrid {
   display: grid;
-  grid-template-columns: repeat(28, 2.5rem); /* should be generated based on map size */
-  grid-template-rows: repeat(18, 2.5rem); /* should be generated based on map size */
+  grid-template-columns: repeat(40, 1.5rem);
+  grid-template-rows: repeat(40, 1.5rem);
   justify-content: center;
   transform: rotateX(60deg) rotateY(0deg) rotateZ(45deg);
-  width: 70rem;
+  width: 60rem; 
   position: relative;
   box-shadow: 20px 10px 10px -2px #1E1C1A;
-  background-image: url('../../../../Assets/img/combat_\ maps/tavern.png');
-  /* background-attachment: fixed; */
   background-size: contain;
   background-repeat: no-repeat;
-}
+} */
 
-.combatGrid:after {
+/* .combatGrid:after {
     content: "";
-    width: 70rem;
+    width: 60rem;
     height: 10px;
     background-color: #A08670;
     transform: skew(45deg) translateX(5px);
@@ -39,11 +37,11 @@
     position: absolute;
     content: "";
     width: 10px;
-    height: 45rem;
+    height: 60rem;
     background-color: #A08670;
-    transform: translateX(70rem) skewY(45deg) translateY(5px);
+    transform: translateX(60rem) skewY(45deg) translateY(5px);
     transform-origin: center;
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
-}
+} */

@@ -69,18 +69,12 @@ export default function (state = initalState, action) {
           [action.id]: {
             ...state.actorsById[action.id],
             coords: [0, 0],
-            movementRemaining: 4,
-            movementPerTurn: 4,
+            movementRemaining: state.actorsById[action.id].speed,
           },
         },
       };
     }
     case "SET_ACTOR_LOCATION_COMBAT": {
-      const currentLocation = state.actorsById[action.id].coords;
-      const xdif = Math.abs(currentLocation[0] - action.coords[0]);
-      const ydif = Math.abs(currentLocation[1] - action.coords[1]);
-      const movementExpended = xdif > ydif ? xdif : ydif;
-
       return {
         ...state,
         actorsById: {
@@ -89,8 +83,6 @@ export default function (state = initalState, action) {
             ...state.actorsById[action.id],
             coordsPrev: state.actorsById[action.id].coords,
             coords: action.coords,
-            movementRemaining:
-              state.actorsById[action.id].movementRemaining - movementExpended,
           },
         },
       };
@@ -186,7 +178,7 @@ export default function (state = initalState, action) {
               ...state.actorsById[action.actorId],
               abilityScores: {
                 ...state.actorsById[action.actorId].abilityScores,
-                [action.attribute]: action.value
+                [action.attribute]: action.value,
               },
             },
           },
@@ -198,13 +190,51 @@ export default function (state = initalState, action) {
             ...state.actorsById,
             [action.actorId]: {
               ...state.actorsById[action.actorId],
-              [action.attribute]: action.value
+              [action.attribute]: action.value,
             },
           },
         };
       }
     }
+    case "MOVE_ACTOR_LOCATION_COMBAT": {
+      const moved_x = state.actorsById[action.id].coords[0] - action.coords[0]
+      const moved_y = state.actorsById[action.id].coords[1] - action.coords[1] 
 
+      const spacesMoved = Math.abs(moved_x + moved_y)
+
+      return {
+        ...state,
+        actorsById: {
+          ...state.actorsById,
+          [action.id]: {
+            ...state.actorsById[action.id],
+            coordsPrev: state.actorsById[action.id].coords,
+            coords: action.coords,
+            movementRemaining: state.actorsById[action.id].movementRemaining -= spacesMoved
+          },
+        },
+      };
+    }
+    case "REMOVE_ACTOR_FROM_CURRENT_LOCATION_BY_ID": {
+      const currentLocation = state.actorsById[action.actorId].location
+      let actorsAtCurrentLocation = state.byLocationName[currentLocation] //array of objects
+      let targetActorIndex = undefined;
+      actorsAtCurrentLocation.forEach((actor, index) => {
+        if (actor.id === action.actorId) {
+          targetActorIndex = index;
+        }
+      })
+
+      actorsAtCurrentLocation.splice(targetActorIndex, 1)
+
+      return {
+        ...state,
+        byLocationName: {
+          ...state.byLocationName,
+          [currentLocation]: actorsAtCurrentLocation
+        }
+      }
+    }
     default: {
       return state;
     }

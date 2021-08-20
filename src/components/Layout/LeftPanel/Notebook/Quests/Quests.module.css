@@ -4,10 +4,20 @@
 
 .Quests__active_completed_filter_buttons {
     display: flex;
-    margin: 1rem 1rem;
+    background-color: gainsboro;
+    margin-top: 2px;
+}
+
+.Quests__filterButton {
+    margin: 2%;
+}
+
+.Quests__noQuest {
+    margin: 25%;
+    text-align: center;
+    
 }
 
 button {
-    margin-right: 1rem;
+    border-color: none !important;
 }
-

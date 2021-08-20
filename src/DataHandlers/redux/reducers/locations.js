@@ -4,17 +4,20 @@ import map from "../../../Data/minimaps/city";
 
 import city from "../../../Data/minimaps/city";
 import field from "../../../Data/minimaps/field";
+import sewerDungeon from "../../../Data/minimaps/sewerDungeon"
+
 
 const locationsInitial = loadLocationData(map);
 const subLocationsInitial = loadSubLocationData(locationsInitial);
 
 const initalState = {
   locations: locationsInitial,
+  savedMapStates: {city: undefined, field:undefined, sewerDungeon: undefined},
   subLocations: subLocationsInitial,
-  map: map.nodes,
-  currentLocation: locationsInitial[19],
+  map: map,
+  currentLocation: locationsInitial[24],
   currentSubLocation: undefined,
-  maps: { city: city, field: field },
+  maps: { city: city, field: field, sewerDungeon: sewerDungeon},
 };
 
 export default function (state = initalState, action) {
@@ -36,17 +39,57 @@ export default function (state = initalState, action) {
         ),
       };
     }
-    case "SET_MAP": {
+    case "SET_MAP": { //Currently can only load top level locations
       const locationData = loadLocationData(state.maps[action.mapName]);
-      console.log(locationData)
       return {
         ...state,
         locations: locationData,
-        map: state.maps[action.mapName].nodes,
+        map: state.maps[action.mapName],
         currentLocation: locationData.find(
           (location) => location.name === action.startLocationName
         ),
+        currentSubLocation: undefined
       };
+    }
+    case "SET_HAS_AGGRESSIVE_ACTORS": {
+      let currentLocation = state.currentLocation;
+      currentLocation.hasAggressiveActors = action.flag;
+      
+      return {
+        ...state,
+        currentLocation: currentLocation
+      }
+    }
+    case "SET_IS_DISCOVERED": {
+      let locationsNew = [...state.locations]
+      locationsNew[action.locationId].discovered = true
+      return {
+        ...state, 
+          locations: [...locationsNew]     
+      }
+    }
+    case "SAVE_CURRENT_MAP_STATE": {
+      return {
+        ...state,
+        savedMapStates: {
+          ...state.savedMapStates,
+          [state.map.name]: state.locations 
+        }
+      }
+    }
+    case "LOAD_SAVED_MAP_STATE_FOR_MAP": {
+      return {
+        ...state,
+        locations: state.savedMapStates[action.mapName]
+      }
+    }
+    case "MODIFY_LOCATION_PROPERTY_BY_ID": {
+      let locationsNew = [...state.locations]
+      locationsNew[action.locationId][action.property] = action.newValue
+      return {
+        ...state, 
+        locations: [...locationsNew]
+      }
     }
     default: {
       return state;

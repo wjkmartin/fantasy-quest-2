@@ -7,8 +7,8 @@ export default {
   race: "Human",
   health: 100,
   maxHealth: 100,
-  stamina: 100,
-  maxStamina: 100,
+  sp: 10,
+  maxSp: 10,
   mana: 100,
   maxMana: 100,
   armor: 0,
@@ -28,5 +28,6 @@ export default {
   gold: 3,
   speed: 2,
   type: 'hunter',
-  token: token
+  token: token,
+  isPlayer: true
 };

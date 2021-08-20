@@ -1,33 +1,31 @@
 import _ from "underscore";
 
-export const determineValidAttacks = (impassibleMap, actors) => {
+export const determineValidAttacks = (actors, distance) => {
+  let validEnemyTargets = [];
 
-  let nonBlockingNodes = [];
-  let validOneSquareAwayEnemies = [];
+  const playerX = actors[0].coords[0];
+  const playerY = actors[0].coords[1];
 
-  let playerCurrentLoc = actors[0].coords;
-  let enemyLoc = actors[1].coords;
+  let nonPlayerActors = [];
+  for (let i = 1; i <= actors.length - 1; i++) {
+    nonPlayerActors.push(actors[i].coords);
+  }
 
-  for (let y = 0; y < impassibleMap.length; y++) {
-    for (let x = 0; x < impassibleMap[y].length; x++) {
-      if (impassibleMap[y][x] === 1) {
-        nonBlockingNodes.push([x, y]); //add all non-blocked squares to valid array
+  const nodeStartX = playerX - distance < 0 ? 0 : playerX - distance;
+  const nodeStartY = playerY - distance < 0 ? 0 : playerY - distance;
+
+  const nodeEndX = playerX + distance < 0 ? 0 : playerX + distance;
+  const nodeEndY = playerY + distance < 0 ? 0 : playerY + distance;
+
+  for (let y = nodeStartY; y <= nodeEndY; y++) {
+    for (let x = nodeStartX; x <= nodeEndX; x++) {
+      if (
+        nonPlayerActors.some((actorCoords) => _.isEqual([x, y], actorCoords))
+      ) {
+        validEnemyTargets.push([x, y]);
       }
     }
   }
-  nonBlockingNodes.forEach((element) => {
-    let xdif = Math.abs(element[0] - playerCurrentLoc[0]);
-    let ydif = Math.abs(element[1] - playerCurrentLoc[1]);
 
-    if (
-      (xdif === 1 && ydif === 0) ||
-      (xdif === 0 && ydif === 1) ||
-      (xdif === 1 && ydif === 1)
-    ) {
-      if (_.isEqual(element, enemyLoc)) {
-        validOneSquareAwayEnemies.push(element);
-      }
-    }
-  });
-  return validOneSquareAwayEnemies;
+  return validEnemyTargets;
 };

@@ -1,14 +1,16 @@
 import dialogue from './d_rival'
+import portrait from '../../../Assets/img/character_images/rival/rival.png'
 
 export default {
   actorName: "Audrey",
   level: 1,
   actorClass: "Rogue",
-  race: "Elf",
+  title: "Bloodletter",
+  race: "Human",
   health: 100,
   maxHealth: 100,
-  stamina: 100,
-  maxStamina: 100,
+  sp: 10,
+  maxSp: 10,
   mana: 100,
   maxMana: 100,
   armor: 5,
@@ -24,9 +26,10 @@ export default {
   },
   isDead: false,
   hasFocusSpell: false,
-  location: "slums",
+  location: "centralSquare",
   gold: 999,
   speed: 3,
   type: 'hunter',
-  dialogue: dialogue
+  dialogue: dialogue,
+  portrait: portrait
 };

@@ -12,8 +12,8 @@ import "../../../../../Assets/css/fontawesome.css";
 import "../../../../../Assets/css/solid.css";
 
 export default function Inventory() {
-  const playerGold = useSelector(state => state.actors.actorsById[0].gold)
-
+  const playerGold = useSelector((state) => state.actors.actorsById[0].gold);
+  
   let playerInventory = useSelector(
     (state) => state.items.inventoryByActorId
   )[0];
@@ -33,18 +33,32 @@ export default function Inventory() {
     }),
   });
 
-  const playerInventoryElems = (playerInventory !== [undefined] ? playerInventory.map((item) => {
-    return <Item key={`item-${item.id}`} setActiveItem={setActiveItem} item={item} onClick={() => onClickItem(item)} />;
-  }) : "") 
+  const playerInventoryElems =
+    playerInventory !== [undefined]
+      ? playerInventory.map((item) => {
+          return (
+            <Item
+              key={`item-${item.id}`}
+              setActiveItem={setActiveItem}
+              item={item}
+              onClick={() => onClickItem(item)}
+            />
+          );
+        })
+      : "";
 
   return (
     <div ref={drop} className={styles.Inventory}>
-      <div className={`${styles.Inventory__itemArea} ${canDrop ? styles.onDrag : ""}`}>
+      <div
+        className={`${styles.Inventory__itemArea} ${
+          canDrop ? styles.onDrag : ""
+        }`}
+      >
         {playerInventoryElems}
       </div>
       <div className={styles.Inventory__goldArea}>{`₮${playerGold}`}</div>
       <div className={styles.Inventory__itemInfoArea}>
-        {activeItem !== undefined ? <ActiveItemArea item={activeItem} /> : " "}
+        {activeItem !== undefined ? <ActiveItemArea setActiveItem={setActiveItem} item={activeItem} /> : " "}
       </div>
     </div>
   );

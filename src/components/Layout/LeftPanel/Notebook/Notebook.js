@@ -13,7 +13,7 @@ import Skills from "./Skills/Skills"
 export default function Notebook(props) {
     return (
       <div className={props.className}>
-        <Tabs defaultActiveKey="powers" transition={false} id="Notebook-tabs">
+        <Tabs defaultActiveKey="inventory" transition={false} id="Notebook-tabs">
           <Tab eventKey="inventory" title="Inventory">
             <Inventory />
           </Tab>

@@ -1,13 +1,18 @@
 import actions from "../../../DataHandlers/redux/actions";
-import store from '../../../DataHandlers/redux/store'
 
 export default {
   meet: {
     text:
       "What do you want, little boy?",
     buttons: [
-      { whereSmapple: "Where's the smapple, girl?!" },
-      { quitConvo: "Welp, see you later!" },
+      {
+        conditional: {
+          nextState: "whereSmapple",
+          text: "Where's the smapple, girl?!",
+          condition: { check: (state) => {return state.quests.questState.aquireSmapple} , value: 'stage0' },
+        },
+      },
+      { quitConvo: "Welp, you're scary. See you later!" },
     ],
   },
   whereSmapple: {

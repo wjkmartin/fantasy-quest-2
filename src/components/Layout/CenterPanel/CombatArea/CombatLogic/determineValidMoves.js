@@ -1,4 +1,4 @@
-export function determineValidMoves(impassableMap, actor, actorsArray) {
+export function determineValidMoves(passableMap, actor, actorsArray) {
   const start_x = actor.coords[0];
   const start_y = actor.coords[1];
 
@@ -27,7 +27,7 @@ export function determineValidMoves(impassableMap, actor, actorsArray) {
     dirs.forEach((direction) => {
       currentCoords = getCoordsForDirection(direction, current_x, current_y);
       if (
-        impassableMap[currentCoords.x][currentCoords.y] === 1 &&
+        passableMap[currentCoords.x][currentCoords.y] === 1 &&
         objectInArray(validSquares, currentCoords) === false &&
         distanceFromOrigin < movement
       ) {

@@ -11,7 +11,7 @@ import { determineValidAttacks } from "../CombatLogic/determineValidBasicAttack"
 
 import nextTurn from "../CombatLogic/nextTurn";
 
-export default function CombatActionsPanel() {
+export default function CombatActionsPanel(props) {
   const dispatch = useDispatch();
 
   const toggleMoveClick = useCallback(
@@ -24,11 +24,8 @@ export default function CombatActionsPanel() {
     [dispatch]
   );
 
-  let impassibleMap = useSelector(
-    (state) => state.combat.combatMapState.impassableMap
-  );
-
   const combatState = useSelector((state) => state.combat);
+  const passableMap = combatState.combatMapState.passableMap;
   const actorsById = useSelector((state) => state.actors.actorsById);
 
   const actorsInCombatById = combatState.actorsInCombatById.map((id) => {
@@ -39,39 +36,47 @@ export default function CombatActionsPanel() {
     Number(useSelector((state) => state.combat.currentTurnById)) === 0;
 
   function onClickMoveButton() {
-    if (actorsInCombatById[0].movementRemaining !== 0) {
-      toggleMoveClick();
-      dispatch(
-        actions.setValidMovesById(
-          0,
-          determineValidMoves(
-            impassibleMap,
-            actorsInCombatById[0],
-            actorsInCombatById
+    if (!combatState.UI.moveButtonSelected) {
+      if (actorsInCombatById[0].movementRemaining !== 0) {
+        toggleMoveClick();
+        dispatch(
+          actions.setValidMovesById(
+            0,
+            determineValidMoves(
+              passableMap,
+              actorsInCombatById[0],
+              actorsInCombatById
+            )
           )
-        )
-      );
-    } else
-      dispatch(
-        actions.addMessageToActivityLog(
-          "You've used all your movement for this round."
-        )
-      );
+        );
+      } else
+        dispatch(
+          actions.addMessageToActivityLog(
+            "You've used all your movement for this round."
+          )
+        );
+    } else {
+      toggleMoveClick();
+    }
   }
 
   function onClickBasicAttackButton() {
-    if (!actorsInCombatById[0].actionUsed) {
-      toggleAttackClick();
-      dispatch(
-        actions.setValidAttackTargetsById(
-          0,
-          determineValidAttacks(impassibleMap, actorsInCombatById)
-        )
-      );
+    if (!combatState.UI.attackButtonSelected) {
+      if (!actorsInCombatById[0].actionUsed) {
+        toggleAttackClick();
+        dispatch(
+          actions.setValidAttackTargetsById(
+            0,
+            determineValidAttacks(actorsInCombatById, 1)
+          )
+        );
+      } else {
+        dispatch(
+          actions.addMessageToActivityLog("You've already attacked this round!")
+        );
+      }
     } else {
-      dispatch(
-        actions.addMessageToActivityLog("You've already attacked this round!")
-      );
+      toggleAttackClick();
     }
   }
 
@@ -80,7 +85,9 @@ export default function CombatActionsPanel() {
       if (combatState.UI.moveButtonSelected) {
         toggleMoveClick();
       }
-      nextTurn();
+      dispatch(actions.resetActionAndMovementById(0));
+      dispatch(actions.endTurn())
+      nextTurn(props.passableMap, actorsById[combatState.currentTurnById], actorsById[0]);
     }
   }
 
@@ -98,15 +105,19 @@ export default function CombatActionsPanel() {
       ) : (
         ""
       )}
-      {!actorsInCombatById[0].actionUsed ? <button // eventually make this "use selected ability"
-        className={styles.attack}
-        onClick={() => {
-          onClickBasicAttackButton();
-        }}
-      >
-        Basic Attack
-      </button> : ""} 
-      
+      {!actorsInCombatById[0].actionUsed ? (
+        <button // eventually make this "use selected ability"
+          className={styles.attack}
+          onClick={() => {
+            onClickBasicAttackButton();
+          }}
+        >
+          Basic Attack
+        </button>
+      ) : (
+        ""
+      )}
+
       <button
         className={styles.endTurn}
         onClick={() => {

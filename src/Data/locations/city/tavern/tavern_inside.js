@@ -3,5 +3,6 @@ export default {
     buttons: [{'Go back to the street':'top'}],
     prettyName: 'Inside the Final Word',
     name: 'tavern_inside',
-    type: 'sub'
+    type: 'sub',
+    super: 'tavern'
 }

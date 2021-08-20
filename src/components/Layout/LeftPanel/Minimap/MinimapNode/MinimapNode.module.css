@@ -1,8 +1,34 @@
 .MinimapNode {
-    width: 15px !important;
-    height: 15px;
+    width: 25px !important;
+    height: 25px;
+    color: rgb(105, 74, 74);
+}
+
+.MinimapNodeEmpty {
+    width: 25px !important;
+    height: 25px;
+}
+
+.MinimapNode:after {
+    display: block;
+    content: " ";
+    width: 25px !important;
+    height: 25px;
 }
 
 .clickable {
-    color: red;
+    filter: drop-shadow( 2px 2px 4px rgba(0, 0, 0, .9));
+    color: rgb(255, 255, 255);
 }
+
+.isHere {
+    stroke: white;
+    stroke-width: 28;
+    filter: drop-shadow(0 0 .5rem rgb(41, 33, 33));
+    
+}
+
+.isHidden {
+    visibility: hidden;
+}
+

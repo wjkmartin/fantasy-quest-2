@@ -1,29 +1,30 @@
 .MainDisplayArea {
   height: 59%;
   border-bottom: 1px solid black;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
+  
 }
 
 .TextDisplayArea {
   height: 20%;
   border-bottom: 1px solid black;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .ButtonArea {
   height: 13%;
   border-bottom: 1px solid black;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .ExpBar {
   height: 2%;
   border-bottom: 1px solid black;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .HotBar {
   height: 6%;
   border-bottom: 1px solid black;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
 }

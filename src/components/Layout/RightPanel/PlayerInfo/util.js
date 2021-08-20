@@ -1,5 +1,5 @@
 export function getDerivedPhysicalString(playerObj, playerInv, equippedByIds) {
-    let weaponDamageString = "";
+  let weaponDamageString = "";
   const playerBaseAttackDamage =
     Math.floor(playerObj.abilityScores.strength / 2) - 5;
 
@@ -11,6 +11,7 @@ export function getDerivedPhysicalString(playerObj, playerInv, equippedByIds) {
     weaponDamageString = playerMainWeapon.addedDmgString;
   }
 
-
-  return `${playerBaseAttackDamage > 0 ? playerBaseAttackDamage : 1} ${weaponDamageString !== "" ? '+' : ""} ${weaponDamageString}`;
+  return `${playerBaseAttackDamage > 0 ? playerBaseAttackDamage : 1} ${
+    weaponDamageString !== "" ? "+" : ""
+  } ${weaponDamageString}`;
 }

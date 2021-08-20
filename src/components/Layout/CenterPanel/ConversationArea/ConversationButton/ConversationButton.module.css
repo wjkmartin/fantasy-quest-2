@@ -25,3 +25,7 @@
     position: absolute;
     color: rgba(112, 128, 144, 0.658) ;
 }
+
+.hide {
+    display: none;
+}

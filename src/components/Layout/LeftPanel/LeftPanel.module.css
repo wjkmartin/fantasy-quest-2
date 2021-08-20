@@ -1,9 +1,11 @@
 .NoteBook {
     height: 55%;
     border: 2px solid black;
-    font-size: .80rem;
+    font-size: .70rem;
+    font-family: 'Metamorphous', cursive;
     margin: 2% 2% 0 2%;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .TimePlaceIndicator {

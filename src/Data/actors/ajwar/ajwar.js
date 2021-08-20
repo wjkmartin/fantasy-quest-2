@@ -1,6 +1,6 @@
 import dialogueAjwar from './d_ajwar.js';
 import token from '../../../Assets/img/combat_tokens/ajwar.png'
-
+import portrait from '../../../Assets/img/character_images/ajwar/portrait.jpg'
 
 // import { Item }  from '../js/item.js';
 
@@ -15,8 +15,8 @@ export default {
   title: "Potion Seller",
   health: 100,
   maxHealth: 100,
-  stamina: 100,
-  maxStamina: 100,
+  sp: 10,
+  maxSp: 10,
   mana: 100,
   maxMana: 100,
   armor: 5,
@@ -32,7 +32,7 @@ export default {
   },
   isDead: false,
   hasFocusSpell: false,
-  location: "tavern",
+  location: "market",
   gold: 999,
   speed: 1,
   dialogue: dialogueAjwar,
@@ -41,5 +41,6 @@ export default {
   //   new Item(heads.head_splarth)
   // ],
   type: 'npc',
-  token: token
+  token: token,
+  portrait: portrait,
 };

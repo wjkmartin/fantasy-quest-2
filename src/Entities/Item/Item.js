@@ -3,13 +3,17 @@ import feet from "../../Data/items/feet";
 import heads from "../../Data/items/heads";
 import legs from "../../Data/items/legs";
 import weapons from "../../Data/items/weapons";
+import consumables from '../../Data/items/consumables'
 
 export default class Item {
-  constructor(type, item, id /* prototype */) {
+  static id = 0;
+  constructor(type, item /* prototype */) {
+    
     this.type = type;
-    this.id = id; 
+    Item.id += 1;
+    this.id = Item.id
     this.qty = 1;
-
+    
     let itemData;
 
     switch (type) {
@@ -31,6 +35,10 @@ export default class Item {
       }
       case "legs": {
         itemData = legs[item];
+        break;
+      }
+      case "consumable": {
+        itemData = consumables[item]
         break;
       }
       default:

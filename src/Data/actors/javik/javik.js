@@ -1,4 +1,5 @@
 import dialogue from './d_javik'
+import token from '../../../Assets/img/combat_tokens/javik.png'
 
 export default {
   actorName: "Javik",
@@ -8,8 +9,8 @@ export default {
   title: "Brigand of the Seas",
   health: 100,
   maxHealth: 100,
-  stamina: 100,
-  maxStamina: 100,
+  sp: 10,
+  maxSp: 10,
   mana: 100,
   maxMana: 100,
   armor: 5,
@@ -25,9 +26,10 @@ export default {
   },
   isDead: false,
   hasFocusSpell: false,
-  location: "docks",
+  location: "docks1",
   gold: 999,
-  speed: 3,
+  speed: 1,
   type: 'npc',
-  dialogue: dialogue
+  dialogue: dialogue,
+  token: token
 };

@@ -23,6 +23,42 @@ const setMap = (mapName, startLocationName) => {
   };
 };
 
+const setHasAggressiveActors = (flag) => {
+  return {
+    type: "SET_HAS_AGGRESSIVE_ACTORS",
+    flag: flag,
+  };
+};
+
+const setIsDiscovered = (locationId) => {
+  return {
+    type: "SET_IS_DISCOVERED",
+    locationId: locationId,
+  };
+};
+
+const saveCurrentMapState = () => {
+  return {
+    type: "SAVE_CURRENT_MAP_STATE",
+  };
+};
+
+const loadSavedMapStateForMap = (mapName) => {
+  return {
+    type: "LOAD_SAVED_MAP_STATE_FOR_MAP",
+    mapName: mapName,
+  };
+};
+
+const modifyLocationPropertyById = (locationId, property, newValue) => {
+  return {
+    type: "MODIFY_LOCATION_PROPERTY_BY_ID",
+    locationId: locationId,
+    property: property,
+    newValue: newValue
+   };
+};
+
 // =============  ACTOR  =============
 
 const setActiveActorInfoWindowById = (id) => {
@@ -42,6 +78,14 @@ const resetActorCombatPropsById = (id) => {
 const setActorLocationCombat = (id, coords) => {
   return {
     type: "SET_ACTOR_LOCATION_COMBAT",
+    id: id,
+    coords: coords,
+  };
+};
+
+const moveActorLocationCombat = (id, coords) => {
+  return {
+    type: "MOVE_ACTOR_LOCATION_COMBAT",
     id: id,
     coords: coords,
   };
@@ -81,6 +125,13 @@ const setActorAttributeByActorId = (actorId, attribute, value) => {
   };
 };
 
+const removeActorFromCurrentLocationById = (actorId) => {
+  return {
+    type: "REMOVE_ACTOR_FROM_CURRENT_LOCATION_BY_ID",
+    actorId: actorId,
+  };
+};
+
 // =============  COMBAT  =============
 
 const startCombat = () => {
@@ -102,6 +153,13 @@ const setCombatId = (actor, id) => {
     type: "SET_COMBAT_ID",
     actor: actor,
     id: id,
+  };
+};
+
+const setPassableMap = (data) => {
+  return {
+    type: "SET_PASSABLE_MAP",
+    data: data,
   };
 };
 
@@ -170,6 +228,19 @@ const endTurn = () => {
 const endCombat = () => {
   return {
     type: "END_COMBAT",
+  };
+};
+
+const killActorInCombat = (id) => {
+  return {
+    type: "KILL_ACTOR_IN_COMBAT",
+    id: id,
+  };
+};
+
+const setDuelFlag = () => {
+  return {
+    type: "SET_DUEL_FLAG",
   };
 };
 
@@ -287,6 +358,14 @@ const tradeItemByIdFromActorToActorByIds = (
   };
 };
 
+const dropItemByIds = (actorId, itemId) => {
+  return {
+    type: "DROP_ITEM_FROM_ACTOR_BY_IDS",
+    actorId: actorId,
+    itemId: itemId,
+  };
+};
+
 const finalizeTrade = () => {
   return {
     type: "FINALIZE_TRADE",
@@ -305,17 +384,27 @@ export default {
   setLocationById, //LOCATION
   setSubLocationByName,
   setMap,
+  setHasAggressiveActors,
+  setIsDiscovered,
+  saveCurrentMapState,
+  loadSavedMapStateForMap,
+  modifyLocationPropertyById,
   setActiveActorInfoWindowById, //ACTOR
   attackTargetWithAbility,
   setActorLocationCombat,
+  moveActorLocationCombat,
   resetActionAndMovementById,
   startCombat,
   modifyActorAttributeByActorId,
   setActorAttributeByActorId,
+  killActorInCombat,
+  setDuelFlag,
+  removeActorFromCurrentLocationById,
   setSetupToDone, //COMBAT
   addActorToCombatById,
   resetActorCombatPropsById,
   setCombatId,
+  setPassableMap,
   toggleMoveClick,
   toggleAttackClick,
   setValidMovesById,
@@ -342,5 +431,6 @@ export default {
   removeItemFromActiveTradeWindowById,
   tradeItemByIdFromActorToActorByIds,
   finalizeTrade,
+  dropItemByIds,
   setQuestStage, //QUESTS
 };

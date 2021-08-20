@@ -3,11 +3,12 @@ import Item from "../../../Entities/Item/Item";
 const initalState = {
   inventoryByActorId: {
     0: [
-      new Item("weapon", "oak_stave", 1),
-      new Item("chest", "basic_robes", 2),
-      new Item("feet", "basic_boots", 4)
+      new Item("weapon", "oak_stave"),
+      new Item("chest", "basic_robes"),
+      new Item("feet", "basic_boots"),
+      new Item("consumable", "potion_of_healing")
     ],
-    1: [new Item("head", "basic_circlet", 3)],
+    1: [new Item("head", "basic_circlet")],
   },
   equippedItemsIdsByActorId: { 0: [] },
   inTrade: false,
@@ -22,14 +23,14 @@ export default function (state = initalState, action) {
       const item = action.item;
       const actorId = action.id;
 
+      const inventoryForActor = [...state.inventoryByActorId[actorId]];
+      inventoryForActor.push(item);
+
       return {
         ...state,
         inventoryByActorId: {
           ...state.inventoryByActorId,
-          [actorId]: {
-            ...state.inventoryByActorId[actorId],
-            item,
-          },
+          [actorId]: [...inventoryForActor],
         },
       };
     }
@@ -55,6 +56,12 @@ export default function (state = initalState, action) {
     }
     case "INVENTORY_SET_ACTIVE_ITEM": {
       const itemId = action.id;
+      if (itemId === -1) {
+        return {
+          ...state,
+          inventoryActiveItemId: undefined
+        }
+      }
       return {
         ...state,
         inventoryActiveItemId: itemId,
@@ -120,7 +127,9 @@ export default function (state = initalState, action) {
       ];
       actorInventoryWithoutTradedItem.splice(itemToTradeIndex, 1);
 
-      let actorInventoryWithTradedItem = [...state.inventoryByActorId[action.actorRecievingId]];
+      let actorInventoryWithTradedItem = [
+        ...state.inventoryByActorId[action.actorRecievingId],
+      ];
       actorInventoryWithTradedItem.push(item);
 
       return {
@@ -140,6 +149,20 @@ export default function (state = initalState, action) {
         itemsPlayerWantsToTradeById: [],
         itemsOtherActorWantsToTrade: [],
       };
+    }
+    case "DROP_ITEM_FROM_ACTOR_BY_IDS": {
+      let inventoryAfter = state.inventoryByActorId[action.actorId]
+      const itemIndex = inventoryAfter.findIndex(item => item.id === action.itemId)
+      inventoryAfter.splice(itemIndex, 1)
+      
+      return {
+        ...state, 
+        inventoryByActorId: {
+          ...state.inventoryByActorId,
+          [action.actorId]: inventoryAfter 
+        }
+        
+      }
     }
     default: {
       return state;

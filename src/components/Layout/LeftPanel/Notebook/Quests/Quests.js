@@ -15,34 +15,43 @@ const TEST_QUEST_DATA = {
   },
 };
 
-//TODO dynamically assign CSS class for active and completed buttons based on currentWindow state
-
 // const TEST_QUESTS_STATE = [{ quest: "aquireSmapple", stage: "stage0" }];
 const TEST_QUESTS_STATE = [];
 
 export default function Quests() {
   let [currentWindow, setCurrentWindow] = useState("active");
 
-  const questState = useSelector(state=> state.quests.questState)
+  const questState = useSelector((state) => state.quests.questState);
 
   let quests = Object.keys(questState).map((key) => {
     return <Quest questData={TEST_QUEST_DATA[key]} stage={questState[key]} />;
   });
 
-  let activeQuests = quests.filter(
-    (quest) => quest.props.stage !== "completed"
-  );
-  let completedQuests = quests.filter(
-    (quest) => quest.props.stage === "completed"
-  );
+  let activeQuests = () => {
+    let questsFiltered = quests.filter(
+      (quest) => quest.props.stage !== "completed"
+    );
+    if (questsFiltered.length === 0) {
+      return <div className={styles.Quests__noQuest}> No active quests. </div>;
+    } else return questsFiltered;
+  };
+
+  let completedQuests = () => {
+    let questsFiltered = quests.filter(
+      (quest) => quest.props.stage === "completed"
+    );
+    if (questsFiltered.length === 0) {
+      return <div className={styles.Quests__noQuest}> No completed quests. </div>;
+    } else return questsFiltered;
+  };
 
   return (
     <div className={styles.Quests}>
       <div className={styles.Quests__active_completed_filter_buttons}>
-        <button onClick={() => setCurrentWindow("active")}>Active</button>
-        <button onClick={() => setCurrentWindow("completed")}>Completed</button>
+        <button className={styles.Quests__filterButton} onClick={() => setCurrentWindow("active")}>Active</button>
+        <button className={styles.Quests__filterButton} onClick={() => setCurrentWindow("completed")}>Completed</button>
       </div>
-      <div>{currentWindow === "active" ? activeQuests : completedQuests}</div>
+      <div>{currentWindow === "active" ? activeQuests() : completedQuests()}</div>
     </div>
   );
 }

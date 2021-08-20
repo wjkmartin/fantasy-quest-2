@@ -1,4 +1,6 @@
 import dialogue from './d_arinya'
+import token from '../../../Assets/img/combat_tokens/arinya.png'
+import portrait from '../../../Assets/img/character_images/arinya/portrait.jpg'
 
 export default {
 
@@ -9,8 +11,8 @@ export default {
   race: "Elf",
   health: 100,
   maxHealth: 100,
-  stamina: 100,
-  maxStamina: 100,
+  sp: 10,
+  maxSp: 10,
   mana: 100,
   maxMana: 100,
   armor: 5,
@@ -30,6 +32,12 @@ export default {
   gold: 999,
   speed: 3,
   dialogue: dialogue,
-  type: 'npc'
-
+  type: 'npc',
+  token: token,
+  portrait: portrait,
+  drops: [{
+    item: 'potion_of_healing',
+    chance: 1, //this means 1 in 6
+    name: 'a dirty bottle with some kind of fluid inside!'
+  }]
 };

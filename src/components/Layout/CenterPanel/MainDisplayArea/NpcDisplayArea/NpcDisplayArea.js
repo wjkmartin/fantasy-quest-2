@@ -8,7 +8,7 @@ import actions from "../../../../../DataHandlers/redux/actions";
 const NpcDisplayArea = () => {
   const dispatch = useDispatch();
   const actorsByLocation = useSelector((state) => state.actors.byLocationName);
-  
+
   const currentLocation = useSelector(
     (state) => state.locations.currentLocation
   );
@@ -17,42 +17,73 @@ const NpcDisplayArea = () => {
     (state) => state.locations.currentSubLocation
   );
 
-  let currentActors = []; 
+  let currentActors = [];
 
   if (currentSubLocation !== undefined) {
-    currentActors = actorsByLocation[currentSubLocation.name] !== undefined ? actorsByLocation[currentSubLocation.name] : [];
+    currentActors =
+      actorsByLocation[currentSubLocation.name] !== undefined
+        ? actorsByLocation[currentSubLocation.name]
+        : [];
   } else if (actorsByLocation[currentLocation.name] !== undefined) {
-    currentActors = actorsByLocation[currentLocation.name]
+    currentActors = actorsByLocation[currentLocation.name];
   }
+
+  let atLeastOneAggressiveActorHere = () => {
+    let _atLeastOneAggressiveActorHere = false;
+    currentActors.forEach((actor) => {
+      if (actor.isAggressive) {
+        _atLeastOneAggressiveActorHere = true;
+        console.log(currentActors.isAggressive);
+      }
+    });
+    return _atLeastOneAggressiveActorHere;
+  };
 
   const setActiveActorInfoWindowById = useCallback(
     (id) => dispatch(actions.setActiveActorInfoWindowById(id)),
     [dispatch]
   );
 
-  const currentActorsButtonsList = currentActors.map((actor) => {
+  const currentActorsButtonsList = currentActors.map((actor, index) => {
     return (
       <li
         className={`${styles.Npc} ${
-          actor.type === "hunter" ? styles.hunter : ""
-        }`}
-        key={actor.actorName}
+          actor.isAggressive === true
+            ? styles.aggressive
+            : actor.type === "hunter"
+            ? styles.hunter
+            : ""
+        } `}
+        key={`${actor.actorName}${index}`}
         onClick={() => setActiveActorInfoWindowById(actor.id)}
       >
-        {actor.actorName}
+        {`${actor.actorName}`}
       </li>
     );
   });
 
   return (
-    <div className={styles.NpcDisplayArea}>
-      <div className={styles.npcsHereLabel}>
-        {" "}
-        PEOPLE<br></br>HERE:
+    <div>
+      <div className={styles.NpcDisplayArea}>
+        <div className={styles.npcsHereLabel}>
+          {" "}
+          PEOPLE<br></br>HERE:
+        </div>
+        <ul className={styles.NpcList}>
+          {currentActors !== undefined ? currentActorsButtonsList : " "}
+        </ul>
       </div>
-      <ul className={styles.NpcList}>
-        {currentActors !== undefined ? currentActorsButtonsList : " "}
-      </ul>
+      {atLeastOneAggressiveActorHere() ? (
+        <div className={styles.aggressiveNpcsNotification}>
+          <p>
+            {" "}
+            You can't go anywhere until you deal with the above aggressives or
+            evade them!{" "}
+          </p>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

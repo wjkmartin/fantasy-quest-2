@@ -6,18 +6,25 @@ import actions from "../../../../../DataHandlers/redux/actions";
 
 export default function ConversationButton(props) {
   const dispatch = useDispatch();
-
+  let state = useSelector(state => state)
   let player = useSelector(state => state.actors.actorsById[0])
 
   let action = Object.keys(props.buttonData)[0];
   const values = Object.values(props.buttonData)[0];
   let label = "whoops this should never";
-  let inactive = false;
+  let inactive = false; //Todo: add 'visible' as well + refactor 'inactive' to 'active'
+  let visible = true;
 
   if (values.text !== undefined) {
     label = values.text;
     action = values;
-    inactive = (player.abilityScores[values.condition.stat] < values.condition.value);
+    console.log(values.condition.check)
+    if (typeof values.condition.check === 'string') {
+      inactive = (player.abilityScores[values.condition.check] <= values.condition.value)
+    } else if (typeof values.condition.check === 'function') {
+      visible = (values.condition.check(state) === values.condition.value)
+      console.log(visible)
+    }
   } else {
     label = Object.values(props.buttonData)[0];
   }
@@ -43,7 +50,7 @@ export default function ConversationButton(props) {
 
   return (
     <button
-      className={`${styles.ConversationButton}`}
+      className={visible ? styles.ConversationButton : styles.hide}
       onClick={() => handleClickAction(action, label)}
       disabled={inactive ? true : false}
     >

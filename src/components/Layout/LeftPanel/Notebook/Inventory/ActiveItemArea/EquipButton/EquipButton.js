@@ -17,9 +17,6 @@ export default function EquipButton(props) {
     let item = playerInventory.find((item) => item.id === itemId);
     Object.keys(item.stats).forEach((statType) => {
       switch (statType) {
-        case "wew":
-          break;
-
         default:
           dispatch(
             actions.modifyActorAttributeByActorId(

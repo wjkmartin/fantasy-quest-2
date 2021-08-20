@@ -10,4 +10,5 @@ export default
         { "Travel to the city.": cityTransition },
       ],
     type: 'top',
+    discovered: true
 };

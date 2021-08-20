@@ -11,7 +11,7 @@ export default function ActivityLog(props) {
 
   return (
     <div className={props.className}>
-      <p className={styles.header}>Activity Log</p>
+      <p className={styles.header}>ACTIVITY LOG</p>
       <div className={styles.wrapper}>
         <div className={styles.logFeed}>
           {" "}
