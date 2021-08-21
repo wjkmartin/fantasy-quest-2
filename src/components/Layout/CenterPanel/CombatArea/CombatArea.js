@@ -17,6 +17,7 @@ import generateAndSetInitiative from "./CombatLogic/generateAndSetInitiative";
 import nextTurn from "./CombatLogic/nextTurn";
 
 import combatMaps from "../../../../Data/combatMaps/combatMaps";
+import notDefined from "../../../../Data/combatMaps/notDefined";
 
 function CombatArea() {
   const combatState = useSelector((state) => state.combat);
@@ -25,7 +26,7 @@ function CombatArea() {
   );
   const currentSubLocation = useSelector(
     (state) => state.locations.currentSubLocation
-  );  
+  );
 
   const actorsById = useSelector((state) => state.actors.actorsById);
   const actorsByLocation = useSelector((state) => state.actors.byLocationName);
@@ -36,7 +37,15 @@ function CombatArea() {
     return actorsById[id];
   });
 
-  const mapData = combatMaps[currentSubLocation !== undefined ? currentSubLocation.name : currentLocation.name];
+  let mapData = combatMaps["notDefined"]; // loads a simple map if a proper battlemap is not defined in battlemaps.js
+
+  if (combatMaps[currentLocation.name] !== undefined) {  
+    mapData = combatMaps[currentLocation.name];
+  } else if (currentSubLocation !== undefined) {
+    if (combatMaps[currentSubLocation.name] !== undefined) {
+      mapData = combatMaps[currentSubLocation.name];
+    }
+  }
 
   const combatMap = updateMap(mapData, actorsInCombatById);
 
@@ -63,13 +72,25 @@ function CombatArea() {
 
   function combatSetup() {
     dispatch(actions.resetActorCombatPropsById(0));
-    
-    dispatch(actions.setActorLocationCombat(0, [mapData.playerStartCoords[0], mapData.playerStartCoords[1]]));
-    
-    actorsByLocation[currentSubLocation !== undefined ? currentSubLocation.name : currentLocation.name].forEach((actor) => {
+
+    dispatch(
+      actions.setActorLocationCombat(0, [
+        mapData.playerStartCoords[0],
+        mapData.playerStartCoords[1],
+      ])
+    );
+
+    actorsByLocation[
+      currentSubLocation !== undefined
+        ? currentSubLocation.name
+        : currentLocation.name
+    ].forEach((actor) => {
       dispatch(actions.resetActorCombatPropsById(actor.id));
       dispatch(
-        actions.setActorLocationCombat(actor.id, [mapData.enemyStartCoords[0][0], mapData.enemyStartCoords[0][1]])
+        actions.setActorLocationCombat(actor.id, [
+          mapData.enemyStartCoords[0][0],
+          mapData.enemyStartCoords[0][1],
+        ])
       );
     });
 
