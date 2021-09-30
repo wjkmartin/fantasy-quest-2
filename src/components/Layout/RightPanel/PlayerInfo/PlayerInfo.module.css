@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
 .header {
   /* background-color: rgba(141, 163, 211, 0.466); */
   padding: 0.5rem 0.5rem 1.25rem 1rem;
@@ -26,6 +28,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   display: flex;
   justify-content: space-around;
   padding: 3rem 0 1rem 0;
+  
 }
 
 .playerStats__col_1 {
@@ -34,19 +37,29 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   justify-content: space-around;
   padding: 1rem;
   font-size: 1.2rem;
+  
 }
 
 .playerStats__col_2 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  padding: .5rem .5rem 1rem .5rem
+  padding: .5rem 0 0 0;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
 }
 
 .playerStatsAS {
   display: flex;
+  align-self: center;
   justify-content: space-evenly;
   align-items: center;
+  border: 3px solid black;
+  border-radius: 30px;
+  padding: 2% 0 2% 0;
+  width: 80%;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
 }
 
 .playerStatsAS__col_1 {
@@ -60,8 +73,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 }
 
 .combatStats { 
-    padding: 2rem;
-    text-align: center;
+    padding: 0 1rem;
 }
 
 .barWrapper {
@@ -91,10 +103,42 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   max-height: 11px;
 }
 
-
+.statColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .attributeIcon {
   display: block;
   min-width: 20px;
   margin: .25rem;
+}
+
+.XPBar {
+  display: flex;
+  padding: 5px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.XPBar_bar {
+  background-color: #ffffe8;
+  outline: 2px solid rgba(0, 0, 0, 0.747);
+  border-radius: 10px;
+  width: 75%;
+  height: 12px;
+}
+
+.xpNumeralsDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: .85rem;
+}
+
+.horizontalLine {
+  border-bottom: 1px solid black;
+  height: 1px;
+  width: 60px;
 }

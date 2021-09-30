@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-
 import styled from "styled-components";
 
 import actions from "../../../../DataHandlers/redux/actions";
@@ -10,7 +9,8 @@ import MinimapNode from "./MinimapNode/MinimapNode";
 
 function populateNodes(currentLocation, locations, mapWidth, dispatch) {
   const nodes = locations.map((location) => {
-    if (location === undefined || location.discovered === false) return <div style={{width: '25px', height: '25px'}}/>;
+    if (location === undefined || location.discovered === false)
+      return <div style={{ width: "25px", height: "25px" }} />;
     else
       return (
         <MinimapNode
@@ -45,7 +45,6 @@ function loadLocation(location, locations, mapWidth, dispatch) {
   discoverAdjacentNodes(location, locations, mapWidth, dispatch);
   dispatch(actions.setLocationById(location.id));
   dispatch(actions.setActiveActorInfoWindowById(undefined));
-  
 }
 
 function discoverAdjacentNodes(location, locations, mapWidth, dispatch) {
@@ -99,11 +98,15 @@ function Minimap() {
     (state) => state.locations.currentSubLocation
   );
 
-  const currentLocation = currentSubLocation !== undefined ? currentSubLocation : currentSuperLocation
+  const currentLocation =
+    currentSubLocation !== undefined
+      ? currentSubLocation
+      : currentSuperLocation;
 
   const inCombat = useSelector((state) => state.combat.inCombat);
   const minimap = useSelector((state) => state.locations.map);
   const locations = useSelector((state) => state.locations.locations);
+  const inConversation = useSelector((state) => state.UI.inConversation);
 
   const actorsAtCurrentLocation = useSelector(
     (state) => state.actors.byLocationName[currentLocation.name]
@@ -169,7 +172,7 @@ function Minimap() {
 
   return (
     <MinimapStyled>
-      {currentLocation.type === "top" && !inCombat ? mapNodes : ""}{" "}
+      {currentLocation.type === "top" && !inCombat && !inConversation ? mapNodes : ""}{" "}
     </MinimapStyled>
   );
 }

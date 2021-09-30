@@ -5,19 +5,19 @@ import map from "../../../Data/minimaps/city";
 import city from "../../../Data/minimaps/city";
 import field from "../../../Data/minimaps/field";
 import sewerDungeon from "../../../Data/minimaps/sewerDungeon"
-
+import burrowDungeon from "../../../Data/minimaps/burrowDungeon"
 
 const locationsInitial = loadLocationData(map);
 const subLocationsInitial = loadSubLocationData(locationsInitial);
 
 const initalState = {
   locations: locationsInitial,
-  savedMapStates: {city: undefined, field:undefined, sewerDungeon: undefined},
+  savedMapStates: {city: undefined, field:undefined, sewerDungeon: undefined, burrowDungeon: undefined},
   subLocations: subLocationsInitial,
   map: map,
   currentLocation: locationsInitial[24],
   currentSubLocation: undefined,
-  maps: { city: city, field: field, sewerDungeon: sewerDungeon},
+  maps: { city: city, field: field, sewerDungeon: sewerDungeon, burrowDungeon: burrowDungeon},
 };
 
 export default function (state = initalState, action) {
@@ -41,6 +41,7 @@ export default function (state = initalState, action) {
     }
     case "SET_MAP": { //Currently can only load top level locations
       const locationData = loadLocationData(state.maps[action.mapName]);
+    
       return {
         ...state,
         locations: locationData,
@@ -48,6 +49,7 @@ export default function (state = initalState, action) {
         currentLocation: locationData.find(
           (location) => location.name === action.startLocationName
         ),
+        subLocations: loadSubLocationData(locationData),
         currentSubLocation: undefined
       };
     }

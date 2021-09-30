@@ -1,6 +1,5 @@
 import basicAttack from "../CombatAbilities/basicAttack";
 
-
 class Actor {
   constructor(actorData) {
     Object.assign(this, actorData);
@@ -12,9 +11,11 @@ class Actor {
     this.movementRemaining = this.speed;
     this.abilities = { basicAttack: basicAttack };
     this.dialogueState = "meet";
-
+    this.xp = 0;
+    this.xpToNextLevel = 100;
     if (this.type === 'monster') {
       this.isAggressive = true;
+      this.baseEarnedXP = actorData.level * 5
     }
 
     

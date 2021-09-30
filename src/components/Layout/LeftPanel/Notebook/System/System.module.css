@@ -1,0 +1,11 @@
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 95%;
+    padding: 5rem;
+}
+
+.systemButton {
+
+}

@@ -33,7 +33,7 @@ const NpcDisplayArea = () => {
     currentActors.forEach((actor) => {
       if (actor.isAggressive) {
         _atLeastOneAggressiveActorHere = true;
-        console.log(currentActors.isAggressive);
+        
       }
     });
     return _atLeastOneAggressiveActorHere;

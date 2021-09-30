@@ -1,6 +1,8 @@
 import dialogue from './d_rival'
-import portrait from '../../../Assets/img/character_images/rival/rival.png'
+import portrait from '../../../Assets/img/character_images/rival/portrait.png'
 import token from '../../../Assets/img/combat_tokens/rival.png'
+
+import greet from '../../../Assets/img/character_images/rival/greet/1.png'
 
 export default {
   actorName: "Audrey",
@@ -33,5 +35,8 @@ export default {
   type: 'hunter',
   dialogue: dialogue,
   portrait: portrait,
-  token: token
+  token: token,
+  img: {
+    greet: greet
+  }
 };

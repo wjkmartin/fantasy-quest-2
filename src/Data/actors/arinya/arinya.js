@@ -1,6 +1,6 @@
 import dialogue from './d_arinya'
 import token from '../../../Assets/img/combat_tokens/arinya.png'
-import portrait from '../../../Assets/img/character_images/arinya/portrait.jpg'
+import portrait from '../../../Assets/img/character_images/arinya/portrait.png'
 
 export default {
 
@@ -19,18 +19,19 @@ export default {
   dodge: 10,
   focus: 33,
   abilityScores: {
-    strength: 20,
-    dexterity: 20,
-    constitution: 20,
-    charisma: 20,
-    wisdom: 20,
-    intelligence: 20,
+    strength: 12,
+    dexterity: 18,
+    constitution: 12,
+    charisma: 15,
+    wisdom: 16,
+    intelligence: 11,
   },
   isDead: false,
   hasFocusSpell: false,
   location: "tavern_inside",
-  gold: 999,
+  gold: 100,
   speed: 3,
+  range: 2,
   dialogue: dialogue,
   type: 'npc',
   token: token,
@@ -39,5 +40,8 @@ export default {
     item: 'potion_of_healing',
     chance: 1, //this means 1 in 6
     name: 'a dirty bottle with some kind of fluid inside!'
-  }]
+  }],
+  img: {
+
+  }
 };

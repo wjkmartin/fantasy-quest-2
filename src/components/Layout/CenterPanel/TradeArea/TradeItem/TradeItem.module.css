@@ -21,3 +21,22 @@
   border: 2px dashed black;
   background-color: darkgray;
 }
+
+.rarity-poor {
+  color: grey;
+}
+.rarity-common {
+  color: black;
+}
+.rarity-uncommon {
+  color: green;
+}
+.rarity-rare {
+  color: blue;
+}
+.rarity-very-rare {
+  color: purple;
+}
+.rarity-legendary {
+  color: orange;
+}

@@ -26,7 +26,7 @@ export default {
   },
   isDead: false,
   hasFocusSpell: false,
-  location: "grassy_clearing", 
+  location: undefined, 
   gold: 1,
   speed: 1,
   type: 'monster',

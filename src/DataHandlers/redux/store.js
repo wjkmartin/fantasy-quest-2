@@ -9,7 +9,18 @@ import quests from "./reducers/quests"
 
 let reducers = combineReducers({ locations, actors, items, combat, UI, quests });
 
-export default createStore(
-  reducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-); //will be combined reducer of all reducers
+const persistentState = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : {}
+const store = createStore(reducers, persistentState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+store.subscribe(() => {
+  const state = store.getState();
+  const serializedState = JSON.stringify(state);
+  localStorage.setItem('state', serializedState);
+})
+
+export default store;
+
+// export default createStore(
+//   reducers,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// ); //will be combined reducer of all reducers

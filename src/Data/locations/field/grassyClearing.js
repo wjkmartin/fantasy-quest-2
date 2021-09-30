@@ -2,6 +2,7 @@ export default
 {
     name: 'grassy_clearing',
     icon: 'tree', 
+    monstersToSpawn: ['baseGoblin', 'baseGoblin'],
     // buttons: [{}],
     description1: 'A grassy clearing with sparse trees.',
     prettyName: 'Grassy Clearing',

@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "underscore";
-import Item from "../../../../../Entities/Item/Item";
+import { onClickAttackSquare } from "../CombatLogic/playerAttack";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -15,13 +15,15 @@ export default function CombatAreaSquare(props) {
   const actorOnThisSquareId =
     props.actorHere !== undefined ? props.actorHere.id : undefined;
 
-  const actorsById = useSelector((state) => state.actors.actorsById);
-
   const validMovesPlayer = combatState.actorValidMovesById[0];
   const validAttacksPlayer = combatState.actorValidAttackTargetsById[0];
 
   const moveIsToggled = combatState.UI.moveButtonSelected;
   const attackIsToggled = combatState.UI.attackButtonSelected;
+
+  const player = useSelector((state) => state.actors.actorsById[0]);
+  const target = useSelector((state) => state.actors.actorsById[actorOnThisSquareId]);
+  const items = useSelector((state) => state.items);
 
   let dispatch = useDispatch();
 
@@ -56,37 +58,6 @@ export default function CombatAreaSquare(props) {
     moveStyle = " ";
   }
 
-  function onClickAttackSquare(dispatch) {
-    const ability = { damage: 5 + _.random(1, 4) };
-    const enemyHealthAfterAttack =
-      actorsById[actorOnThisSquareId].health - ability.damage;
-    dispatch(actions.attackTargetWithAbility(0, actorOnThisSquareId, ability));
-    dispatch(
-      actions.addMessageToActivityLog(`You attack for ${ability.damage}!`)
-    );
-
-    if (enemyHealthAfterAttack <= 0) {
-      actions.addMessageToActivityLog(
-        `${actorsById[actorOnThisSquareId].actorName} dies horribly!`
-      );
-      actorsById[actorOnThisSquareId].drops.forEach((drop) => {
-        if (_.random(1, drop.chance) === drop.chance) {
-          actions.addMessageToActivityLog(
-            `${actorsById[actorOnThisSquareId].actorName} dropped ${drop.name}`
-          );
-          dispatch(
-            actions.addItemToActorById(0, new Item("consumable", drop.item))
-          );
-        }
-      });
-      dispatch(actions.killActorInCombat(actorOnThisSquareId));
-      dispatch(actions.removeActorFromCurrentLocationById(actorOnThisSquareId)); //doesn't work? 
-    }
-
-    dispatch(actions.toggleAttackClick());
-    attackStyle = " ";
-  }
-
   function onClickShowInfo(dispatch) {
     dispatch(actions.setActiveActorInfoWindowById(actorOnThisSquareId));
   }
@@ -100,7 +71,7 @@ export default function CombatAreaSquare(props) {
             }
           : isActorHereThatIsValidAttackTarget
           ? () => {
-              onClickAttackSquare(dispatch);
+              onClickAttackSquare(dispatch, player, items, target);
             }
           : nonPlayerActorIsHere && !moveIsToggled && !attackIsToggled
           ? () => {

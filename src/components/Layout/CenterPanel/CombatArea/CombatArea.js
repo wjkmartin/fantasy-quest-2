@@ -84,13 +84,11 @@ function CombatArea() {
       currentSubLocation !== undefined
         ? currentSubLocation.name
         : currentLocation.name
-    ].forEach((actor) => {
+    ].forEach((actor, index) => {
+      const startCoords = mapData.enemyStartCoords[index]
       dispatch(actions.resetActorCombatPropsById(actor.id));
       dispatch(
-        actions.setActorLocationCombat(actor.id, [
-          mapData.enemyStartCoords[0][0],
-          mapData.enemyStartCoords[0][1],
-        ])
+        actions.setActorLocationCombat(actor.id, startCoords)
       );
     });
 

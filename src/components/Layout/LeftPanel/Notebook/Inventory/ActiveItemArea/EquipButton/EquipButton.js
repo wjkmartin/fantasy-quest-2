@@ -10,6 +10,8 @@ export default function EquipButton(props) {
   const equippedItemsById = useSelector(
     (state) => state.items.equippedItemsIdsByActorId[0]
   );
+  const playerInCombat = useSelector((state) => state.combat.inCombat);
+
   const isEquipped = equippedItemsById.includes(props.itemId);
   let dispatch = useDispatch();
 
@@ -29,17 +31,21 @@ export default function EquipButton(props) {
       }
     });
     if (isEquipped) {
-        dispatch(actions.unequipItemByActorIds(0, itemId));
+      dispatch(actions.unequipItemByActorIds(0, itemId));
     } else {
-        dispatch(actions.equipItemToActorByIds(0, itemId));
+      dispatch(actions.equipItemToActorByIds(0, itemId));
     }
   }
-  return (
+
+  const equipButton = 
     <button
       className={props.className}
       onClick={() => onClickButton(props.itemId)}
     >
-      {isEquipped ? 'Unequip Item' : 'Equip Item'}
+      {isEquipped ? "Unequip Item" : "Equip Item"}
     </button>
-  );
+
+  return (
+     !playerInCombat ? equipButton : "" 
+    );
 }

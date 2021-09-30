@@ -12,3 +12,8 @@ export const loadActors = () => {
   }
   return actors;
 };
+
+export const loadSingleActorFromData = (data) => {
+  let actor = new Actor(data);
+  return actor
+}

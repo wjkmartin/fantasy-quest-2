@@ -1,5 +1,6 @@
 import gatehouseE from "../locations/field/GatehouseEast/GatehouseEast.js";
-import grassyClearing from "../locations/field/grassyClearing.js"
+import grassyClearing from "../locations/field/grassyClearing.js";
+import goblinBurrow from "../locations/field/burrow.js";
 
 import * as roads from "../locations/roads";
 
@@ -8,6 +9,7 @@ export default {
   img: "https://via.placeholder.com/418x345",
   nodes: [
     [
+      undefined,
       roads.crossRoad,
       roads.horRoad,
       roads.crossRoad,
@@ -20,6 +22,7 @@ export default {
     [
       undefined,
       undefined,
+      undefined,
       roads.crossRoad,
       undefined,
       undefined,
@@ -28,6 +31,7 @@ export default {
       roads.verRoad,
     ],
     [
+      undefined,
       undefined,
       roads.horRoad,
       roads.crossRoad,
@@ -38,6 +42,7 @@ export default {
       gatehouseE,
     ],
     [
+      undefined,
       roads.verRoad,
       undefined,
       roads.verRoad,
@@ -48,7 +53,8 @@ export default {
       roads.verRoad,
     ],
     [
-      roads.crossRoad,
+      undefined,
+      goblinBurrow,
       roads.horRoad,
       roads.crossRoad,
       undefined,

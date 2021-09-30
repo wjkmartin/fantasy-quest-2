@@ -1,60 +1,69 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./ConversationButton.module.css";
 
-import { useSelector ,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import actions from "../../../../../DataHandlers/redux/actions";
 
 export default function ConversationButton(props) {
   const dispatch = useDispatch();
-  let state = useSelector(state => state)
-  let player = useSelector(state => state.actors.actorsById[0])
+  let state = useSelector((state) => state);
+  let player = state.actors.actorsById[0];
 
-  let action = Object.keys(props.buttonData)[0];
+  const dialogueBranch = Object.keys(props.buttonData)[0];
   const values = Object.values(props.buttonData)[0];
-  let label = "whoops this should never";
-  let inactive = false; //Todo: add 'visible' as well + refactor 'inactive' to 'active'
+
+  let active = true;
   let visible = true;
 
-  if (values.text !== undefined) {
-    label = values.text;
-    action = values;
-    console.log(values.condition.check)
-    if (typeof values.condition.check === 'string') {
-      inactive = (player.abilityScores[values.condition.check] <= values.condition.value)
-    } else if (typeof values.condition.check === 'function') {
-      visible = (values.condition.check(state) === values.condition.value)
-      console.log(visible)
-    }
-  } else {
-    label = Object.values(props.buttonData)[0];
+  if (values.conditions !== undefined) {
+    let metConditions = 0;
+    values.conditions.forEach((condition) => {
+      if (typeof condition.check === "string") {
+        switch (condition.check) {
+          case "gold":
+            if (player.gold >= condition.value) metConditions++;
+            break;
+          default:
+            if (player.abilityScores[condition.check] >=
+              condition.value) metConditions++
+            break;
+        }
+      } else if (typeof condition.check === "function") {
+       if (condition.check(state) === true) metConditions++;
+      }
+    });
+    active = values.conditions.length === metConditions;
   }
 
-  function handleClickAction(action, label) {
+  function handleClickAction(branch, values, store, actions) {
+    //deals with actions inside dialogue branches
+    const label = values.text === undefined ? values : values.text;
+
     dispatch(actions.addtoCurrentDialogueText(label));
 
-    switch (action) {
+    if (values.onClick !== undefined && active) {
+      values.onClick(store, actions, dispatch);
+    }
+
+    switch (branch) {
       case "quitConvo": {
         dispatch(actions.endConversation());
         dispatch(actions.clearCurrentDialogueText());
         break;
       }
-      default:
-        if (action.nextState !== undefined) {
-          props.setDialogueState(action.nextState);
-
-        } else {
-          props.setDialogueState(action);
-        }
+      default: {
+        props.setDialogueState(branch);
+      }
     }
   }
 
   return (
     <button
       className={visible ? styles.ConversationButton : styles.hide}
-      onClick={() => handleClickAction(action, label)}
-      disabled={inactive ? true : false}
+      onClick={() => handleClickAction(dialogueBranch, values, state, actions)}
+      disabled={active ? false : true}
     >
-      {label}
+      {values.text === undefined ? values : values.text}
     </button>
   );
 }

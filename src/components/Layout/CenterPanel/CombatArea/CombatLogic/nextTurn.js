@@ -15,7 +15,7 @@ export default function nextTurn() {
     currentActorTurnId
   ];
 
-  console.log(actorCurrentTurn)
+ 
   
   const player = store.getState().actors.actorsById[0];
   const passableMap = [...combatData.combatMapState.passableMap];
@@ -30,9 +30,6 @@ export default function nextTurn() {
     nextTurn();
     return;
   }
-
-  console.log(combatData)
-  console.log(actorCurrentTurn)
 
   store.dispatch(
     actions.addMessageToActivityLog(
@@ -114,14 +111,6 @@ export default function nextTurn() {
       playerHealthAfterAttack -= attackCallback.ability.damage;
     }
 
-    //add logic to check if duel is won for player (single enemy defeated)
-
-    // if (actorsById[actorOnThisSquareId].health <= 0) {
-    //   //eventually should set actor to 1hp (just a duel... not to the death)
-    //   dispatch(actions.endCombat());
-    //   dispatch(actions.addMessageToActivityLog(`You've won the duel!`));
-    // }
-
     if (playerHealthAfterAttack <= 0) {
       store.dispatch(actions.endCombat());
       store.dispatch(actions.setActorAttributeByActorId(0, "health", 1));
@@ -129,7 +118,7 @@ export default function nextTurn() {
       store.dispatch(actions.setMap('city', 'centralSquare'));
       store.dispatch(actions.loadSavedMapStateForMap('city'));
       store.dispatch(actions.setActiveActorInfoWindowById(undefined));
-      store.dispatch(actions.addMessageToActivityLog('In a sudden flash of light, you feel yourself dematerialize and a moment later you find yourself in front of the obelisk in the center of the city.'))
+      store.dispatch(actions.addMessageToActivityLog('In a sudden flash of light, you feel yourself dematerialize and a moment later you find yourself in front of the obelisk in the center of the city.', "italic"))
       return;
     }
 

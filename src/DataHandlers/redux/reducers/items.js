@@ -5,12 +5,12 @@ const initalState = {
     0: [
       new Item("weapon", "oak_stave"),
       new Item("chest", "basic_robes"),
-      new Item("feet", "basic_boots"),
-      new Item("consumable", "potion_of_healing")
-    ],
+      new Item("feet", "basic_boots")],
     1: [new Item("head", "basic_circlet")],
+    4: [new Item("consumable", "potion_of_healing"), new Item("consumable", "potion_of_healing")],
+    5: [new Item("weapon", "rusty_sword"), new Item("weapon", "iron_sword"), new Item("weapon", "steel_sword"), new Item("weapon", "enchanted_steel_sword")],
   },
-  equippedItemsIdsByActorId: { 0: [] },
+  equippedItemsIdsByActorId: { 0: [] }, // this sucks - improve to be something like : equipped items by actorId , { 0: {head: item, weapon: item} } etc
   inTrade: false,
   actorInTradeById: undefined,
   itemsPlayerWantsToTradeById: [],
@@ -59,8 +59,8 @@ export default function (state = initalState, action) {
       if (itemId === -1) {
         return {
           ...state,
-          inventoryActiveItemId: undefined
-        }
+          inventoryActiveItemId: undefined,
+        };
       }
       return {
         ...state,
@@ -151,18 +151,19 @@ export default function (state = initalState, action) {
       };
     }
     case "DROP_ITEM_FROM_ACTOR_BY_IDS": {
-      let inventoryAfter = state.inventoryByActorId[action.actorId]
-      const itemIndex = inventoryAfter.findIndex(item => item.id === action.itemId)
-      inventoryAfter.splice(itemIndex, 1)
-      
+      let inventoryAfter = state.inventoryByActorId[action.actorId];
+      const itemIndex = inventoryAfter.findIndex(
+        (item) => item.id === action.itemId
+      );
+      inventoryAfter.splice(itemIndex, 1);
+
       return {
-        ...state, 
+        ...state,
         inventoryByActorId: {
           ...state.inventoryByActorId,
-          [action.actorId]: inventoryAfter 
-        }
-        
-      }
+          [action.actorId]: inventoryAfter,
+        },
+      };
     }
     default: {
       return state;

@@ -132,6 +132,39 @@ const removeActorFromCurrentLocationById = (actorId) => {
   };
 };
 
+const createNewActorFromDataFileAndLocation = (data, location) => {
+  return {
+    type: "CREATE_NEW_ACTOR_FROM_DATA_FILE_AND_LOCATION",
+    data: data,
+    location: location
+  }
+}
+
+const addPowerToActorByDataReferenceAndId = (ref, id) => {
+  return {
+    type: "ADD_POWER_TO_ACTOR_BY_DATA_REFERENCE_AND_ID",
+    ref: ref,
+    id: id
+  }
+}
+
+const removePowerFromActorByDataReferenceAndId = (ref, id) => {
+  return {
+    type: "REMOVE_POWER_FROM_ACTOR_BY_DATA_REFERENCE_AND_ID",
+    ref: ref,
+    id: id
+  }
+}
+
+const updatePowerDuration = (ref, id, durationRemaining) => {
+  return {
+    type: "UPDATE_POWER_DURATION",
+    ref: ref,
+    id: id,
+    durationRemaining: durationRemaining
+  }
+}
+
 // =============  COMBAT  =============
 
 const startCombat = () => {
@@ -246,10 +279,11 @@ const setDuelFlag = () => {
 
 // =============  UI  =============
 
-const addMessageToActivityLog = (message) => {
+const addMessageToActivityLog = (message, styleType) => {
   return {
     type: "ADD_MESSAGE_TO_ACTIVITY_LOG",
     message: message,
+    styleType: styleType
   };
 };
 
@@ -400,6 +434,10 @@ export default {
   killActorInCombat,
   setDuelFlag,
   removeActorFromCurrentLocationById,
+  createNewActorFromDataFileAndLocation,
+  addPowerToActorByDataReferenceAndId,
+  removePowerFromActorByDataReferenceAndId,
+  updatePowerDuration,
   setSetupToDone, //COMBAT
   addActorToCombatById,
   resetActorCombatPropsById,

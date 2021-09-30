@@ -24,5 +24,8 @@ export default
     hasFocusSpell: false,
     location: 'slums',
     armorFromEquipment: 3,
-    type: 'npc'
+    type: 'npc',
+    img: {
+  
+    }
 }

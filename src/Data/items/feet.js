@@ -4,7 +4,7 @@ export default
         name: 'Leather boots',
         icon: 'fa-boot',
         rarity: 0,
-        descDetails: 'Adds 1 armor.',
+        descDetails: 'Adds 1 armor and increases dexterity by 1.',
         desc: 'A good pair of boots can feel more valuable then a thousand bars of gold. May these ones serve you well.',
         stats: {armor: 1, dexterity: 1},
         value: 4,

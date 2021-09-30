@@ -1,3 +1,5 @@
+//TODO ❎ : REFACTOR - remove overlap between the two buttons, i.e. create a button for equip, create a button for drop. Drop should not be visible in combat.
+
 import React from "react";
 import EquipButton from "./EquipButton/EquipButton";
 import ActivateItemButton from "./ActivateItemButton/ActivateItemButton"

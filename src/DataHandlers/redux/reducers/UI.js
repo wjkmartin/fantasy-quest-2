@@ -1,7 +1,7 @@
 import * as images from "../../../Assets/imgList";
 
 const initalState = {
-  activityLog: {},
+  activityLog: [{message: "Welcome to RHO! Please check your codex for important information."}],
   inConversation: false,
   actorInConversation: undefined,
   mainImage: undefined,
@@ -25,12 +25,17 @@ export default function (state = initalState, action) {
       };
     }
     case "ADD_MESSAGE_TO_ACTIVITY_LOG": {
+      const message = action.message;
+      const styleType = action.styleType === undefined ? 'regular' : action.styleType
       return {
         ...state,
-        activityLog: {
-          ...state.activityLog,
-          [Object.values(state.activityLog).length + 1]: action.message,
-        },
+        activityLog: [...state.activityLog,
+          {message: message,
+          styleType: styleType}
+        ]
+          
+          
+        ,
       };
     }
     case "SET_MAIN_IMAGE": {

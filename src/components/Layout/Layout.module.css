@@ -9,7 +9,7 @@
     background-image: url('/cityBG.jpg');
     background-position-x: center;
     background-position-y: center;
-    background-size: cover;
+    background-size: auto;
     background-repeat: no-repeat;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .RightPanel {
-    width: 25%;
+    width: 20%;
     margin-top: 2rem;
     display: flex;
     flex-direction: column;

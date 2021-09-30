@@ -18,6 +18,7 @@ import enemyLoc9 from '../locations/sewerDungeon/basicSewerHorizontal-e9' //GR2
 import ratQueenRoom from '../locations/sewerDungeon/ratQueenRoom' //Rat Queen
 import mossyCistern from '../locations/sewerDungeon/mossyCistern' //Sewer Troll
 import adamantineGate from '../locations/sewerDungeon/adamantineGate' //Adamantine gate
+import illReputeBarExterior from '../locations/sewerDungeon/illReputeBarExterior' //Ill Repute Bar 
 
 
 export default {
@@ -30,7 +31,7 @@ export default {
         [basicSewerVertical, undefined, undefined, undefined, undefined, basicSewerSquare, basicSewerHorizontal, basicSewerSquare, basicSewerSquare, undefined, basicSewerHorizontal, basicSewerVerticalStartHidden, basicSewerHorizontal, basicSewerSquare],
         [undefined, undefined, undefined, basicSewerVertical, undefined, undefined, undefined, basicSewerVertical, undefined, undefined, undefined, adamantineGate, undefined, undefined],
         [undefined, undefined, basicSewerHorizontal, basicSewerSquare, basicSewerSquare, undefined, undefined, undefined, undefined, undefined, basicSewerSquare, basicSewerSquare, basicSewerHorizontal, basicSewerSquare],
-        [undefined, undefined, undefined, undefined, basicSewerVertical, basicSewerHorizontal, basicSewerSquare, undefined, basicSewerVertical, undefined, basicSewerVertical, undefined, undefined, basicSewerVertical],
+        [undefined, undefined, undefined, undefined, basicSewerVertical, basicSewerHorizontal, basicSewerSquare, undefined, illReputeBarExterior, undefined, basicSewerVertical, undefined, undefined, basicSewerVertical],
         [undefined, sewerEntrance, basicSewerHorizontal, enemyLoc1, basicSewerSquare, undefined, basicSewerSquare, basicSewerHorizontal, enemyLoc2, basicSewerHorizontal, basicSewerSquare, basicSewerHorizontal, undefined, undefined],
         [undefined, undefined, undefined, undefined, undefined, undefined, basicSewerVertical, undefined, undefined, undefined, undefined, undefined, undefined, basicSewerVertical],
         [undefined, basicSewerSquare, enemyLoc3, basicSewerHorizontal, enemyLoc4, mossyCistern, basicSewerSquare, undefined, basicSewerVertical, undefined, basicSewerSquare, basicSewerHorizontal, basicSewerHorizontal, basicSewerSquare],

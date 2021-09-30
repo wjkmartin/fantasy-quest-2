@@ -31,5 +31,8 @@ export default {
   speed: 1,
   type: 'npc',
   dialogue: dialogue,
-  token: token
+  token: token,
+  img: {
+
+  }
 };

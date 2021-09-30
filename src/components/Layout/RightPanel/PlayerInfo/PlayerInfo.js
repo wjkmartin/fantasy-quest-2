@@ -16,8 +16,10 @@ const PlayerInfo = (props) => {
   const healthPercentage =
     Math.round((player.health / player.maxHealth) * 100) + "%";
 
-  const spPercentage = Math.round((player.sp / player.maxSp) * 100) + "%";
+  // const spPercentage = Math.round((player.sp / player.maxSp) * 100) + "%";
   const manaPercentage = Math.round((player.mana / player.maxMana) * 100) + "%";
+  const xpPercentage = Math.round((player.xp / player.xpToNextLevel) * 100) + "%";
+  console.log(xpPercentage)
 
   return (
     <div className={props.className}>
@@ -68,12 +70,6 @@ const PlayerInfo = (props) => {
         </div>
       </div>
 
-      <div className={styles.playerStats__col_2}>
-        <p>Armor: {player.armor}</p>
-        <p>Dodge %: {player.dodge}</p>
-        <p>Focus %: {player.focus}</p>
-      </div>
-
       <div className={styles.playerStatsAS}>
         <div className={styles.playerStatsAS__col_1}>
           <p>Strength: {player.abilityScores.strength}</p>
@@ -86,6 +82,21 @@ const PlayerInfo = (props) => {
           <p>Intelligence: {player.abilityScores.intelligence}</p>
         </div>
       </div>
+
+      <div className={styles.playerStats__col_2}>
+        <p className={styles.statColumn}>
+          <span>ARMOR</span>
+          <span>{player.armor}</span>
+        </p>
+        <p className={styles.statColumn}>
+          <span>DODGE</span>
+          <span>{player.dodge}%</span>
+        </p>
+        <p className={styles.statColumn}>
+          <span>FOCUS</span>
+          <span>{player.focus}%</span>
+        </p>
+      </div>
       <div className={styles.combatStats}>
         <p>
           Physical attack:{" "}
@@ -94,9 +105,21 @@ const PlayerInfo = (props) => {
             playerInv,
             playerEquippedItemsByIds
           )}
+          {" damage"}
         </p>
       </div>
-      <div className="playerActiveEffects"></div>
+      <div className={styles.XPBar}>
+        <div className={styles.XPBar_XP}>XP</div>
+        <div className={styles.xpNumeralsDisplay}>{player.xp} <div className={styles.horizontalLine} /> {player.xpToNextLevel}</div>
+        <div className={styles.XPBar_bar}>
+          <div style={{
+            width: xpPercentage,
+            backgroundColor: "gold",
+            height: "12px",
+            borderRight: "1px solid black"
+          }}></div>
+        </div>
+      </div>
     </div>
   );
 };

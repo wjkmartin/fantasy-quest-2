@@ -1,4 +1,4 @@
-import dialogueAjwar from './d_ajwar.js';
+import dialogue from './d_ajwar.js';
 import token from '../../../Assets/img/combat_tokens/ajwar.png'
 import portrait from '../../../Assets/img/character_images/ajwar/portrait.jpg'
 
@@ -35,11 +35,7 @@ export default {
   location: "market",
   gold: 999,
   speed: 1,
-  dialogue: dialogueAjwar,
-  // itemsForTrade: [
-  //   new Item(weapons.sword_splarth),
-  //   new Item(heads.head_splarth)
-  // ],
+  dialogue: dialogue,
   type: 'npc',
   token: token,
   portrait: portrait,

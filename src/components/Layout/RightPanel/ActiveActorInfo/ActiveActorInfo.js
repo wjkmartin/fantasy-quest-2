@@ -14,6 +14,7 @@ import AddToFriendsButton from "./AddToFriendsButton/AddToFriendsButton"
 function ActiveActorInfo(props) {
   const combatObject = useSelector((state) => state.combat);
   const inCombat = combatObject.inCombat;
+  const inDialogue = useSelector((state) => state.UI.inConversation);
   const actorObject = useSelector((state) => state.actors);
   const activeActor = actorObject.actorsById[actorObject.activeActorById];
   const currentLocation = useSelector(
@@ -125,10 +126,11 @@ function ActiveActorInfo(props) {
                   borderRadius: "10% 10% 10% 10% / 0% 50% 50% 0% ",
                 }}
               ></div>
-            </div>
-            <div className={styles.bar__numerals}>
+              <div className={styles.bar__numerals}>
               {activeActor.health} / {activeActor.maxHealth}
             </div>
+            </div>
+            
           </div>
           <div className={styles.barWrapper}>
             <FontAwesomeIcon className={styles.attributeIcon} icon={["fas", "user"]}></FontAwesomeIcon>
@@ -141,10 +143,11 @@ function ActiveActorInfo(props) {
                   borderRadius: "10% 10% 10% 10% / 0% 50% 50% 0% ",
                 }}
               ></div>
-            </div>
-            <div className={styles.bar__numerals}>
+              <div className={styles.bar__numerals}>
               {activeActor.sp} / {activeActor.maxSp}
             </div>
+            </div>
+            
           </div>
           <div className={styles.barWrapper}>
             <FontAwesomeIcon className={styles.attributeIcon} icon={["fas", "star"]}></FontAwesomeIcon>
@@ -157,15 +160,16 @@ function ActiveActorInfo(props) {
                   borderRadius: "10% 10% 10% 10% / 0% 50% 50% 0% ",
                 }}
               ></div>
-            </div>
-            <div className={styles.bar__numerals}>
+              <div className={styles.bar__numerals}>
               {activeActor.mana} / {activeActor.maxMana}
             </div>
+            </div>
+            
           </div>
         </div>
       </div>
       <div className={styles.bottomRow}>
-        {inCombat
+        {inCombat || inDialogue
           ? " "
           : activeActor.type === "monster"
           ? monsterButtons.map((button) => button)

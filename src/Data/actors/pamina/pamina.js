@@ -1,4 +1,5 @@
 import dialogue from './d_pamina'
+import portrait from '../../../Assets/img/character_images/pamina/portrait.png'
 
 export default {
   actorName: "Pamina",
@@ -29,5 +30,9 @@ export default {
   gold: 999,
   speed: 3,
   dialogue: dialogue,
-  type: 'npc'
+  portrait: portrait,
+  type: 'npc',
+  img: {
+
+  }
 };

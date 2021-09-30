@@ -1,4 +1,5 @@
-import { loadActors } from "../../loadActorData";
+import { loadActors, loadSingleActorFromData } from "../../loadActorData";
+import powers from "../../../Data/powers/powers";
 
 function groupBy(objectArray, property) {
   return objectArray.reduce(function (acc, obj) {
@@ -18,38 +19,8 @@ const initalState = {
   actorsById: actors,
   activeActorById: undefined,
   activePowersById: {
-    0: [
-      // {
-      //   name: "Gift of Turtlekind",
-      //   type: "passive",
-      //   description: "Gives your skin the toughness of a mighty turtle shell.",
-      //   details: "Armor + 10",
-      //   stats: {
-      //     armor: 10,
-      //   },
-      // },
-      // {
-      //   name: "Human Perseverance",
-      //   type: "passive",
-      //   description: "Humans are just a little bit tougher than most.",
-      //   details: "Max health + 20",
-      //   stats: {
-      //     health: 20,
-      //     maxHealth: 20,
-      //   },
-      // },
-      // {
-      //   name: "Blessing of Aludrion",
-      //   type: "active",
-      //   description:
-      //     "Once per day you may pray to Aludrion to gain fleetness of foot.",
-      //   details: "Dexterity + 5 while active. Lasts 10 minutes.",
-      //   stats: {
-      //     dexterity: 5,
-      //   },
-      //   duration: 10,
-      // },
-    ],
+    0: [],
+    1: [],
   },
 };
 
@@ -197,10 +168,13 @@ export default function (state = initalState, action) {
       }
     }
     case "MOVE_ACTOR_LOCATION_COMBAT": {
-      const moved_x = state.actorsById[action.id].coords[0] - action.coords[0]
-      const moved_y = state.actorsById[action.id].coords[1] - action.coords[1] 
+      const moved_x = state.actorsById[action.id].coords[0] - action.coords[0];
+      const moved_y = state.actorsById[action.id].coords[1] - action.coords[1];
 
-      const spacesMoved = Math.abs(moved_x + moved_y)
+      const spacesMoved =
+        Math.abs(moved_x) >= Math.abs(moved_y)
+          ? Math.abs(moved_x)
+          : Math.abs(moved_y);
 
       return {
         ...state,
@@ -210,28 +184,99 @@ export default function (state = initalState, action) {
             ...state.actorsById[action.id],
             coordsPrev: state.actorsById[action.id].coords,
             coords: action.coords,
-            movementRemaining: state.actorsById[action.id].movementRemaining -= spacesMoved
+            movementRemaining: (state.actorsById[action.id].movementRemaining -=
+              spacesMoved),
           },
         },
       };
     }
     case "REMOVE_ACTOR_FROM_CURRENT_LOCATION_BY_ID": {
-      const currentLocation = state.actorsById[action.actorId].location
-      let actorsAtCurrentLocation = state.byLocationName[currentLocation] //array of objects
+      const currentLocation = state.actorsById[action.actorId].location;
+      let actorsAtCurrentLocation = state.byLocationName[currentLocation]; //array of objects
       let targetActorIndex = undefined;
       actorsAtCurrentLocation.forEach((actor, index) => {
         if (actor.id === action.actorId) {
           targetActorIndex = index;
         }
-      })
+      });
 
-      actorsAtCurrentLocation.splice(targetActorIndex, 1)
+      actorsAtCurrentLocation.splice(targetActorIndex, 1);
 
       return {
         ...state,
         byLocationName: {
           ...state.byLocationName,
-          [currentLocation]: actorsAtCurrentLocation
+          [currentLocation]: actorsAtCurrentLocation,
+        },
+      };
+    }
+    case "CREATE_NEW_ACTOR_FROM_DATA_FILE_AND_LOCATION": {
+      // action.data
+      // action.location
+
+      const actorId = state.actorsById.length;
+      let actorData = loadSingleActorFromData(action.data);
+      actorData.id = actorId;
+      actorData.location = action.location;
+      let newActorsById = state.actorsById;
+      newActorsById.push(actorData);
+
+      return {
+        ...state,
+        actorsById: newActorsById,
+        byLocationName: groupBy(newActorsById, "location"),
+      };
+    }
+    case "ADD_POWER_TO_ACTOR_BY_DATA_REFERENCE_AND_ID": {
+      // action.ref
+      // action.id
+      const powerData = powers[action.ref];
+
+      let newActivePowersById = state.activePowersById[action.id].slice(); //copy powers array for id
+      newActivePowersById.push(powerData); //
+
+      return {
+        ...state,
+        activePowersById: {
+          ...state.activePowersById,
+          [action.id]: newActivePowersById,
+        },
+      };
+    }
+    case "REMOVE_POWER_FROM_ACTOR_BY_DATA_REFERENCE_AND_ID": {
+      // action.ref
+      // action.id
+      let newActivePowersById = state.activePowersById[action.id].slice();
+
+      newActivePowersById.splice(
+        state.activePowersById[action.id].findIndex(
+          (item) => item.ref === action.ref
+        ),
+        1
+      );
+      return {
+        ...state,
+        activePowersById: {
+          ...state.activePowersById,
+          [action.id]: newActivePowersById,
+        },
+      };
+    }
+
+    case "UPDATE_POWER_DURATION": {
+      // action.ref
+      // action.id
+      // action.durationRemaining
+    let newActivePowersById = state.activePowersById[action.id].slice();
+    const powerIndex = newActivePowersById.findIndex((power) => {
+      return power.ref === action.ref
+    })
+    newActivePowersById[powerIndex].duration = action.durationRemaining
+      return {
+        ...state, 
+        activePowersById: {
+          ...state.activePowersById,
+          [action.id]: newActivePowersById
         }
       }
     }

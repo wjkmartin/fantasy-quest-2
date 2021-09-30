@@ -5,6 +5,7 @@ import sewer_01 from './sewer_01'
 import city_square from './city_square'
 import field_01 from './field_01'
 import notDefined from './notDefined'
+import burrow01 from './burrow/burrow01'
 
 export default {
     centralSquare: city_square,
@@ -12,5 +13,6 @@ export default {
     tavern_inside: tavern,
     grassy_clearing: field_01,
     mossyCistern: sewer_01,
-    notDefined: notDefined
+    notDefined: notDefined,
+    burrowTunnel: burrow01
 }

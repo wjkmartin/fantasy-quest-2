@@ -1,5 +1,3 @@
-
-
 const initalState = {
   inCombat: false,
   setupDone: false,
@@ -10,13 +8,13 @@ const initalState = {
   actorValidAttackTargetsById: { 0: [] },
   actorValidMovesById: { 0: [] },
   combatMapState: {
-    passableMap: []
+    passableMap: [],
   },
   UI: {
     moveButtonSelected: false,
     attackButtonSelected: false,
   },
-  isDuel: false
+  isDuel: false,
 };
 
 export default function (state = initalState, action) {
@@ -103,21 +101,17 @@ export default function (state = initalState, action) {
       // state.initiativeList - 1d array of inits in order by id
       // state.currentTurnById - id of current turn
 
-      console.log(state.initiativeList)
-      console.log(state.currentTurnById)
+      let indexOfNextTurn = state.initiativeList.findIndex(
+        (e) => e === state.currentTurnById
+      );
 
-
-      let indexOfNextTurn = state.initiativeList.findIndex(e => e == state.currentTurnById)
-
-      if (indexOfNextTurn === -1 ) {
-        console.log('id not found?')
-      }
-      else if (indexOfNextTurn + 1 === state.initiativeList.length) {
+      if (indexOfNextTurn === -1) {
+        // id not found
+      } else if (indexOfNextTurn + 1 === state.initiativeList.length) {
         indexOfNextTurn = 0;
+      } else {
+        indexOfNextTurn += 1;
       }
-      else {indexOfNextTurn += 1}
-
-      console.log(indexOfNextTurn)
 
       return {
         ...state,
@@ -139,31 +133,33 @@ export default function (state = initalState, action) {
           moveButtonSelected: false,
           attackButtonSelected: false,
         },
-        isDuel: false
+        isDuel: false,
       };
     }
     case "SET_PASSABLE_MAP": {
       return {
         ...state,
         combatMapState: {
-          passableMap: action.data
+          passableMap: action.data,
         },
-      }
+      };
     }
     case "KILL_ACTOR_IN_COMBAT": {
-      let actorIdIndex = state.actorsInCombatById.findIndex(id => id === action.id)
+      let actorIdIndex = state.actorsInCombatById.findIndex(
+        (id) => id === action.id
+      );
       let actorsInCombatByIdAfter = state.actorsInCombatById;
-      actorsInCombatByIdAfter.splice(actorIdIndex, 1)
+      actorsInCombatByIdAfter.splice(actorIdIndex, 1);
       return {
         ...state,
-        actorsInCombatById: actorsInCombatByIdAfter
-      }
+        actorsInCombatById: actorsInCombatByIdAfter,
+      };
     }
     case "SET_DUEL_FLAG": {
       return {
         ...state,
-        isDuel: true
-      }
+        isDuel: true,
+      };
     }
 
     default: {

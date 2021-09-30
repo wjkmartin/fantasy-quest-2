@@ -7,6 +7,8 @@ import actions from "../../../../DataHandlers/redux/actions";
 import TextArea from "./TextArea/TextArea";
 import ConversationButton from "./ConversationButton/ConversationButton";
 
+import defaultImage from "../../../../Assets/img/character_images/defaultGreet.png";
+
 export default function ConversationArea(props) {
   const [dialogueState, setDialogueState] = useState("meet");
   const dispatch = useDispatch();
@@ -19,19 +21,15 @@ export default function ConversationArea(props) {
     (state) => state.UI.currentDialogueText
   );
 
-  let currentDialogue = activeActor.dialogue[dialogueState];
+  const displayImage =
+    activeActor.img !== undefined ? activeActor.img.greet : defaultImage;
 
+  let currentDialogue = activeActor.dialogue[dialogueState];
+  
   if (
     currentDialogueText[currentDialogueText.length - 1] !== currentDialogue.text
   ) {
     dispatch(actions.addtoCurrentDialogueText(currentDialogue.text));
-  }
-
-  if (currentDialogue.actionsOnShow === undefined) {
-  } else if (currentDialogue.actionsOnShow.length > 0) {
-    currentDialogue.actionsOnShow.forEach((action) => {
-      action();
-    });
   }
 
   const buttons = currentDialogue.buttons.map((elem) => {
@@ -45,6 +43,11 @@ export default function ConversationArea(props) {
 
   return (
     <div className={styles.ConversationArea}>
+      <img
+        className={styles.characterImg}
+        src={displayImage}
+        alt={"character"}
+      />
       <TextArea dialogue={currentDialogueText} />
       <div className={styles.ConversationArea_buttons}>{buttons}</div>
     </div>

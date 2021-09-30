@@ -20,8 +20,8 @@ import gatehouseWest from "../locations/city/gatehouseWest/gatehouseWest";
 import sewer from "../locations/city/sewer/sewer";
 
 import centralSquare from "../locations/city/centralSquare";
-import herbalists from "../locations/city/herbalists";
-import blacksmiths from "../locations/city/blacksmiths";
+import herbalists from "../locations/city/herbalists/herbalists";
+import blacksmiths from "../locations/city/backsmiths/blacksmiths";
 import cathedral from "../locations/city/cathedral";
 
 import * as roads from "../locations/roads";

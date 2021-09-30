@@ -52,7 +52,7 @@ export default function TradeItem(props) {
       <div
         onClick={props.onClick}
         ref={props.type === "player" ? drag : undefined}
-        className={`${styles.TradeItem} fas ${props.item.icon} fa-2x ${isSelected ? styles.isSelected : ""}`}
+        className={`${styles.TradeItem} ${styles[itemColorClass(props.item.rarity)]} fas ${props.item.icon} fa-2x ${isSelected ? styles.isSelected : ""}`}
       ></div>
     </OverlayTrigger>
   );
