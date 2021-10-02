@@ -15,7 +15,7 @@ export default function nextTurn() {
     currentActorTurnId
   ];
 
- 
+ console.log(combatData)
   
   const player = store.getState().actors.actorsById[0];
   const passableMap = [...combatData.combatMapState.passableMap];
@@ -26,7 +26,7 @@ export default function nextTurn() {
   }
 
   if (actorCurrentTurn.isDead === true) { 
-    store.dispatch(actions.endTurn()); 
+    store.dispatch(actions.endTurn(combatData.initiativeList, combatData.currentTurnById)); 
     nextTurn();
     return;
   }
@@ -122,7 +122,7 @@ export default function nextTurn() {
       return;
     }
 
-    store.dispatch(actions.endTurn());
+    store.dispatch(actions.endTurn(combatData.initiativeList, combatData.currentTurnById));
     nextTurn();
   }
 }

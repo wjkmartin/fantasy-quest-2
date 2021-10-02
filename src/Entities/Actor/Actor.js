@@ -13,6 +13,7 @@ class Actor {
     this.dialogueState = "meet";
     this.xp = 0;
     this.xpToNextLevel = 100;
+    this.isDead = false;
     if (this.type === 'monster') {
       this.isAggressive = true;
       this.baseEarnedXP = actorData.level * 5

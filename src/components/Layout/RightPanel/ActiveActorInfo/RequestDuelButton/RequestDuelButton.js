@@ -11,7 +11,7 @@ export default function RequestDuelButton(props) {
     props.actorsHere.forEach((actor) => { //todo: this is stupid
       if (actor.isAggressive) {
         isDuel = false;
-        dispatch(actions.addActorToCombatById(actor.id));
+        dispatch(actions.addActorToCombatById(actor.id)); 
       } else if (actor.id === props.activeActor.id) {
         dispatch(
           actions.addMessageToActivityLog(

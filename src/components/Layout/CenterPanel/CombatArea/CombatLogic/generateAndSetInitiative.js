@@ -13,13 +13,14 @@ export default function generateInitiative(actorsInCombat) {
     turnOrderUnsorted[actor.id] = initiativeTotal;
   });
   const sortedTurnOrder = Object.assign({}, turnOrderUnsorted);
+ 
   let keysSorted = Object.keys(sortedTurnOrder).sort(function (a, b) {
-    return Number(sortedTurnOrder[a] - sortedTurnOrder[b]);
+    return parseInt(sortedTurnOrder[a] - sortedTurnOrder[b]);
   });
   keysSorted.forEach((elem, index) => {
-    initiative.push(Number(elem))
+    initiative.push(parseInt(elem))
   });
 
-  return keysSorted
+  return initiative
   
 }

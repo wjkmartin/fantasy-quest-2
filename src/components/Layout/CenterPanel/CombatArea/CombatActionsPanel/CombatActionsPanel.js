@@ -45,7 +45,8 @@ export default function CombatActionsPanel(props) {
             determineValidMoves(
               passableMap,
               actorsInCombatById[0],
-              actorsInCombatById
+              actorsInCombatById,
+              actorsInCombatById[0].movementRemaining
             )
           )
         );
@@ -86,7 +87,7 @@ export default function CombatActionsPanel(props) {
         toggleMoveClick();
       }
       dispatch(actions.resetActionAndMovementById(0));
-      dispatch(actions.endTurn())
+      dispatch(actions.endTurn(combatState.initiativeList, combatState.currentTurnById))
       nextTurn(props.passableMap, actorsById[combatState.currentTurnById], actorsById[0]);
     }
   }

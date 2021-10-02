@@ -1,3 +1,5 @@
+import { astar, Graph } from "./aStar";
+
 export function determineValidMoves(passableMap, actor, actorsArray) {
   const start_x = actor.coords[0];
   const start_y = actor.coords[1];
@@ -85,5 +87,41 @@ export function determineValidMoves(passableMap, actor, actorsArray) {
     return validSquares2;
   }
 
-  return removeOtherActorLocations(validSquares, actorsArray);
+  // run A-star using grid, player start point and input as end point, invalid if path distance greater than player dist remaining.
+  function removeActorsFromPassableMap(passableMap, actors) {
+    let passableMapWithOutActors = passableMap;
+    actors.forEach((actor) => {
+      let actor_x = actor.coords[0];
+      let actor_y = actor.coords[1];
+
+      passableMapWithOutActors[actor_x][actor_y] = 0;
+    });
+
+    return passableMapWithOutActors;
+  }
+
+  const passableMapWithOutActors = removeActorsFromPassableMap(
+    passableMap,
+    actorsArray
+  ); // remove all actors from the passable map so that Astar doesn't consider them valid movement locations.
+  const validMovesBeforePathing = removeOtherActorLocations(
+    validSquares,
+    actorsArray
+  );
+  let graphDiagonal = new Graph(passableMapWithOutActors, { diagonal: true });
+
+  const start = graphDiagonal.grid[start_x][start_y];
+
+  let validSqaresAfterPathing = [];
+  validMovesBeforePathing.forEach((endPoint) => {
+    const end = graphDiagonal.grid[endPoint[0]][endPoint[1]];
+    const path = astar.search(graphDiagonal, start, end, {
+      heuristic: astar.heuristics.diagonal,
+    });
+    if (path.length <= movement -1) {
+      validSqaresAfterPathing.push([end.x,end.y])
+    }
+  });
+
+  return validSqaresAfterPathing;
 }

@@ -98,16 +98,19 @@ export default function (state = initalState, action) {
       };
     }
     case "END_TURN": {
-      // state.initiativeList - 1d array of inits in order by id
-      // state.currentTurnById - id of current turn
+      // action.initiativeList - 1d array of inits in order by id
+      // action.currentTurnById - id of current turn
 
-      let indexOfNextTurn = state.initiativeList.findIndex(
-        (e) => e === state.currentTurnById
+      const initativeList = action.initiativeList;
+      const currentTurnById = action.currentTurnById
+
+      let indexOfNextTurn = initativeList.findIndex(
+        (e) => e === currentTurnById
       );
 
       if (indexOfNextTurn === -1) {
         // id not found
-      } else if (indexOfNextTurn + 1 === state.initiativeList.length) {
+      } else if (indexOfNextTurn + 1 === initativeList.length) {
         indexOfNextTurn = 0;
       } else {
         indexOfNextTurn += 1;
@@ -115,7 +118,7 @@ export default function (state = initalState, action) {
 
       return {
         ...state,
-        currentTurnById: state.initiativeList[indexOfNextTurn],
+        currentTurnById: initativeList[indexOfNextTurn],
       };
     }
     case "END_COMBAT": {

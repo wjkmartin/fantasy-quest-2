@@ -252,9 +252,11 @@ const setCurrentTurnById = (id) => {
   };
 };
 
-const endTurn = () => {
+const endTurn = (initiativeList, currentTurnById) => {
   return {
     type: "END_TURN",
+    initiativeList: initiativeList,
+    currentTurnById: currentTurnById
   };
 };
 
