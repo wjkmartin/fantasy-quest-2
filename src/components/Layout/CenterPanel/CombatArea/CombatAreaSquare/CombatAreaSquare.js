@@ -1,79 +1,83 @@
 import React from "react";
-import _ from "underscore";
 import { onClickAttackSquare } from "../CombatLogic/playerAttack";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./CombatAreaSquare.module.css";
 import actions from "../../../../../DataHandlers/redux/actions";
+import { getPath } from "../CombatLogic/determineValidMoves";
+
+import { animateMovePlayerToLocation } from "../CombatLogic/animations";
 
 export default function CombatAreaSquare(props) {
-  const coords = props.coords;
-
-  const combatState = useSelector((state) => state.combat);
-
-  const actorOnThisSquareId =
-    props.actorHere !== undefined ? props.actorHere.id : undefined;
-
-  const validMovesPlayer = combatState.actorValidMovesById[0];
-  const validAttacksPlayer = combatState.actorValidAttackTargetsById[0];
-
-  const moveIsToggled = combatState.UI.moveButtonSelected;
-  const attackIsToggled = combatState.UI.attackButtonSelected;
-
   const player = useSelector((state) => state.actors.actorsById[0]);
-  const target = useSelector((state) => state.actors.actorsById[actorOnThisSquareId]);
+  const target = useSelector(
+    (state) => state.actors.actorsById[props.actorHere?.id]
+  );
+  const passableMap = useSelector((state) => state.combat.passableMap);
   const items = useSelector((state) => state.items);
+  const activeActorInfo = useSelector((state) => state.actors.activeActorById);
+  const isAnimating = useSelector((state) => state.UI.isAnimating);
+  const animationPath = useSelector((state) => state.UI.animationPath);
+
+  let Image = animateMovePlayerToLocation(
+    isAnimating,
+    animationPath,
+    props.actorHere?.id
+  );
 
   let dispatch = useDispatch();
 
   let moveStyle,
     attackStyle = " ";
 
-  let nonPlayerActorIsHere = actorOnThisSquareId !== 0 ? true : false;
-
-  let isClickable = validMovesPlayer.some((element) =>
-    _.isEqual(element, coords)
-  );
-
-  let isAttackable = validAttacksPlayer.some((element) =>
-    _.isEqual(element, coords)
-  );
-
-  let isActorHereThatIsValidAttackTarget = isAttackable && attackIsToggled;
-
-  if (isActorHereThatIsValidAttackTarget) {
+  if (props.isActorHereThatIsValidAttackTarget) {
     attackStyle = styles.validAttackArea;
   }
 
-  const isValidToMoveHere = isClickable && moveIsToggled;
-
-  if (isValidToMoveHere === true) {
+  if (props.isValidToMoveHere === true) {
     moveStyle = styles.validMoveArea;
   }
 
   function onClickMovement(dispatch) {
-    dispatch(actions.moveActorLocationCombat(0, coords));
+    dispatch(actions.setIsAnimating(true));
     dispatch(actions.toggleMoveClick());
+    dispatch(
+      actions.setAnimationPath(
+        getPath(passableMap, player.coords, props.coords)
+      )
+    );
     moveStyle = " ";
+    setTimeout(() => {
+      dispatch(actions.moveActorLocationCombat(0, props.coords));
+      dispatch(actions.setIsAnimating(false));
+    }, 400);
   }
 
   function onClickShowInfo(dispatch) {
-    dispatch(actions.setActiveActorInfoWindowById(actorOnThisSquareId));
+    dispatch(actions.setActiveActorInfoWindowById(props.actorHere?.id));
   }
 
   return (
     <div
       onClick={
-        isValidToMoveHere
+        props.isValidToMoveHere
           ? () => {
               onClickMovement(dispatch);
             }
-          : isActorHereThatIsValidAttackTarget
+          : props.isActorHereThatIsValidAttackTarget
           ? () => {
-              onClickAttackSquare(dispatch, player, items, target);
+              onClickAttackSquare(
+                dispatch,
+                player,
+                items,
+                target,
+                activeActorInfo
+              );
             }
-          : nonPlayerActorIsHere && !moveIsToggled && !attackIsToggled
+          : props.nonPlayerActorIsHere &&
+            !props.moveIsToggled &&
+            !props.attackIsToggled
           ? () => {
               onClickShowInfo(dispatch);
             }
@@ -81,11 +85,8 @@ export default function CombatAreaSquare(props) {
       }
       className={props.className + " " + moveStyle + " " + attackStyle}
     >
-      {props.actorToken !== undefined ? (
-        <img className={styles.actorToken} alt={""} src={props.actorToken} />
-      ) : (
-        ""
-      )}
+      <p style={{ color: "white", display: "absolute" }}>{props.coords} </p>
+      {props.actorToken !== undefined ? <Image src={props.actorToken} className="player" /> : ""}
     </div>
   );
 }

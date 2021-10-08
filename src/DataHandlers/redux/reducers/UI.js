@@ -6,6 +6,8 @@ const initalState = {
   actorInConversation: undefined,
   mainImage: undefined,
   currentDialogueText: [],
+  isAnimating: false,
+  animationPath: []
 };
 
 export default function (state = initalState, action) {
@@ -55,7 +57,19 @@ export default function (state = initalState, action) {
         ...state,
       currentDialogueText: []
       }
-      
+    }
+    case "SET_IS_ANIMATING": {
+      return {
+        ...state,
+        isAnimating: action.isAnimatingFlag
+      }
+    }
+    case "SET_ANIMATION_PATH": {
+      const path = [...action.animationPath]
+      return {
+        ...state,
+        animationPath: path
+      }
     }
     default: {
       return state;

@@ -7,9 +7,7 @@ const initalState = {
   currentTurnById: undefined,
   actorValidAttackTargetsById: { 0: [] },
   actorValidMovesById: { 0: [] },
-  combatMapState: {
-    passableMap: [],
-  },
+  passableMap: [],
   UI: {
     moveButtonSelected: false,
     attackButtonSelected: false,
@@ -60,11 +58,12 @@ export default function (state = initalState, action) {
       };
     }
     case "SET_VALID_MOVES_BY_ID": {
+      const newValidMoves = action.moves;
       return {
         ...state,
         actorValidMovesById: {
           ...state.actorValidMovesById,
-          [action.id]: [...action.moves],
+          [action.id]: [...newValidMoves],
         },
       };
     }
@@ -140,11 +139,11 @@ export default function (state = initalState, action) {
       };
     }
     case "SET_PASSABLE_MAP": {
+      const passableMapNew = [...action.data]
+
       return {
         ...state,
-        combatMapState: {
-          passableMap: action.data,
-        },
+        passableMap: passableMapNew
       };
     }
     case "KILL_ACTOR_IN_COMBAT": {

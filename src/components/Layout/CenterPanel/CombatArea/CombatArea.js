@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -17,7 +17,6 @@ import generateAndSetInitiative from "./CombatLogic/generateAndSetInitiative";
 import nextTurn from "./CombatLogic/nextTurn";
 
 import combatMaps from "../../../../Data/combatMaps/combatMaps";
-import notDefined from "../../../../Data/combatMaps/notDefined";
 
 function CombatArea() {
   const combatState = useSelector((state) => state.combat);
@@ -37,19 +36,22 @@ function CombatArea() {
     return actorsById[id];
   });
 
-  let mapData = combatMaps["notDefined"]; // loads a simple map if a proper battlemap is not defined in battlemaps.js
+  let mapData = {};
 
-  if (combatMaps[currentLocation.name] !== undefined) {  
-    mapData = combatMaps[currentLocation.name];
+  Object.assign(mapData, combatMaps["notDefined"]); // loads a simple map if a proper battlemap is not defined in battlemaps.js
+
+  if (combatMaps[currentLocation.name] !== undefined) {
+    Object.assign(mapData, combatMaps[currentLocation.name]);
   } else if (currentSubLocation !== undefined) {
     if (combatMaps[currentSubLocation.name] !== undefined) {
-      mapData = combatMaps[currentSubLocation.name];
+      Object.assign(mapData, combatMaps[currentSubLocation.name]);
     }
   }
 
   const combatMap = updateMap(mapData, actorsInCombatById);
 
   if (!combatState.setupDone) {
+    dispatch(actions.setPassableMap(mapData.passableMap));
     combatSetup();
   } else {
     //refreshes initative
@@ -85,14 +87,10 @@ function CombatArea() {
         ? currentSubLocation.name
         : currentLocation.name
     ].forEach((actor, index) => {
-      const startCoords = mapData.enemyStartCoords[index]
+      const startCoords = mapData.enemyStartCoords[index];
       dispatch(actions.resetActorCombatPropsById(actor.id));
-      dispatch(
-        actions.setActorLocationCombat(actor.id, startCoords)
-      );
+      dispatch(actions.setActorLocationCombat(actor.id, startCoords));
     });
-
-    dispatch(actions.setPassableMap(mapData.passableMap));
 
     let initiative = generateAndSetInitiative(actorsInCombatById);
 

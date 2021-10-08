@@ -1,5 +1,6 @@
 // import dialogueAjwar from './d_ajwar.js';
 import token from '../../../../Assets/img/combat_tokens/goblin.png'
+import portrait from '../../../../Assets/img/character_images/goblin/portrait.jpg'
 
 export default {
   actorName: "Goblin",
@@ -7,8 +8,8 @@ export default {
   actorClass: "Peon",
   race: "Goblin",
   title: "Common",
-  health: 15,
-  maxHealth: 25,
+  health: 10,
+  maxHealth: 10,
   sp: 10,
   maxSp: 10,
   mana: 0,
@@ -28,12 +29,14 @@ export default {
   hasFocusSpell: false,
   location: undefined, 
   gold: 1,
-  speed: 1,
+  speed: 2,
   type: 'monster',
   token: token,
+  portrait: portrait,
   drops: [{
     item: 'potion_of_healing',
-    chance: 1, //this means 1 in 6
-    name: 'a dirty bottle with some kind of fluid inside!'
+    chance: 1, //this means 1%
+    name: 'a dirty bottle with some kind of fluid inside!',
+    item_type: 'consumable'
   }]
 };

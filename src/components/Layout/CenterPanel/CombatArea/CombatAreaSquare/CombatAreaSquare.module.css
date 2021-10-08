@@ -6,9 +6,3 @@
     background-color: lightgreen;
 }
 
-.actorToken {
-    pointer-events: none;
-    width: 60px;
-    height: 100px;
-    transform: rotateX(0deg) rotateY(0deg) rotateZ(-45deg) translateY(-40%) translateX(22%); 
-}

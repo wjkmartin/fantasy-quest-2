@@ -1,14 +1,15 @@
 import _ from "underscore";
 
-export const determineValidAttacks = (actors, distance) => {
+export const determineValidAttacks = (actorsInCombatById, actorsById, distance) => {
   let validEnemyTargets = [];
 
-  const playerX = actors[0].coords[0];
-  const playerY = actors[0].coords[1];
+  const playerX = actorsById[0].coords[0];
+  const playerY = actorsById[0].coords[1];
 
   let nonPlayerActors = [];
-  for (let i = 1; i <= actors.length - 1; i++) {
-    nonPlayerActors.push(actors[i].coords);
+  for (let i = 1; i <= actorsInCombatById.length - 1; i++) {
+    console.log(actorsById[i])
+    nonPlayerActors.push(actorsById[actorsInCombatById[i]].coords);
   }
 
   const nodeStartX = playerX - distance < 0 ? 0 : playerX - distance;

@@ -45,7 +45,6 @@ export default function TradeArea() {
   });
 
   function itemElementsFromItemArray(itemArray = [], playerOrNpc) {
-    console.log(itemArray)
     let itemsElements = [];
     itemArray.forEach((item) => {
       if (playerOrNpc === "player") {

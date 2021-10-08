@@ -322,6 +322,22 @@ const clearCurrentDialogueText = () => {
   };
 };
 
+const setIsAnimating = (isAnimatingFlag) => {
+  return {
+    type: "SET_IS_ANIMATING",
+    isAnimatingFlag: isAnimatingFlag
+  }
+}
+
+const setAnimationPath = (animationPath) => {
+  return {
+    type: "SET_ANIMATION_PATH", 
+    animationPath: animationPath
+  }
+}
+
+// =============  ITEMS  =============
+
 const inventorySetActiveItemById = (itemId) => {
   return {
     type: "INVENTORY_SET_ACTIVE_ITEM",
@@ -461,6 +477,8 @@ export default {
   setMainImage,
   addtoCurrentDialogueText,
   clearCurrentDialogueText,
+  setIsAnimating,
+  setAnimationPath,
   inventorySetActiveItemById, //ITEMS
   equippedSetActiveItemById,
   addItemToActorById,

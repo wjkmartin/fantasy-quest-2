@@ -10,15 +10,13 @@ import _ from "underscore";
 
 export default function nextTurn() {
   const combatData = store.getState().combat;
+  const passableMap = [...combatData.passableMap];
   const currentActorTurnId = combatData.currentTurnById;
   const actorCurrentTurn = store.getState().actors.actorsById[
     currentActorTurnId
   ];
 
- console.log(combatData)
-  
   const player = store.getState().actors.actorsById[0];
-  const passableMap = [...combatData.combatMapState.passableMap];
 
   if (_.isEqual(combatData.actorsInCombatById,[0])) {
     store.dispatch(actions.endCombat());
@@ -72,10 +70,11 @@ export default function nextTurn() {
       actorMustMove = false;
     } else {
       distanceActorWillTravel = Math.min(
-        actorCurrentTurn.speed,
+        actorCurrentTurn.speed - 1,
         path.length - 2
       );
     }
+
 
     const finalNodeIndex = distanceActorWillTravel;
     if (!actorMustMove) {
@@ -111,7 +110,7 @@ export default function nextTurn() {
       playerHealthAfterAttack -= attackCallback.ability.damage;
     }
 
-    if (playerHealthAfterAttack <= 0) {
+    if (playerHealthAfterAttack <= 0) { // player dead
       store.dispatch(actions.endCombat());
       store.dispatch(actions.setActorAttributeByActorId(0, "health", 1));
       store.dispatch(actions.addMessageToActivityLog(`You've lost the fight!`));

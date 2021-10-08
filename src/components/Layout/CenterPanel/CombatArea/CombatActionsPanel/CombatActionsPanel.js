@@ -11,7 +11,7 @@ import { determineValidAttacks } from "../CombatLogic/determineValidBasicAttack"
 
 import nextTurn from "../CombatLogic/nextTurn";
 
-export default function CombatActionsPanel(props) {
+export default function CombatActionsPanel() {
   const dispatch = useDispatch();
 
   const toggleMoveClick = useCallback(
@@ -25,12 +25,8 @@ export default function CombatActionsPanel(props) {
   );
 
   const combatState = useSelector((state) => state.combat);
-  const passableMap = combatState.combatMapState.passableMap;
   const actorsById = useSelector((state) => state.actors.actorsById);
-
-  const actorsInCombatById = combatState.actorsInCombatById.map((id) => {
-    return actorsById[id];
-  });
+  const actorsInCombatById = [...combatState.actorsInCombatById]
 
   const isPlayerTurn =
     Number(useSelector((state) => state.combat.currentTurnById)) === 0;
@@ -42,12 +38,7 @@ export default function CombatActionsPanel(props) {
         dispatch(
           actions.setValidMovesById(
             0,
-            determineValidMoves(
-              passableMap,
-              actorsInCombatById[0],
-              actorsInCombatById,
-              actorsInCombatById[0].movementRemaining
-            )
+            determineValidMoves([...combatState.passableMap], actorsInCombatById, actorsById, dispatch)
           )
         );
       } else
@@ -68,7 +59,7 @@ export default function CombatActionsPanel(props) {
         dispatch(
           actions.setValidAttackTargetsById(
             0,
-            determineValidAttacks(actorsInCombatById, 1)
+            determineValidAttacks(actorsInCombatById, actorsById, 1)
           )
         );
       } else {
@@ -88,7 +79,7 @@ export default function CombatActionsPanel(props) {
       }
       dispatch(actions.resetActionAndMovementById(0));
       dispatch(actions.endTurn(combatState.initiativeList, combatState.currentTurnById))
-      nextTurn(props.passableMap, actorsById[combatState.currentTurnById], actorsById[0]);
+      nextTurn();
     }
   }
 

@@ -15,7 +15,7 @@ export default {
   dodge: undefined,
   focus: undefined,
   abilityScores: {
-    strength: 10,
+    strength: 30,
     dexterity: 10,
     constitution: 10,
     charisma: 10,
@@ -26,7 +26,7 @@ export default {
   hasFocusSpell: false,
   location: "",
   gold: 10000,
-  speed: 1,
+  speed: 2,
   type: 'hunter',
   token: token,
   isPlayer: true,

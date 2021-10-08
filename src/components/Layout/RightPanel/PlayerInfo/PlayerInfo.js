@@ -19,7 +19,6 @@ const PlayerInfo = (props) => {
   // const spPercentage = Math.round((player.sp / player.maxSp) * 100) + "%";
   const manaPercentage = Math.round((player.mana / player.maxMana) * 100) + "%";
   const xpPercentage = Math.round((player.xp / player.xpToNextLevel) * 100) + "%";
-  console.log(xpPercentage)
 
   return (
     <div className={props.className}>
