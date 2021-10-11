@@ -6,7 +6,8 @@ const initalState = {
   actorInConversation: undefined,
   mainImage: undefined,
   currentDialogueText: [],
-  isAnimating: false,
+  isAnimatingToCoords: [],
+  actorIdAnimating: undefined,
   animationPath: []
 };
 
@@ -58,10 +59,13 @@ export default function (state = initalState, action) {
       currentDialogueText: []
       }
     }
-    case "SET_IS_ANIMATING": {
+    case "SET_IS_ANIMATING_TO_COORDS": {
+      const newCoords = [action.x, action.y]
+      const actorId = action.actorId
       return {
         ...state,
-        isAnimating: action.isAnimatingFlag
+        actorIdAnimating: actorId,
+        isAnimatingToCoords: newCoords
       }
     }
     case "SET_ANIMATION_PATH": {

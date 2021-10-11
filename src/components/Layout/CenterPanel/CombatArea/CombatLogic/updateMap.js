@@ -4,8 +4,6 @@ import styled from "styled-components";
 import _ from "underscore";
 
 import CombatAreaSquare from "../CombatAreaSquare/CombatAreaSquare";
-import { animateMovePlayerToLocation } from "./animations";
-
 import store from "../../../../../DataHandlers/redux/store";
 
 export default function updateMap(mapData) {
@@ -21,7 +19,7 @@ export default function updateMap(mapData) {
     justify-content: center;
     align-items: center;
     &:hover {
-      background-color: lightgrey;
+      background-color: lightgrey;  
     }
   `;
   let combatMap = [];
@@ -71,7 +69,6 @@ export default function updateMap(mapData) {
         nonPlayerActorIsHere={nonPlayerActorIsHere}
         moveIsToggled={moveIsToggled}
         attackIsToggled={attackIsToggled}
-        animateMovePlayerToLocation={animateMovePlayerToLocation}
       />
     );
   });

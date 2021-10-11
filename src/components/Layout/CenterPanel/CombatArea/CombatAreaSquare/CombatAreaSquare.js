@@ -7,7 +7,7 @@ import styles from "./CombatAreaSquare.module.css";
 import actions from "../../../../../DataHandlers/redux/actions";
 import { getPath } from "../CombatLogic/determineValidMoves";
 
-import { animateMovePlayerToLocation } from "../CombatLogic/animations";
+import CharacterToken from "./CharacterToken/CharacterToken";
 
 export default function CombatAreaSquare(props) {
   const player = useSelector((state) => state.actors.actorsById[0]);
@@ -17,19 +17,11 @@ export default function CombatAreaSquare(props) {
   const passableMap = useSelector((state) => state.combat.passableMap);
   const items = useSelector((state) => state.items);
   const activeActorInfo = useSelector((state) => state.actors.activeActorById);
-  const isAnimating = useSelector((state) => state.UI.isAnimating);
-  const animationPath = useSelector((state) => state.UI.animationPath);
-
-  let Image = animateMovePlayerToLocation(
-    isAnimating,
-    animationPath,
-    props.actorHere?.id
-  );
 
   let dispatch = useDispatch();
 
   let moveStyle,
-    attackStyle = " ";
+    attackStyle = "";
 
   if (props.isActorHereThatIsValidAttackTarget) {
     attackStyle = styles.validAttackArea;
@@ -40,7 +32,7 @@ export default function CombatAreaSquare(props) {
   }
 
   function onClickMovement(dispatch) {
-    dispatch(actions.setIsAnimating(true));
+    dispatch(actions.setIsAnimatingtoCoords(0, props.coords[0], props.coords[1])); 
     dispatch(actions.toggleMoveClick());
     dispatch(
       actions.setAnimationPath(
@@ -48,10 +40,6 @@ export default function CombatAreaSquare(props) {
       )
     );
     moveStyle = " ";
-    setTimeout(() => {
-      dispatch(actions.moveActorLocationCombat(0, props.coords));
-      dispatch(actions.setIsAnimating(false));
-    }, 400);
   }
 
   function onClickShowInfo(dispatch) {
@@ -85,8 +73,8 @@ export default function CombatAreaSquare(props) {
       }
       className={props.className + " " + moveStyle + " " + attackStyle}
     >
-      <p style={{ color: "white", display: "absolute" }}>{props.coords} </p>
-      {props.actorToken !== undefined ? <Image src={props.actorToken} className="player" /> : ""}
+      {/* <p style={{ color: "white", position: "absolute" }}>{props.coords} </p> */}
+      {props.actorHere?.id !== undefined ? <CharacterToken coords={props.coords} actorHereId={props.actorHere.id } tokenImage={props.actorToken} /> : ""}
     </div>
   );
 }

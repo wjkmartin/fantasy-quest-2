@@ -322,10 +322,12 @@ const clearCurrentDialogueText = () => {
   };
 };
 
-const setIsAnimating = (isAnimatingFlag) => {
+const setIsAnimatingtoCoords = (actorId, x, y) => {
   return {
-    type: "SET_IS_ANIMATING",
-    isAnimatingFlag: isAnimatingFlag
+    type: "SET_IS_ANIMATING_TO_COORDS",
+    actorId: actorId,
+    x: x,
+    y: y
   }
 }
 
@@ -477,7 +479,7 @@ export default {
   setMainImage,
   addtoCurrentDialogueText,
   clearCurrentDialogueText,
-  setIsAnimating,
+  setIsAnimatingtoCoords,
   setAnimationPath,
   inventorySetActiveItemById, //ITEMS
   equippedSetActiveItemById,

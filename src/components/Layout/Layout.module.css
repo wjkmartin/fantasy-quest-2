@@ -1,39 +1,38 @@
 .Layout {
-    display:flex;
-    margin: 0;
-    height: 100%;
-    justify-content: space-evenly;
-    margin-left: 1px;
-    margin-right: 1px;
-    overflow: hidden;
-    background-image: url('/cityBG.jpg');
-    background-position-x: center;
-    background-position-y: center;
-    background-size: auto;
-    background-repeat: no-repeat;
+  display: flex;
+  margin: 0;
+  height: 100%;
+  justify-content: space-evenly;
+  margin-left: 1px;
+  margin-right: 1px;
+  overflow: hidden;
+  background-image: url("../../Assets/img/locations/cityBG.jpg");
+  background-position-x: center;
+  background-position-y: center;
+  background-size: auto;
+  background-repeat: no-repeat;
 }
 
 .LeftPanel {
-    display: flex;
-    width: 25%;
-    flex-direction: column;
-    min-width: 500px;
-    margin-top: 2rem;
+  display: flex;
+  width: 25%;
+  flex-direction: column;
+  min-width: 500px;
+  margin-top: 2rem;
 }
 
 .CenterPanel {
-    width: 50%;
-    border: 2px solid black;
-    min-width: 50%;
-    margin: 2rem;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 50%;
+  border: 2px solid black;
+  min-width: 50%;
+  margin: 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .RightPanel {
-    width: 20%;
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
+  width: 20%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
 }
-

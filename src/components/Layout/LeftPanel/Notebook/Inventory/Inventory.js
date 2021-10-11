@@ -26,6 +26,7 @@ export default function Inventory() {
 
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: "itemTrade",
+    type: "item",
     drop: () => ({ name: "inventory" }),
     collect: (monitor) => ({
       isOver: monitor.isOver(),

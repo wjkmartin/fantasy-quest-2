@@ -16,7 +16,8 @@ export default function Item(props) {
   const playerEquippedItems = useSelector(state => state.items.equippedItemsIdsByActorId[0])
 
   const [{ isDragging }, drag] = useDrag({
-    item: { id: props.item.id, type: "itemInventory" },
+    type: "item",
+    item: { id: props.item.id, type: "item" },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       const itemInTrade = itemsInTrade.includes(item.id);

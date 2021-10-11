@@ -26,7 +26,7 @@ export default {
   hasFocusSpell: false,
   location: "",
   gold: 10000,
-  speed: 2,
+  speed: 4,
   type: 'hunter',
   token: token,
   isPlayer: true,

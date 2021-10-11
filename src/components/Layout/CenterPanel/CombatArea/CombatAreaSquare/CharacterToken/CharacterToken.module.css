@@ -1,0 +1,9 @@
+.CharacterToken {
+    position:relative;
+    pointer-events: none;
+    width: 60px;
+    height: 100px;
+    transform: rotateZ(315deg);
+    left: -20px;
+    top: -20px;
+}
