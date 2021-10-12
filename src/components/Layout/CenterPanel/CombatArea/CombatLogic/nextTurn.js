@@ -22,7 +22,7 @@ export default function nextTurn() {
       const weapon =
         npcObject.weapon === undefined
           ? weapons["rusty_sword"]
-          : npcObject.weapon;
+          : weapons[npcObject.weapon];
       const weaponDamage = weapon.stats.weaponDamageFunction();
       let attack = { damage: baseDamage + weaponDamage };
       let attackCallback = store.dispatch(
