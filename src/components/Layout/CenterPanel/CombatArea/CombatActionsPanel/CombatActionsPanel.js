@@ -25,11 +25,9 @@ export default function CombatActionsPanel() {
   );
 
   const combatState = useSelector((state) => state.combat);
+  const playerCombatButtonsHidden = useSelector((state) => state.UI.playerCombatButtonsHidden);
   const actorsById = useSelector((state) => state.actors.actorsById);
   const actorsInCombatById = [...combatState.actorsInCombatById]
-
-  const isPlayerTurn =
-    Number(useSelector((state) => state.combat.currentTurnById)) === 0;
 
   function onClickMoveButton() {
     if (!combatState.UI.moveButtonSelected) {
@@ -73,18 +71,15 @@ export default function CombatActionsPanel() {
   }
 
   function onClickEndTurnButton() {
-    if (isPlayerTurn) {
-      if (combatState.UI.moveButtonSelected) {
-        toggleMoveClick();
-      }
+      dispatch(actions.setPlayerCombatButtonsHidden(true))
       dispatch(actions.resetActionAndMovementById(0));
       dispatch(actions.endTurn(combatState.initiativeList, combatState.currentTurnById))
       nextTurn();
-    }
+    
   }
 
-  return isPlayerTurn ? (
-    <div className={styles.panel}>
+  return (
+    <div className={`${(playerCombatButtonsHidden ? styles.hidden : '') } ${styles.panel}`}>
       {actorsById[0].movementRemaining > 0 ? (
         <button
           className={styles.move}
@@ -119,7 +114,5 @@ export default function CombatActionsPanel() {
         End Turn
       </button>
     </div>
-  ) : (
-    ""
-  );
+  )
 }

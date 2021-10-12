@@ -8,7 +8,8 @@ const initalState = {
   currentDialogueText: [],
   isAnimatingToCoords: [],
   actorIdAnimating: undefined,
-  animationPath: []
+  animationPath: [],
+  playerCombatButtonsHidden: false
 };
 
 export default function (state = initalState, action) {
@@ -73,6 +74,13 @@ export default function (state = initalState, action) {
       return {
         ...state,
         animationPath: path
+      }
+    }
+    case "SET_PLAYER_COMBAT_BUTTONS_HIDDEN": {
+      const flag = action.flag
+      return {
+        ...state,
+        playerCombatButtonsHidden: flag
       }
     }
     default: {

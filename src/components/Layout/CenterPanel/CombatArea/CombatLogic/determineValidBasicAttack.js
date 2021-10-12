@@ -8,7 +8,7 @@ export const determineValidAttacks = (actorsInCombatById, actorsById, distance) 
 
   let nonPlayerActors = [];
   for (let i = 1; i <= actorsInCombatById.length - 1; i++) {
-    console.log(actorsById[i])
+    
     nonPlayerActors.push(actorsById[actorsInCombatById[i]].coords);
   }
 

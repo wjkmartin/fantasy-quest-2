@@ -33,6 +33,7 @@ export default {
   type: 'monster',
   token: token,
   portrait: portrait,
+  weapon: 'rusty_sword',
   drops: [{
     item: 'potion_of_healing',
     chance: 1, //this means 1%

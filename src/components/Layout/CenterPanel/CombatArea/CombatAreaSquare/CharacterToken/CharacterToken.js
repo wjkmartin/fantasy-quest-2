@@ -7,17 +7,15 @@ import styles from "./CharacterToken.module.css";
 export default function CharacterToken(props) {
   const target = useRef();
   const animationPath = useSelector((state) => state.UI.animationPath);
-  const actorIdAnimating = 0;
-  const coordsFinal = [
-    animationPath[animationPath.length - 1]?.x,
-    animationPath[animationPath.length - 1]?.y,
-  ];
+  const actorIdAnimating = useSelector((state) => state.UI.actorIdAnimating);
+  const isAnimatingToCoords = useSelector((state) => state.UI.isAnimatingToCoords);
+  const coordsFinal = [isAnimatingToCoords[0], isAnimatingToCoords[1]]
 
   let dispatch = useDispatch();
 
   useEffect(() => {
     const animRef = target.current;
-    if (animationPath.length > 0 && props.actorHereId === 0) {
+    if (animationPath.length > 0 && props.actorHereId === actorIdAnimating) {
       let keyframeEffects = [];
       let xTransformAccumulated = 0;
       let yTransformAccumulated = 0;
@@ -56,9 +54,10 @@ export default function CharacterToken(props) {
 
       let animations = [];
       let promises = [];
-      keyframeEffects.forEach((effect, index) => {
+      keyframeEffects.forEach((effect) => {
         let animation = new Animation(effect);
         animation.finished.then(() => {
+          // Below code kept in case we need to ever extract transform data after it happens (from inside this loop)
           // if (index > 0) {
           //   const parensInsideReg = /\(([^\)]+)\)/;
           //   const valsReg = /-*\d+(?=px)/g;
@@ -86,12 +85,12 @@ export default function CharacterToken(props) {
         animations.push(animation);
       });
       animations.forEach((animation) => {
-        console.log(animation);
+        
         animation.play();
       });
       Promise.all([...promises]).then((values) => {
         resetAnimationParams(actorIdAnimating, coordsFinal);
-        console.log("all animations done");
+        
       });
     }
   }, []);

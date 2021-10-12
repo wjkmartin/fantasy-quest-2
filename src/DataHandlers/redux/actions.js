@@ -338,6 +338,13 @@ const setAnimationPath = (animationPath) => {
   }
 }
 
+const setPlayerCombatButtonsHidden = (flag) => {
+  return {
+    type: "SET_PLAYER_COMBAT_BUTTONS_HIDDEN",
+    flag: flag
+  }
+}
+
 // =============  ITEMS  =============
 
 const inventorySetActiveItemById = (itemId) => {
@@ -481,6 +488,7 @@ export default {
   clearCurrentDialogueText,
   setIsAnimatingtoCoords,
   setAnimationPath,
+  setPlayerCombatButtonsHidden,
   inventorySetActiveItemById, //ITEMS
   equippedSetActiveItemById,
   addItemToActorById,

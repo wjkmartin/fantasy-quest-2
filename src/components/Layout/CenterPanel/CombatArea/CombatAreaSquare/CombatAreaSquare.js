@@ -14,6 +14,10 @@ export default function CombatAreaSquare(props) {
   const target = useSelector(
     (state) => state.actors.actorsById[props.actorHere?.id]
   );
+  const actorsById = useSelector((state) => state.actors.actorsById);
+  const actorsInCombatById = useSelector(
+    (state) => state.combat.actorsInCombatById
+  );
   const passableMap = useSelector((state) => state.combat.passableMap);
   const items = useSelector((state) => state.items);
   const activeActorInfo = useSelector((state) => state.actors.activeActorById);
@@ -32,11 +36,19 @@ export default function CombatAreaSquare(props) {
   }
 
   function onClickMovement(dispatch) {
-    dispatch(actions.setIsAnimatingtoCoords(0, props.coords[0], props.coords[1])); 
+    dispatch(
+      actions.setIsAnimatingtoCoords(0, props.coords[0], props.coords[1])
+    );
     dispatch(actions.toggleMoveClick());
     dispatch(
       actions.setAnimationPath(
-        getPath(passableMap, player.coords, props.coords)
+        getPath(
+          passableMap,
+          player.coords,
+          props.coords,
+          actorsInCombatById,
+          actorsById
+        )
       )
     );
     moveStyle = " ";
@@ -73,8 +85,16 @@ export default function CombatAreaSquare(props) {
       }
       className={props.className + " " + moveStyle + " " + attackStyle}
     >
-      {/* <p style={{ color: "white", position: "absolute" }}>{props.coords} </p> */}
-      {props.actorHere?.id !== undefined ? <CharacterToken coords={props.coords} actorHereId={props.actorHere.id } tokenImage={props.actorToken} /> : ""}
+      <p style={{ color: "white", position: "absolute" }}>{props.coords} </p>
+      {props.actorHere?.id !== undefined ? (
+        <CharacterToken
+          coords={props.coords}
+          actorHereId={props.actorHere.id}
+          tokenImage={props.actorToken}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }
