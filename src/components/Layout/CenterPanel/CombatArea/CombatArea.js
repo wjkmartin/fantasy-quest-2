@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -48,7 +48,7 @@ function CombatArea() {
     }
   }
 
-  const combatMap = updateMap(mapData, actorsInCombatById);
+  const combatMap = updateMap(mapData, combatState, actorsById);
 
   if (!combatState.setupDone) {
     dispatch(actions.setPassableMap(mapData.passableMap));
@@ -101,11 +101,13 @@ function CombatArea() {
     dispatch(actions.setInitiativeOrderList(initiative));
     dispatch(actions.setCurrentTurnById(initiative[0]));
 
-    dispatch(actions.setSetupToDone());
-
-    if (initiative[0] !== 0) {
+    if (initiative[0] !== 0 && !combatState.setupDone) {
       nextTurn();
     }
+
+    dispatch(actions.setSetupToDone());
+
+    
   }
 
   const CombatGrid = styled.div`

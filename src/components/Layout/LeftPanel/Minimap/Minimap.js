@@ -8,9 +8,9 @@ import actions from "../../../../DataHandlers/redux/actions";
 import MinimapNode from "./MinimapNode/MinimapNode";
 
 function populateNodes(currentLocation, locations, mapWidth, dispatch) {
-  const nodes = locations.map((location) => {
+  const nodes = locations.map((location, index) => {
     if (location === undefined || location.discovered === false)
-      return <div style={{ width: "25px", height: "25px" }} />;
+      return <div key={`__minimap__-${index}`} style={{ width: "25px", height: "25px" }} />;
     else
       return (
         <MinimapNode
@@ -20,7 +20,7 @@ function populateNodes(currentLocation, locations, mapWidth, dispatch) {
               ? () => onClickNode(location, locations, mapWidth, dispatch)
               : undefined
           }
-          key={location.id}
+          key={`__minimap__-${index}`}
           isHere={currentLocation.id === location.id ? true : false}
           isHidden={location.type === "hidden" ? true : false}
         />

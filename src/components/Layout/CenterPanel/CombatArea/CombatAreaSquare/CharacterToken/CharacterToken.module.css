@@ -6,4 +6,5 @@
     transform: rotateZ(315deg);
     left: -20px;
     top: -20px;
+    will-change: transform;
 }

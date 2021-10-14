@@ -10,11 +10,11 @@ import { getPath } from "../CombatLogic/determineValidMoves";
 import CharacterToken from "./CharacterToken/CharacterToken";
 
 export default function CombatAreaSquare(props) {
+  const actorsById = useSelector((state) => state.actors.actorsById);
   const player = useSelector((state) => state.actors.actorsById[0]);
   const target = useSelector(
     (state) => state.actors.actorsById[props.actorHere?.id]
   );
-  const actorsById = useSelector((state) => state.actors.actorsById);
   const actorsInCombatById = useSelector(
     (state) => state.combat.actorsInCombatById
   );
@@ -83,13 +83,12 @@ export default function CombatAreaSquare(props) {
             }
           : () => {}
       }
-      className={props.className + " " + moveStyle + " " + attackStyle}
+      className={`${styles.CombatSquare} ${moveStyle} ${attackStyle}`}
     >
       <p style={{ color: "white", position: "absolute" }}>{props.coords} </p>
       {props.actorHere?.id !== undefined ? (
         <CharacterToken
-          coords={props.coords}
-          actorHereId={props.actorHere.id}
+          actorId={props.actorHere.id}
           tokenImage={props.actorToken}
         />
       ) : (

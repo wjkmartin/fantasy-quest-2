@@ -29,7 +29,7 @@ export default {
   hasFocusSpell: false,
   location: undefined, 
   gold: 1,
-  speed: 2,
+  speed: 1  ,
   type: 'monster',
   token: token,
   portrait: portrait,

@@ -1,27 +1,9 @@
 import React from "react";
-import styled from "styled-components";
-
 import _ from "underscore";
-
 import CombatAreaSquare from "../CombatAreaSquare/CombatAreaSquare";
-import store from "../../../../../DataHandlers/redux/store";
 
-export default function updateMap(mapData) {
-  const combatState = store.getState().combat;
-  const actorsById = store.getState().actors.actorsById;
-
+export default function updateMap(mapData, combatState, actorsById) {
   const rowLength = mapData.width;
-  const CombatSquareStyled = styled(CombatAreaSquare)`
-    border: 0.05em solid rgba(0, 0, 0, 0.3);
-    display: flex;
-    width: ${mapData.heightWidthPerSquare}rem;
-    height: ${mapData.heightWidthPerSquare}rem;
-    justify-content: center;
-    align-items: center;
-    &:hover {
-      background-color: lightgrey;  
-    }
-  `;
   let combatMap = [];
   let coords = [0, 0];
 
@@ -59,7 +41,7 @@ export default function updateMap(mapData) {
     const isValidToMoveHere = isClickable && moveIsToggled;
 
     combatMap.push(
-      <CombatSquareStyled
+      <CombatAreaSquare
         key={coords}
         coords={coords}
         actorHere={actorHere !== undefined ? actorHere : undefined}

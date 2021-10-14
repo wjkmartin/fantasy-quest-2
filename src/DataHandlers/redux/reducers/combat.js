@@ -3,7 +3,7 @@ const initalState = {
   setupDone: false,
   roundCounter: 0,
   initiativeList: [],
-  actorsInCombatById: [0],
+  actorsInCombatById: [],
   currentTurnById: undefined,
   actorValidAttackTargetsById: { 0: [] },
   actorValidMovesById: { 0: [] },
@@ -28,7 +28,7 @@ export default function (state = initalState, action) {
       actorsInCombatById.push(action.id);
       return {
         ...state,
-        actorsInCombatById: actorsInCombatById,
+        actorsInCombatById: [0, ...actorsInCombatById],
       };
     }
     case "SET_COMBAT_SETUP_TO_DONE": {
@@ -127,7 +127,7 @@ export default function (state = initalState, action) {
         setupDone: false,
         roundCounter: 0,
         initiativeList: [],
-        actorsInCombatById: [0],
+        actorsInCombatById: [],
         currentTurnById: undefined,
         actorValidAttackTargetsById: { 0: [] },
         actorValidMovesById: { 0: [] },

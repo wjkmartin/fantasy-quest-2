@@ -137,15 +137,6 @@ export function getPath(
   _actorsById
 ) {
   let graphDiagonal = new Graph([..._passableMap], { diagonal: true });
-  console.log(graphDiagonal);
-
-  console.log(
-    _passableMap,
-    _startPoint,
-    _endPoint,
-    _actorsInCombatById,
-    _actorsById
-  );
 
   _actorsInCombatById.forEach((actorId) => {
     if (actorId !== 0) {
@@ -160,5 +151,5 @@ export function getPath(
   const path = astar.search(graphDiagonal, start, end, {
     heuristic: astar.heuristics.diagonal,
   });
-  return path;
+  return [...path];
 }

@@ -8,7 +8,7 @@ const initalState = {
   currentDialogueText: [],
   isAnimatingToCoords: [],
   actorIdAnimating: undefined,
-  animationPath: [],
+  animationPath: undefined,
   playerCombatButtonsHidden: false
 };
 
@@ -70,7 +70,11 @@ export default function (state = initalState, action) {
       }
     }
     case "SET_ANIMATION_PATH": {
-      const path = [...action.animationPath]
+      let path = []
+      if (action.animationPath !== undefined) {
+        path = [...action.animationPath]
+      } else {path = undefined}
+      
       return {
         ...state,
         animationPath: path
