@@ -28,7 +28,7 @@ export default function (state = initalState, action) {
       actorsInCombatById.push(action.id);
       return {
         ...state,
-        actorsInCombatById: [0, ...actorsInCombatById],
+        actorsInCombatById: [...actorsInCombatById],
       };
     }
     case "SET_COMBAT_SETUP_TO_DONE": {

@@ -7,11 +7,12 @@ export const determineValidAttacks = (actorsInCombatById, actorsById, distance) 
   const playerY = actorsById[0].coords[1];
 
   let nonPlayerActors = [];
-  for (let i = 1; i <= actorsInCombatById.length - 1; i++) {
-    
-    nonPlayerActors.push(actorsById[actorsInCombatById[i]].coords);
-  }
-
+  actorsInCombatById.forEach(actorId => {
+    if (actorId !== 0) {
+    nonPlayerActors.push(actorsById[actorId].coords);
+    }
+  })
+  
   const nodeStartX = playerX - distance < 0 ? 0 : playerX - distance;
   const nodeStartY = playerY - distance < 0 ? 0 : playerY - distance;
 

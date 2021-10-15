@@ -30,4 +30,5 @@ export default {
   type: 'hunter',
   token: token,
   isPlayer: true,
+  levelsUpAvailable: 0
 };

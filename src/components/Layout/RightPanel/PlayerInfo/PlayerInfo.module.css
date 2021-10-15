@@ -47,6 +47,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   padding: .5rem 0 0 0;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
+  font-size: .85rem;
 }
 
 .playerStatsAS {
@@ -57,9 +58,17 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   border: 3px solid black;
   border-radius: 30px;
   padding: 2% 0 2% 0;
-  width: 80%;
+  width: 95%;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
+  font-size: .85rem;
+}
+
+.ASrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 105%;
 }
 
 .playerStatsAS__col_1 {

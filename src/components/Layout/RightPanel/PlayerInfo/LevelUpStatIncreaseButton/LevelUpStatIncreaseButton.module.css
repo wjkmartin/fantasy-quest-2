@@ -1,0 +1,10 @@
+.LevelUpStatIncreaseButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15px;
+    width: 15px;
+    color: white;
+    background-color: cornflowerblue;
+    cursor: pointer;
+}

@@ -2,6 +2,7 @@ import _ from "underscore";
 import actions from "../../../../../DataHandlers/redux/actions";
 
 import Item from "../../../../../Entities/Item/Item";
+import { addXP } from "./experience";
 
 export function onClickAttackSquare(dispatch, player, items, target, UIStateActiveActor) {
   const equippedItemsPlayer =
@@ -55,7 +56,7 @@ export function onClickAttackSquare(dispatch, player, items, target, UIStateActi
     });
     dispatch(actions.killActorInCombat(target.id));
     dispatch(actions.removeActorFromCurrentLocationById(target.id));
-    dispatch(actions.modifyActorAttributeByActorId(0, "xp", target.level));
+    addXP(target.level, dispatch, player)
     if (UIStateActiveActor === target.id) dispatch(actions.setActiveActorInfoWindowById())
   }
 

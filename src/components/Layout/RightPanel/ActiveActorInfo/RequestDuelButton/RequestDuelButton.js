@@ -28,6 +28,7 @@ export default function RequestDuelButton(props) {
       );
     }
     dispatch(actions.saveCurrentMapState())
+    dispatch(actions.addActorToCombatById(0));
     dispatch(actions.startCombat());
   }
   return (

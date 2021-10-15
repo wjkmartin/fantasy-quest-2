@@ -4,12 +4,12 @@ import portrait from '../../../../Assets/img/character_images/goblin/portrait.jp
 
 export default {
   actorName: "Goblin",
-  level: 1,
+  level: 51,
   actorClass: "Peon",
   race: "Goblin",
   title: "Common",
-  health: 10,
-  maxHealth: 10,
+  health: 1,
+  maxHealth: 1,
   sp: 10,
   maxSp: 10,
   mana: 0,

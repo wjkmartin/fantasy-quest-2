@@ -279,7 +279,7 @@ export default function (state = initalState, action) {
           [action.id]: newActivePowersById
         }
       }
-    }
+    } 
     default: {
       return state;
     }

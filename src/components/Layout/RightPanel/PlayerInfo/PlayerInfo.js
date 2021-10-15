@@ -5,6 +5,7 @@ import styles from "./PlayerInfo.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { getDerivedPhysicalString } from "./util";
+import LevelUpStatIncreaseButton from "./LevelUpStatIncreaseButton/LevelUpStatIncreaseButton";
 
 const PlayerInfo = (props) => {
   let player = useSelector((state) => state.actors.actorsById[0]);
@@ -71,14 +72,14 @@ const PlayerInfo = (props) => {
 
       <div className={styles.playerStatsAS}>
         <div className={styles.playerStatsAS__col_1}>
-          <p>Strength: {player.abilityScores.strength}</p>
-          <p>Dexterity: {player.abilityScores.dexterity}</p>
-          <p>Constitution: {player.abilityScores.constitution}</p>
+          <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'strength'} /> : '')}<div>Strength: </div><div>{player.abilityScores.strength}</div></div>
+          <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'dexterity'} /> : '')}<div>Dexterity: </div><div>{player.abilityScores.dexterity}</div></div>
+          <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'constitution'} /> : '')}<div>Constitution: </div><div>{player.abilityScores.constitution}</div></div>
         </div>
         <div className={styles.playerStatsAS__col_2}>
-          <p>Charisma: {player.abilityScores.charisma}</p>
-          <p>Wisdom: {player.abilityScores.wisdom}</p>
-          <p>Intelligence: {player.abilityScores.intelligence}</p>
+        <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'charisma'} /> : '')}<div>Charisma: </div><div>{player.abilityScores.charisma}</div></div>
+        <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'wisdom'} /> : '')}<div>Wisdom: </div><div>{player.abilityScores.wisdom}</div></div>
+        <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'intelligence'} /> : '')}<div>Intelligence: </div><div>{player.abilityScores.intelligence}</div></div>
         </div>
       </div>
 
