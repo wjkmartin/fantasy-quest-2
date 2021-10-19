@@ -1,31 +1,20 @@
-import React from "react";
-import { onClickAttackSquare } from "../CombatLogic/playerAttack";
+import React from 'react';
 
-import { useSelector, useDispatch } from "react-redux";
+import styles from './CombatAreaSquare.module.css';
 
-import styles from "./CombatAreaSquare.module.css";
-import actions from "../../../../../DataHandlers/redux/actions";
+import CharacterToken from './CharacterToken/CharacterToken';
+import { useDispatch } from 'react-redux';
+import actions from '../../../../../DataHandlers/redux/actions';
+
+import { onClickAttackSquare } from '../CombatLogic/playerAttack';
+
 import { getPath } from "../CombatLogic/determineValidMoves";
 
-import CharacterToken from "./CharacterToken/CharacterToken";
-
 export default function CombatAreaSquare(props) {
-  const actorsById = useSelector((state) => state.actors.actorsById);
-  const player = useSelector((state) => state.actors.actorsById[0]);
-  const target = useSelector(
-    (state) => state.actors.actorsById[props.actorHere?.id]
-  );
-  const actorsInCombatById = useSelector(
-    (state) => state.combat.actorsInCombatById
-  );
-  const passableMap = useSelector((state) => state.combat.passableMap);
-  const items = useSelector((state) => state.items);
-  const activeActorInfo = useSelector((state) => state.actors.activeActorById);
-
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   let moveStyle,
-    attackStyle = "";
+    attackStyle = '';
 
   if (props.isActorHereThatIsValidAttackTarget) {
     attackStyle = styles.validAttackArea;
@@ -35,23 +24,22 @@ export default function CombatAreaSquare(props) {
     moveStyle = styles.validMoveArea;
   }
 
-  function onClickMovement(dispatch) {
+  function onClickMovement(dispatch, _passableMap, _player, _coords, _actorsInCombatById, _actorsById) {
     dispatch(
-      actions.setIsAnimatingtoCoords(0, props.coords[0], props.coords[1])
+      actions.setIsAnimatingtoCoords(0, _coords[0], _coords[1])
     );
     dispatch(actions.toggleMoveClick());
     dispatch(
       actions.setAnimationPath(
         getPath(
-          passableMap,
-          player.coords,
-          props.coords,
-          actorsInCombatById,
-          actorsById
+          _passableMap,
+          _player.coords,
+          _coords,
+          _actorsInCombatById,
+          _actorsById
         )
       )
     );
-    moveStyle = " ";
   }
 
   function onClickShowInfo(dispatch) {
@@ -59,40 +47,35 @@ export default function CombatAreaSquare(props) {
   }
 
   return (
-    <div
-      onClick={
-        props.isValidToMoveHere
-          ? () => {
-              onClickMovement(dispatch);
-            }
-          : props.isActorHereThatIsValidAttackTarget
-          ? () => {
-              onClickAttackSquare(
-                dispatch,
-                player,
-                items,
-                target,
-                activeActorInfo
-              );
-            }
-          : props.nonPlayerActorIsHere &&
-            !props.moveIsToggled &&
-            !props.attackIsToggled
-          ? () => {
-              onClickShowInfo(dispatch);
-            }
-          : () => {}
-      }
-      className={`${styles.CombatSquare} ${moveStyle} ${attackStyle}`}
-    >
-      <p style={{ color: "white", position: "absolute" }}>{props.coords} </p>
+    <div onClick={
+      props.isValidToMoveHere
+      ? () => {
+          onClickMovement(dispatch, props.mapData.passableMap, props.actorsById[0], props.coords, props.combatState.actorsInCombatById, props.actorsById);
+        }
+      : props.isActorHereThatIsValidAttackTarget
+      ? () => {
+          onClickAttackSquare(
+            dispatch,
+            props.actorsById[0],
+            props.items,
+            props.actorHere?.id
+          );
+        }
+      : props.nonPlayerActorIsHere &&
+      props.moveIsToggled &&
+      props.attackIsToggled
+      ? () => {
+          onClickShowInfo(dispatch);
+        }
+      : () => {}
+    } className={`${styles.CombatSquare} ${moveStyle} ${attackStyle}`}>
       {props.actorHere?.id !== undefined ? (
         <CharacterToken
           actorId={props.actorHere.id}
           tokenImage={props.actorToken}
         />
       ) : (
-        ""
+        ''
       )}
     </div>
   );

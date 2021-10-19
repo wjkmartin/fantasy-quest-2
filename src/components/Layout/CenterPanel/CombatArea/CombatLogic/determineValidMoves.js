@@ -140,9 +140,10 @@ export function getPath(
 
   _actorsInCombatById.forEach((actorId) => {
     if (actorId !== 0) {
-      graphDiagonal.grid[_actorsById[actorId].coords[0]][
-        _actorsById[actorId].coords[1]
-      ].weight = 0;
+      graphDiagonal.grid
+      [_actorsById[actorId].coords[0]]
+      [_actorsById[actorId].coords[1]]
+      .weight = 0;
     }
   });
 
