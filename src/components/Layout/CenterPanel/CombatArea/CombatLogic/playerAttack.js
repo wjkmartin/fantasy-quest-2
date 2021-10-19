@@ -4,7 +4,7 @@ import actions from "../../../../../DataHandlers/redux/actions";
 import Item from "../../../../../Entities/Item/Item";
 import { addXP } from "./experience";
 
-export function onClickAttackSquare(dispatch, player, items, target, UIStateActiveActor) {
+export function onClickAttackSquare(dispatch, player, items, target) {
   const equippedItemsPlayer =
     items.equippedItemsIdsByActorId[0] !== undefined
       ? items.equippedItemsIdsByActorId[0]
@@ -57,7 +57,7 @@ export function onClickAttackSquare(dispatch, player, items, target, UIStateActi
     dispatch(actions.killActorInCombat(target.id));
     dispatch(actions.removeActorFromCurrentLocationById(target.id));
     addXP(target.level, dispatch, player)
-    if (UIStateActiveActor === target.id) dispatch(actions.setActiveActorInfoWindowById())
+    dispatch(actions.setActiveActorInfoWindowById())
   }
 
   dispatch(actions.toggleAttackClick());
