@@ -81,11 +81,12 @@ export function determineValidMoves(
   ) {
     let validSquares2 = arrayOrig;
     actorsInCombatById.forEach((actorId) => {
+      console.log(actorCoordsById[actorId])
       const actor_x = actorCoordsById[actorId].x;
       const actor_y = actorCoordsById[actorId].y;
-
+      console.log(validSquares2)
       const index = validSquares2.findIndex(
-        (elem) => elem.x === actor_x && elem.y === actor_y
+        (elem) => elem[0] === actor_x && elem[1] === actor_y
       );
       if (index !== -1) {
         validSquares2.splice(index, 1);
