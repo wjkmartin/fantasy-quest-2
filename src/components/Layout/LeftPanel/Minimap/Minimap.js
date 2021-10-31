@@ -142,6 +142,7 @@ function Minimap() {
   const minimap = useSelector((state) => state.locations.map);
   const locations = useSelector((state) => state.locations.locations);
   const inConversation = useSelector((state) => state.UI.inConversation);
+  const actorsById = useSelector((state) => state.actors.actorsById);
 
   const actorsAtCurrentLocation = useSelector(
     (state) => state.actors.byLocationName[currentLocation.name]
@@ -152,8 +153,9 @@ function Minimap() {
   const dispatch = useDispatch();
 
   if (actorsAtCurrentLocation !== undefined) {
-    actorsAtCurrentLocation.forEach((actor) => {
-      if (actor.isAggressive) {
+    console.log(actorsAtCurrentLocation)
+    actorsAtCurrentLocation.forEach((actorId) => {
+      if (actorsById[actorId].isAggressive) {
         isAggressiveActorAtCurrentLocation = true;
       }
     });
