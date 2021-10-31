@@ -129,7 +129,6 @@ function CombatArea() {
   const combatMap = updateMap(mapData, items);
 
   function combatSetup() {
-    console.log('combatSetup');
     dispatch(combat.actions.resetActorCombatPropsById(0));
     dispatch(
       combat.actions.setActorCoordsById({
@@ -146,7 +145,6 @@ function CombatArea() {
         ? currentSubLocation.name
         : currentLocation.name
     ].forEach((actorId, index) => {
-      console.log('actorId', actorId);
       const startCoords = mapData.enemyStartCoords[index];
       dispatch(combat.actions.resetActorCombatPropsById(actorId));
       dispatch(
@@ -170,7 +168,6 @@ function CombatArea() {
   }
 
   function updateMap(mapData, items) {
-    console.log('updateMap');
     const rowLength = mapData.width;
     let combatMap = [];
     const flatMap = [...mapData.passableMap].flat();

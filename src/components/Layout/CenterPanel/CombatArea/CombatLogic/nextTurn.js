@@ -77,7 +77,7 @@ export default function nextTurn() {
           `${actorsById[currentActorTurnId].actorName} is taking their turn.`
         )
       );
-      console.log(actorCoordsById);
+
       let path = getPath(
         passableMap,
         actorCoordsById[currentActorTurnId],
@@ -86,7 +86,7 @@ export default function nextTurn() {
         store.getState().actors.actorsById,
         actorCoordsById
       );
-      console.log(path);
+ 
 
       path.pop()// always remove the endpoint (player location)
       npcDidAttack = npcTryAttack(actorsById[currentActorTurnId], player, actorCoordsById);
@@ -105,6 +105,11 @@ export default function nextTurn() {
             {actorId: currentActorTurnId,
             coords: [finalLocationNode.x,
             finalLocationNode.y]}
+          )
+        );
+        store.dispatch(
+          UI.actions.setAnimationPath(
+            path
           )
         );
       }

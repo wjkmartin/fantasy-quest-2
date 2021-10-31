@@ -209,7 +209,6 @@ export default function (state = initalState, action) {
     case "CREATE_NEW_ACTOR_FROM_DATA_FILE_AND_LOCATION": {
       let actorData = loadSingleActorFromData(action.data);
       actorData.id = Object.values(state.actorsById).length;
-      console.log(actorData)
       const actorsNew = {
         ...state.actorsById,
           [actorData.id]: {

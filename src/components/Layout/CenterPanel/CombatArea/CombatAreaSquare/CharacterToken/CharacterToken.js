@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import {  useDispatch, useSelector } from "react-redux";
 import actions from "../../../../../../DataHandlers/redux/actions";
+
 import UI from "../../../../../../DataHandlers/redux/slices/UI";
+import combat from "../../../../../../DataHandlers/redux/slices/combat";
+
 import animationsByDirection from "./animationsByDirection";
 import styles from "./CharacterToken.module.css";
 
 export default function CharacterToken(props) {
-  console.log("CharacterToken");
   const target = useRef(null);
   let didAnimate = useRef(false);
   let actorId = useRef(null);
@@ -103,14 +105,14 @@ export default function CharacterToken(props) {
         resetAnimationParams(actorIdAnimating, coordsFinal);
       });
     }
-  }, []);
+  }, [animationPath]);
 
   function resetAnimationParams(_actorIdAnimating, _coordsFinal) {
     didAnimate.current = true;
     dispatch(UI.actions.setAnimationPath(undefined));
     dispatch(combat.actions.setActorCoordsById({ actorId: _actorIdAnimating, coords: {x: _coordsFinal[0], y: _coordsFinal[1]} }));
     dispatch(actions.setActorAttributeByActorId(_actorIdAnimating, "movementRemaining", 3));
-    dispatch(UI.actions.setIsAnimatingtoCoords({actorId: undefined, coords: [undefined, undefined]}));
+    dispatch(UI.actions.setIsAnimatingToCoords({actorId: undefined, coords: [undefined, undefined]}));
   }
 
   return (

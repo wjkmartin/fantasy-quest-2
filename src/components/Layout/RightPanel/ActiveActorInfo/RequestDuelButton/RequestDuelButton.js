@@ -21,7 +21,7 @@ export default function RequestDuelButton(props) {
             `${props.playerName} has started a duel with ${props.activeActor.actorName}`, 'red')
         );
         dispatch(combat.actions.addActorToCombatById(actorId));
-        dispatch(actions.setDuelFlag());
+        dispatch(combat.actions.setIsDuel(false));
       }
     });
     if (!isDuel) {

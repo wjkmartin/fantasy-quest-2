@@ -6,8 +6,8 @@ export function determineValidMoves(
   actorsById,
   actorCoordsById
 ) {
-  const start_x = actorCoordsById.x;
-  const start_y = actorCoordsById.y;
+  const start_x = actorCoordsById[0].x;
+  const start_y = actorCoordsById[0].y;
 
   let movement = actorsById[0].movementRemaining + 1;
 
@@ -77,15 +77,15 @@ export function determineValidMoves(
   function removeOtherActorLocations(
     arrayOrig,
     actorsInCombatById,
-    actorsById
+    actorCoordsById
   ) {
     let validSquares2 = arrayOrig;
     actorsInCombatById.forEach((actorId) => {
-      const actor_x = actorsById[actorId].coords[0];
-      const actor_y = actorsById[actorId].coords[1];
+      const actor_x = actorCoordsById[actorId].x;
+      const actor_y = actorCoordsById[actorId].y;
 
       const index = validSquares2.findIndex(
-        (elem) => elem[0] === actor_x && elem[1] === actor_y
+        (elem) => elem.x === actor_x && elem.y === actor_y
       );
       if (index !== -1) {
         validSquares2.splice(index, 1);
@@ -99,13 +99,13 @@ export function determineValidMoves(
   const validMovesBeforePathing = removeOtherActorLocations(
     validSquares,
     actorsInCombatById,
-    actorsById
+    actorCoordsById
   );
 
   let graphDiagonal = new Graph(passableMap, { diagonal: true });
   actorsInCombatById.forEach((actorId) => {
-    graphDiagonal.grid[actorsById[actorId].coords[0]][
-      actorsById[actorId].coords[1]
+    graphDiagonal.grid[actorCoordsById[actorId].x][
+      actorCoordsById[actorId].y
     ].weight = 0;
   });
 

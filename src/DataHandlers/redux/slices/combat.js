@@ -84,9 +84,7 @@ const combatSlice = createSlice({
       state.isDuel = action.payload;
     },
     setActorCoordsById: (state, action) => {
-        console.log(action.payload);
-      state.actorCoordsById[action.payload.actorId] =
-        action.payload.coords;
+      state.actorCoordsById[action.payload.actorId] = action.payload.coords;
     },
     resetActorCombatPropsById: (state, action) => {
       state.actorValidAttackTargetsById[action.payload] = [];
