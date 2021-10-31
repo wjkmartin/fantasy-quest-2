@@ -1,5 +1,6 @@
 import _ from "underscore";
 import actions from "../../../../../DataHandlers/redux/actions";
+import UI from "../../../../../DataHandlers/redux/slices/UI";
 
 import Item from "../../../../../Entities/Item/Item";
 import { addXP } from "./experience";
@@ -38,15 +39,15 @@ export function onClickAttackSquare(dispatch, player, items, target) {
   const enemyHealthAfterAttack = target.health - abilityTotalDamage;
   dispatch(actions.setActorAttributeByActorId(target.id, 'health', (enemyHealthAfterAttack < 0 ? 0 : enemyHealthAfterAttack)))
   dispatch(
-    actions.addMessageToActivityLog(`Your attack deals ${abilityTotalDamage} damage!`)
+    UI.actions.addMessageToActivityLog(`Your attack deals ${abilityTotalDamage} damage!`)
   );
 
   if (enemyHealthAfterAttack <= 0) {
     // kill enemy logic
-    actions.addMessageToActivityLog(`${target.actorName} dies horribly!`);
+    UI.actions.addMessageToActivityLog(`${target.actorName} dies horribly!`);
     target.drops.forEach((drop) => {
       if (_.random(1, 100) <= drop.chance) {
-        actions.addMessageToActivityLog(
+        UI.actions.addMessageToActivityLog(
           `${target.actorName} dropped ${drop.name}`
         );
         dispatch(
@@ -60,6 +61,6 @@ export function onClickAttackSquare(dispatch, player, items, target) {
     dispatch(actions.setActiveActorInfoWindowById())
   }
 
-  dispatch(actions.toggleAttackClick());
+  dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
   // attackStyle = " ";
 }

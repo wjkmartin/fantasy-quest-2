@@ -7,7 +7,8 @@ import actions from "../../../../../DataHandlers/redux/actions";
 
 const NpcDisplayArea = () => {
   const dispatch = useDispatch();
-  const actorsByLocation = useSelector((state) => state.actors.byLocationName);
+  const actorIdsByLocation = useSelector((state) => state.actors.byLocationName);
+  const actorsById = useSelector((state) => state.actors.actorsById);
 
   const currentLocation = useSelector(
     (state) => state.locations.currentLocation
@@ -21,11 +22,11 @@ const NpcDisplayArea = () => {
 
   if (currentSubLocation !== undefined) {
     currentActors =
-      actorsByLocation[currentSubLocation.name] !== undefined
-        ? actorsByLocation[currentSubLocation.name]
+      actorIdsByLocation[currentSubLocation.name] !== undefined
+        ? actorIdsByLocation[currentSubLocation.name]
         : [];
-  } else if (actorsByLocation[currentLocation.name] !== undefined) {
-    currentActors = actorsByLocation[currentLocation.name];
+  } else if (actorIdsByLocation[currentLocation.name] !== undefined) {
+    currentActors = actorIdsByLocation[currentLocation.name];
   }
 
   let atLeastOneAggressiveActorHere = () => {
@@ -44,20 +45,20 @@ const NpcDisplayArea = () => {
     [dispatch]
   );
 
-  const currentActorsButtonsList = currentActors.map((actor, index) => {
+  const currentActorsButtonsList = currentActors.map((actorId) => {
     return (
       <li
         className={`${styles.Npc} ${
-          actor.isAggressive === true
+          actorsById[actorId].isAggressive === true
             ? styles.aggressive
-            : actor.type === "hunter"
+            : actorsById[actorId].type === "hunter"
             ? styles.hunter
             : ""
         } `}
-        key={`${actor.actorName}${index}`}
-        onClick={() => setActiveActorInfoWindowById(actor.id)}
+        key={`${actorsById[actorId].actorName}${actorsById[actorId].actorName}`}
+        onClick={() => setActiveActorInfoWindowById(actorId)}
       >
-        {`${actor.actorName}`}
+        {`${actorsById[actorId].actorName}`}
       </li>
     );
   });

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./ConversationArea.module.css";
 
 import { useSelector, useDispatch } from "react-redux";
-import actions from "../../../../DataHandlers/redux/actions";
+import UI from '../../../../DataHandlers/redux/slices/UI'
 
 import TextArea from "./TextArea/TextArea";
 import ConversationButton from "./ConversationButton/ConversationButton";
@@ -29,7 +29,7 @@ export default function ConversationArea(props) {
   if (
     currentDialogueText[currentDialogueText.length - 1] !== currentDialogue.text
   ) {
-    dispatch(actions.addtoCurrentDialogueText(currentDialogue.text));
+    dispatch(UI.actions.addToCurrentDialogueText(currentDialogue.text));
   }
 
   const buttons = currentDialogue.buttons.map((elem) => {

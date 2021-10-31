@@ -3,8 +3,9 @@ import React from 'react';
 import styles from './CombatAreaSquare.module.css';
 
 import CharacterToken from './CharacterToken/CharacterToken';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import actions from '../../../../../DataHandlers/redux/actions';
+import UI from '../../../../../DataHandlers/redux/slices/UI';
 
 import { onClickAttackSquare } from '../CombatLogic/playerAttack';
 
@@ -12,6 +13,7 @@ import { getPath } from "../CombatLogic/determineValidMoves";
 
 export default function CombatAreaSquare(props) {
   const dispatch = useDispatch();
+  const combat = useSelector(state => state.combat);
 
   let moveStyle,
     attackStyle = '';
@@ -24,25 +26,26 @@ export default function CombatAreaSquare(props) {
     moveStyle = styles.validMoveArea;
   }
 
-  function onClickMovement(dispatch, _passableMap, _player, _coords, _actorsInCombatById, _actorsById) {
+  function onClickMovement(_passableMap, _coords, _actorsInCombatById, _actorsById, _actorCoordsById) {
     dispatch(
-      actions.setIsAnimatingtoCoords(0, _coords[0], _coords[1])
+      UI.actions.setIsAnimatingToCoords({actorId: 0, coords: [_coords[0], _coords[1]]})
     );
-    dispatch(actions.toggleMoveClick());
+    dispatch(UI.actions.toggleCombatMoveButtonSelected());
     dispatch(
-      actions.setAnimationPath(
+      UI.actions.setAnimationPath(
         getPath(
           _passableMap,
-          _player.coords,
+          combat.actorCoordsById[0],
           _coords,
           _actorsInCombatById,
-          _actorsById
+          _actorsById,
+          _actorCoordsById
         )
       )
     );
   }
 
-  function onClickShowInfo(dispatch) {
+  function onClickShowInfo() {
     dispatch(actions.setActiveActorInfoWindowById(props.actorHere?.id));
   }
 
@@ -50,7 +53,7 @@ export default function CombatAreaSquare(props) {
     <div onClick={
       props.isValidToMoveHere
       ? () => {
-          onClickMovement(dispatch, props.mapData.passableMap, props.actorsById[0], props.coords, props.combatState.actorsInCombatById, props.actorsById);
+          onClickMovement(props.passableMap, props.coords, props.combatState.actorsInCombatById, props.actorsById, combat.actorCoordsById);
         }
       : props.isActorHereThatIsValidAttackTarget
       ? () => {
@@ -65,7 +68,7 @@ export default function CombatAreaSquare(props) {
       props.moveIsToggled &&
       props.attackIsToggled
       ? () => {
-          onClickShowInfo(dispatch);
+          onClickShowInfo();
         }
       : () => {}
     } className={`${styles.CombatSquare} ${moveStyle} ${attackStyle}`}>

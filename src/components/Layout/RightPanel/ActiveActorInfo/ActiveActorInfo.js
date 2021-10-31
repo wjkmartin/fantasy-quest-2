@@ -37,7 +37,7 @@ function ActiveActorInfo(props) {
       key={"requestDuelButton"}
       playerName={actorObject.actorsById[0].actorName}
       activeActor={activeActor}
-      actorsHere={
+      actorIdsHere={
         currentSubLocation !== undefined
           ? actorObject.byLocationName[currentSubLocation.name]
           : actorObject.byLocationName[currentLocation.name]

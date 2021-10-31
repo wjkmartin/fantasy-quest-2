@@ -1,6 +1,9 @@
 import store from "../../../../../DataHandlers/redux/store";
 import actions from "../../../../../DataHandlers/redux/actions";
 
+import UI from "../../../../../DataHandlers/redux/slices/UI";
+import combat from "../../../../../DataHandlers/redux/slices/combat";
+
 import weapons from "../../../../../Data/items/weapons";
 
 import { areCoordsAdjacent } from "./util";
@@ -9,9 +12,9 @@ import { isEqual } from "underscore";
 import { getPath } from "./determineValidMoves";
 
 export default function nextTurn() {
-  function npcTryAttack(_npcObject, _playerObject) {
+  function npcTryAttack(_npcObject, _playerObject, actorCoords) {
     if (
-      areCoordsAdjacent(_npcObject.coords, _playerObject.coords) //if beside player, attack
+      areCoordsAdjacent(actorCoords[_npcObject.id], actorCoords[_playerObject.id]) //if beside player, attack
     ) {
       const baseDamage = Math.max(
         1, //npcs will always do a base damage of 1
@@ -27,20 +30,20 @@ export default function nextTurn() {
         actions.attackTargetWithAbility(_npcObject, 0, attack)
       );
       store.dispatch(
-        actions.addMessageToActivityLog(
+        UI.actions.addMessageToActivityLog(
           `${_npcObject.actorName} attacks and deals ${attackCallback.ability.damage} to ${_playerObject.actorName}`,
           "orange"
         )
       );
       if (_playerObject.health - attackCallback.ability.damage <= 0) {
-        store.dispatch(actions.setPlayerCombatButtonsHidden(false));
-        store.dispatch(actions.endCombat());
+        store.dispatch(UI.actions.setPlayerCombatButtonsHidden(false));
+        store.dispatch(combat.actions.endCombat());
         store.dispatch(actions.setActorAttributeByActorId(0, "health", 1));
-        store.dispatch(actions.addMessageToActivityLog(`You've lost the fight!`));
+        store.dispatch(UI.actions.addMessageToActivityLog(`You've lost the fight!`));
         store.dispatch(actions.setMap('city', 'centralSquare'));
         store.dispatch(actions.loadSavedMapStateForMap('city'));
         store.dispatch(actions.setActiveActorInfoWindowById(undefined));
-        store.dispatch(actions.addMessageToActivityLog('In a sudden flash of light, you feel yourself dematerialize and a moment later you find yourself in front of the obelisk in the center of the city.', "italic"))
+        store.dispatch(UI.actions.addMessageToActivityLog('In a sudden flash of light, you feel yourself dematerialize and a moment later you find yourself in front of the obelisk in the center of the city.', "italic"))
     }
       return true;
     } else return false;
@@ -50,6 +53,7 @@ export default function nextTurn() {
   const passableMap = [...combatData.passableMap];
   const currentActorTurnId = combatData.currentTurnById;
   const actorsInCombatById = combatData.actorsInCombatById;
+  const actorCoordsById = combatData.actorCoordsById;
   const actorsById = store.getState().actors.actorsById;
   const player = store.getState().actors.actorsById[0];
 
@@ -57,36 +61,35 @@ export default function nextTurn() {
 
   if (isEqual(combatData.actorsInCombatById, [0])) {
     //only player is alive
-    store.dispatch(actions.endCombat());
-    store.dispatch(actions.addMessageToActivityLog(`You've won!`, "green"));
+    store.dispatch(combat.actions.endCombat());
+    store.dispatch(UI.actions.addMessageToActivityLog(`You've won!`, "green"));
   } else {
     if (actorsById[currentActorTurnId].isDead === true) {
       //actor is dead, end their turn and go to next
       store.dispatch(
-        actions.endTurn(combatData.initiativeList, combatData.currentTurnById)
+        combat.actions.endTurn()
       );
       nextTurn();
       return;
     } else if (currentActorTurnId !== 0 ) {
       store.dispatch(
-        actions.addMessageToActivityLog(
+        UI.actions.addMessageToActivityLog(
           `${actorsById[currentActorTurnId].actorName} is taking their turn.`
         )
       );
-          console.log('1-',actorsById[currentActorTurnId].actorName)
-
+      console.log(actorCoordsById);
       let path = getPath(
         passableMap,
-        actorsById[currentActorTurnId].coords,
-        player.coords,
+        actorCoordsById[currentActorTurnId],
+        actorCoordsById[0],
         actorsInCombatById,
-        store.getState().actors.actorsById
+        store.getState().actors.actorsById,
+        actorCoordsById
       );
+      console.log(path);
 
-
-     
       path.pop()// always remove the endpoint (player location)
-      npcDidAttack = npcTryAttack(actorsById[currentActorTurnId], player);
+      npcDidAttack = npcTryAttack(actorsById[currentActorTurnId], player, actorCoordsById);
 
       let finalLocationNode;
     
@@ -97,37 +100,33 @@ export default function nextTurn() {
             console.log(path.pop());
           }
         finalLocationNode = path[path.length - 1];
-        console.log('2-',actorsById[currentActorTurnId].actorName)
-        console.log(store.dispatch(
-          actions.setIsAnimatingtoCoords(
-            currentActorTurnId,
-            finalLocationNode.x,
-            finalLocationNode.y
+        store.dispatch(
+          UI.actions.setIsAnimatingToCoords(
+            {actorId: currentActorTurnId,
+            coords: [finalLocationNode.x,
+            finalLocationNode.y]}
           )
-        ));
-
-        console.log(store.dispatch(actions.setAnimationPath(path)))
-
-        console.log('3-',actorsById[currentActorTurnId].actorName)
+        );
       }
 
       setTimeout(function() {
         if (!npcDidAttack) {
-          let actorAfterMove = actorsById[currentActorTurnId];
-          actorAfterMove.coords = [finalLocationNode.x, finalLocationNode.y];
-          npcTryAttack(actorAfterMove, player);
+          const actorCoordsByIdAfterMove = {};
+          Object.assign(actorCoordsByIdAfterMove, actorCoordsById)
+          actorCoordsByIdAfterMove[currentActorTurnId] = {x: finalLocationNode.x, y: finalLocationNode.y}
+          npcTryAttack(actorsById[currentActorTurnId], player, actorCoordsByIdAfterMove);
         }
         store.dispatch(
-          actions.endTurn(combatData.initiativeList, combatData.currentTurnById)
+          combat.actions.endTurn()
         );
 
         nextTurn()
       }, 500 + (250 * path.length));
 
     } else if (combatData.inCombat) {
-      store.dispatch(actions.setPlayerCombatButtonsHidden(false));
+      store.dispatch(UI.actions.setPlayerCombatButtonsHidden(false));
       store.dispatch(
-        actions.addMessageToActivityLog(
+        UI.actions.addMessageToActivityLog(
           `${actorsById[currentActorTurnId].actorName} is taking their turn.`
         )
       );

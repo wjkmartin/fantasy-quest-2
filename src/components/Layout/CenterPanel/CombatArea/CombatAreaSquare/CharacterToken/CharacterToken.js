@@ -1,13 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import {  useDispatch, useSelector } from "react-redux";
 import actions from "../../../../../../DataHandlers/redux/actions";
+import UI from "../../../../../../DataHandlers/redux/slices/UI";
 import animationsByDirection from "./animationsByDirection";
 import styles from "./CharacterToken.module.css";
 
 export default function CharacterToken(props) {
+  console.log("CharacterToken");
   const target = useRef(null);
-  const didAnimate = useRef(false);
-  const actorId = useRef(props.actorId);
+  let didAnimate = useRef(false);
+  let actorId = useRef(null);
   const animationPath = useSelector((state) => state.UI.animationPath);
   const actorIdAnimating = useSelector((state) => state.UI.actorIdAnimating);
   const isAnimatingToCoords = useSelector(
@@ -17,9 +19,8 @@ export default function CharacterToken(props) {
 
   let dispatch = useDispatch();
 
-  console.log("4-", actorId.current);
-
   useEffect(() => {
+    actorId.current = props.actorId;
     const animRef = target.current;
 
     if (
@@ -27,8 +28,6 @@ export default function CharacterToken(props) {
       actorId.current === actorIdAnimating &&
       animationPath !== undefined
     ) {
-      
-      console.log("5-", actorIdAnimating);
       let keyframeEffects = [];
       let xTransformAccumulated = 0;
       let yTransformAccumulated = 0;
@@ -101,20 +100,17 @@ export default function CharacterToken(props) {
         animation.play();
       });
       Promise.all(promises).then(() => {
-        console.log("6-", actorIdAnimating);
         resetAnimationParams(actorIdAnimating, coordsFinal);
       });
     }
   }, []);
 
   function resetAnimationParams(_actorIdAnimating, _coordsFinal) {
-    const id = _actorIdAnimating;
     didAnimate.current = true;
-    dispatch(actions.setAnimationPath(undefined));
-    console.log("7-", actorIdAnimating);
-    dispatch(actions.moveActorLocationCombat(id, _coordsFinal));
-
-    dispatch(actions.setIsAnimatingtoCoords(undefined, undefined, undefined));
+    dispatch(UI.actions.setAnimationPath(undefined));
+    dispatch(combat.actions.setActorCoordsById({ actorId: _actorIdAnimating, coords: {x: _coordsFinal[0], y: _coordsFinal[1]} }));
+    dispatch(actions.setActorAttributeByActorId(_actorIdAnimating, "movementRemaining", 3));
+    dispatch(UI.actions.setIsAnimatingtoCoords({actorId: undefined, coords: [undefined, undefined]}));
   }
 
   return (

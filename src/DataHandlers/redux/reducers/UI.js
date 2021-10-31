@@ -70,14 +70,9 @@ export default function (state = initalState, action) {
       }
     }
     case "SET_ANIMATION_PATH": {
-      let path = []
-      if (action.animationPath !== undefined) {
-        path = [...action.animationPath]
-      } else {path = undefined}
-      
       return {
         ...state,
-        animationPath: path
+        animationPath: action.animationPath
       }
     }
     case "SET_PLAYER_COMBAT_BUTTONS_HIDDEN": {

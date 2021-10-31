@@ -1,6 +1,9 @@
 //SPLIT THIS INTO MULTIPLE FILES!!!!!
 
+import { createAction } from "@reduxjs/toolkit";
+
 // =============  LOCATION  =============
+
 const setLocationById = (locationId) => {
   return {
     type: "SET_CURRENT_LOCATION_BY_ID",
@@ -59,7 +62,9 @@ const modifyLocationPropertyById = (locationId, property, newValue) => {
    };
 };
 
-// =============  ACTOR  =============
+// =============  ACTOR  =============\
+
+
 
 const setActiveActorInfoWindowById = (id) => {
   return {
@@ -181,14 +186,6 @@ const setSetupToDone = () => {
   };
 };
 
-const setCombatId = (actor, id) => {
-  return {
-    type: "SET_COMBAT_ID",
-    actor: actor,
-    id: id,
-  };
-};
-
 const setPassableMap = (data) => {
   return {
     type: "SET_PASSABLE_MAP",
@@ -278,72 +275,6 @@ const setDuelFlag = () => {
     type: "SET_DUEL_FLAG",
   };
 };
-
-// =============  UI  =============
-
-const addMessageToActivityLog = (message, styleType) => {
-  return {
-    type: "ADD_MESSAGE_TO_ACTIVITY_LOG",
-    message: message,
-    styleType: styleType
-  };
-};
-
-const startConversationWithActorById = (id) => {
-  return {
-    type: "START_COVERSATION_WITH_ACTOR_BY_ID",
-    id: id,
-  };
-};
-
-const endConversation = () => {
-  return {
-    type: "END_CONVERSATION",
-  };
-};
-
-const setMainImage = (image) => {
-  return {
-    type: "SET_MAIN_IMAGE",
-    image: image,
-  };
-};
-
-const addtoCurrentDialogueText = (text) => {
-  return {
-    type: "ADD_TO_CURRENT_DIALOGUE_TEXT",
-    text: text,
-  };
-};
-
-const clearCurrentDialogueText = () => {
-  return {
-    type: "CLEAR_CURRENT_DIALOGUE_TEXT",
-  };
-};
-
-const setIsAnimatingtoCoords = (actorId, x, y) => {
-  return {
-    type: "SET_IS_ANIMATING_TO_COORDS",
-    actorId: actorId,
-    x: x,
-    y: y
-  }
-}
-
-const setAnimationPath = (animationPath) => {
-  return {
-    type: "SET_ANIMATION_PATH", 
-    animationPath: animationPath
-  }
-}
-
-const setPlayerCombatButtonsHidden = (flag) => {
-  return {
-    type: "SET_PLAYER_COMBAT_BUTTONS_HIDDEN",
-    flag: flag
-  }
-}
 
 // =============  ITEMS  =============
 
@@ -452,43 +383,18 @@ export default {
   modifyLocationPropertyById,
   setActiveActorInfoWindowById, //ACTOR
   attackTargetWithAbility,
-  setActorLocationCombat,
+
   moveActorLocationCombat,
   resetActionAndMovementById,
-  startCombat,
   modifyActorAttributeByActorId,
   setActorAttributeByActorId,
-  killActorInCombat,
-  setDuelFlag,
+
   removeActorFromCurrentLocationById,
   createNewActorFromDataFileAndLocation,
   addPowerToActorByDataReferenceAndId,
   removePowerFromActorByDataReferenceAndId,
   updatePowerDuration,
-  setSetupToDone, //COMBAT
-  addActorToCombatById,
-  resetActorCombatPropsById,
-  setCombatId,
-  setPassableMap,
-  toggleMoveClick,
-  toggleAttackClick,
-  setValidMovesById,
-  setValidAttackTargetsById,
-  incrementRoundCounter,
-  setActorInitiative,
-  setInitiativeOrderList,
-  setCurrentTurnById,
-  endTurn,
-  endCombat,
-  addMessageToActivityLog, //UI
-  startConversationWithActorById,
-  endConversation,
-  setMainImage,
-  addtoCurrentDialogueText,
-  clearCurrentDialogueText,
-  setIsAnimatingtoCoords,
-  setAnimationPath,
-  setPlayerCombatButtonsHidden,
+
   inventorySetActiveItemById, //ITEMS
   equippedSetActiveItemById,
   addItemToActorById,

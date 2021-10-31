@@ -3,13 +3,13 @@ import { astar, Graph } from "./aStar";
 export function determineValidMoves(
   passableMap,
   actorsInCombatById,
-  actorsById
+  actorsById,
+  actorCoordsById
 ) {
-  const player = actorsById[0];
-  const start_x = player.coords[0];
-  const start_y = player.coords[1];
+  const start_x = actorCoordsById.x;
+  const start_y = actorCoordsById.y;
 
-  let movement = player.movementRemaining + 1;
+  let movement = actorsById[0].movementRemaining + 1;
 
   let validSquares = [];
   let squaresToReturnTo = [{ x: start_x, y: start_y, dist: 0 }];
@@ -134,21 +134,21 @@ export function getPath(
   _startPoint,
   _endPoint,
   _actorsInCombatById = [],
-  _actorsById
+  _actorsById,
+  _actorCoordsById
 ) {
   let graphDiagonal = new Graph([..._passableMap], { diagonal: true });
-
+  console.log(_actorCoordsById)
   _actorsInCombatById.forEach((actorId) => {
     if (actorId !== 0) {
       graphDiagonal.grid
-      [_actorsById[actorId].coords[0]]
-      [_actorsById[actorId].coords[1]]
+      [_actorCoordsById[actorId].x]
+      [_actorCoordsById[actorId].y]
       .weight = 0;
     }
   });
-
-  const end = graphDiagonal.grid[_endPoint[0]][_endPoint[1]];
-  const start = graphDiagonal.grid[_startPoint[0]][_startPoint[1]];
+  const start = graphDiagonal.grid[_startPoint.x][_startPoint.y];
+  const end = graphDiagonal.grid[_endPoint.x][_endPoint.y];
   const path = astar.search(graphDiagonal, start, end, {
     heuristic: astar.heuristics.diagonal,
   });

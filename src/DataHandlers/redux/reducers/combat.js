@@ -24,11 +24,9 @@ export default function (state = initalState, action) {
       };
     }
     case "ADD_ACTOR_TO_COMBAT_BY_ID": {
-      let actorsInCombatById = state.actorsInCombatById;
-      actorsInCombatById.push(action.id);
       return {
         ...state,
-        actorsInCombatById: [...actorsInCombatById],
+        actorsInCombatById: [...state.actorsInCombatById, action.id]
       };
     }
     case "SET_COMBAT_SETUP_TO_DONE": {

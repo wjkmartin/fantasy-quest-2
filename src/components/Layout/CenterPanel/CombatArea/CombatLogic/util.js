@@ -1,13 +1,13 @@
 export function areCoordsAdjacent(coordsA, coordsB) {
-  const xdif = Math.abs(coordsA[0] - coordsB[0]);
-  const ydif = Math.abs(coordsA[1] - coordsB[1]);
+  const xdif = Math.abs(coordsA.x - coordsB.x);
+  const ydif = Math.abs(coordsA.y - coordsB.y);
 
   const isLeftRightCol = (coords1, coords2) => {
-    return coords1[0] - 1 === coords2[0] || coords1[0] + 1 === coords2[0];
+    return coords1.x - 1 === coords2.x || coords1.x + 1 === coords2.x;
   };
 
   const isTopBottomCol = (coords1, coords2) => {
-    return coords1[1] - 1 === coords2[1] || coords1[1] + 1 === coords2[1];
+    return coords1.y - 1 === coords2.y || coords1.y + 1 === coords2.y;
   };
 
   if (isTopBottomCol(coordsA, coordsB) && xdif <= 1) {

@@ -1,5 +1,6 @@
 import { loadActors, loadSingleActorFromData } from "../../loadActorData";
 import powers from "../../../Data/powers/powers";
+import { createReducer } from "@reduxjs/toolkit";
 
 function groupBy(objectArray, property) {
   return objectArray.reduce(function (acc, obj) {
@@ -7,7 +8,7 @@ function groupBy(objectArray, property) {
     if (!acc[key]) {
       acc[key] = [];
     }
-    acc[key].push(obj);
+    acc[key].push(obj.id);
     return acc;
   }, {});
 }
@@ -23,6 +24,8 @@ const initalState = {
     1: [],
   },
 };
+
+
 
 export default function (state = initalState, action) {
   switch (action.type) {
@@ -94,6 +97,7 @@ export default function (state = initalState, action) {
       };
     }
     case "MODIFY_ACTOR_ATTRIBUTE_BY_ACTOR_ID": {
+      
       if (
         action.attribute === "strength" ||
         action.attribute === "dexterity" ||
@@ -102,6 +106,9 @@ export default function (state = initalState, action) {
         action.attribute === "wisdom" ||
         action.attribute === "intelligence"
       ) {
+        const newValue = (state.actorsById[
+          action.actorId
+        ].abilityScores[action.attribute] += action.delta)
         return {
           ...state,
           actorsById: {
@@ -110,23 +117,22 @@ export default function (state = initalState, action) {
               ...state.actorsById[action.actorId],
               abilityScores: {
                 ...state.actorsById[action.actorId].abilityScores,
-                [action.attribute]: (state.actorsById[
-                  action.actorId
-                ].abilityScores[action.attribute] += action.delta),
+                [action.attribute]: newValue,
               },
             },
           },
         };
       } else {
+        const newValueShallow = (state.actorsById[action.actorId][
+          action.attribute
+        ] += action.delta)
         return {
           ...state,
           actorsById: {
             ...state.actorsById,
             [action.actorId]: {
               ...state.actorsById[action.actorId],
-              [action.attribute]: (state.actorsById[action.actorId][
-                action.attribute
-              ] += action.delta),
+              [action.attribute]: newValueShallow,
             },
           },
         };
@@ -168,14 +174,6 @@ export default function (state = initalState, action) {
       }
     }
     case "MOVE_ACTOR_LOCATION_COMBAT": {
-      const moved_x = state.actorsById[action.id].coords[0] - action.coords[0];
-      const moved_y = state.actorsById[action.id].coords[1] - action.coords[1];
-
-      const spacesMoved =
-        Math.abs(moved_x) >= Math.abs(moved_y)
-          ? Math.abs(moved_x)
-          : Math.abs(moved_y);
-
       return {
         ...state,
         actorsById: {
@@ -184,8 +182,6 @@ export default function (state = initalState, action) {
             ...state.actorsById[action.id],
             coordsPrev: state.actorsById[action.id].coords,
             coords: action.coords,
-            movementRemaining: (state.actorsById[action.id].movementRemaining -=
-              spacesMoved),
           },
         },
       };
@@ -211,20 +207,23 @@ export default function (state = initalState, action) {
       };
     }
     case "CREATE_NEW_ACTOR_FROM_DATA_FILE_AND_LOCATION": {
-      // action.data
-      // action.location
-
-      const actorId = state.actorsById.length;
       let actorData = loadSingleActorFromData(action.data);
-      actorData.id = actorId;
-      actorData.location = action.location;
-      let newActorsById = state.actorsById;
-      newActorsById.push(actorData);
+      actorData.id = Object.values(state.actorsById).length;
+      console.log(actorData)
+      const actorsNew = {
+        ...state.actorsById,
+          [actorData.id]: {
+            ...actorData,
+            location: action.location,
+          }
+      }
 
       return {
         ...state,
-        actorsById: newActorsById,
-        byLocationName: groupBy(newActorsById, "location"),
+        actorsById: {
+          ...actorsNew
+        },
+        byLocationName: groupBy(Object.values(actorsNew), "location"),
       };
     }
     case "ADD_POWER_TO_ACTOR_BY_DATA_REFERENCE_AND_ID": {

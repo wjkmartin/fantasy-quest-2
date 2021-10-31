@@ -1,26 +1,39 @@
-import { createStore, combineReducers } from "redux";
-import locations from "./reducers/locations";
-import actors from "./reducers/actors";
-import items from "./reducers/items";
-import combat from "./reducers/combat";
-import UI from "./reducers/UI";
-import quests from "./reducers/quests"
+import { configureStore } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
 
+import { combineReducers } from 'redux';
+import locations from './reducers/locations';
+import actors from './reducers/actors';
+import items from './reducers/items';
+import combatSlice from './slices/combat';
+import UISlice from './slices/UI';
+import quests from './reducers/quests';
 
-let reducers = combineReducers({ locations, actors, items, combat, UI, quests });
+const rootReducer = combineReducers({
+  locations: locations,
+  actors: actors,
+  items: items,
+  combat: combatSlice.reducer,
+  UI: UISlice.reducer,
+  quests: quests,
+});
 
-const persistentState = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : {}
-const store = createStore(reducers, persistentState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const persistentState = localStorage.getItem('state')
+  ? JSON.parse(localStorage.getItem('state'))
+  : {};
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
+  devTools: process.env.NODE_ENV !== 'production',
+  preloadedState: persistentState,
+});
 
 store.subscribe(() => {
   const state = store.getState();
   const serializedState = JSON.stringify(state);
   localStorage.setItem('state', serializedState);
-})
+});
 
 export default store;
-
-// export default createStore(
-//   reducers,
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// ); //will be combined reducer of all reducers
