@@ -40,8 +40,8 @@ export default function CombatActionsPanel() {
   const actorsInCombatById = [...combatState.actorsInCombatById];
 
   function onClickMoveButton() {
-    if (!combatMoveButtonSelected) {
-      if (actorsInCombatById[0].movementRemaining !== 0) {
+    if (combatMoveButtonSelected) {
+      if (actorsById[0].movementRemaining > 0) {
         toggleMoveClick();
         dispatch(
           combat.actions.setValidMovesById({

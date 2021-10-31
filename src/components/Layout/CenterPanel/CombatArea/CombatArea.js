@@ -191,7 +191,7 @@ function CombatArea() {
       });
 
       let isClickable = combatState.actorValidMovesById[0].some((element) =>
-        _.isEqual(element, coords)
+        element[0] === coords.x && element[1] === coords.y
       );
 
       let isAttackable = combatState.actorValidAttackTargetsById[0].some(

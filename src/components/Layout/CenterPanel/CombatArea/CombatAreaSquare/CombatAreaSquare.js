@@ -15,6 +15,8 @@ export default function CombatAreaSquare(props) {
   const dispatch = useDispatch();
   const combat = useSelector(state => state.combat);
 
+  console.log(props.isValidToMoveHere)
+
   let moveStyle,
     attackStyle = '';
 
@@ -28,7 +30,7 @@ export default function CombatAreaSquare(props) {
 
   function onClickMovement(_passableMap, _coords, _actorsInCombatById, _actorsById, _actorCoordsById) {
     dispatch(
-      UI.actions.setIsAnimatingToCoords({actorId: 0, coords: [_coords[0], _coords[1]]})
+      UI.actions.setIsAnimatingToCoords({actorId: 0, coords: [_coords.x, _coords.y]})
     );
     dispatch(UI.actions.toggleCombatMoveButtonSelected());
     dispatch(

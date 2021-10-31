@@ -1,4 +1,4 @@
-import { astar, Graph } from "./aStar";
+import { astar, Graph } from './aStar';
 
 export function determineValidMoves(
   passableMap,
@@ -15,14 +15,14 @@ export function determineValidMoves(
   let squaresToReturnTo = [{ x: start_x, y: start_y, dist: 0 }];
 
   const dirs = [
-    "west",
-    "north",
-    "east",
-    "south",
-    "north-east",
-    "north-west",
-    "south-east",
-    "south-west",
+    'west',
+    'north',
+    'east',
+    'south',
+    'north-east',
+    'north-west',
+    'south-east',
+    'south-west',
   ];
 
   while (squaresToReturnTo.length > 0) {
@@ -53,21 +53,21 @@ export function determineValidMoves(
 
   function getCoordsForDirection(direction, x, y) {
     switch (direction) {
-      case "west":
+      case 'west':
         return { x, y: y + 1 };
-      case "north":
+      case 'north':
         return { x: x - 1, y };
-      case "east":
+      case 'east':
         return { x, y: y - 1 };
-      case "south":
+      case 'south':
         return { x: x + 1, y };
-      case "south-east":
+      case 'south-east':
         return { x: x + 1, y: y - 1 };
-      case "north-east":
+      case 'north-east':
         return { x: x - 1, y: y - 1 };
-      case "south-west":
+      case 'south-west':
         return { x: x + 1, y: y + 1 };
-      case "north-west":
+      case 'north-west':
         return { x: x - 1, y: y + 1 };
       default:
         break;
@@ -101,6 +101,8 @@ export function determineValidMoves(
     actorsInCombatById,
     actorCoordsById
   );
+
+  console.log(validMovesBeforePathing);
 
   let graphDiagonal = new Graph(passableMap, { diagonal: true });
   actorsInCombatById.forEach((actorId) => {
@@ -138,13 +140,12 @@ export function getPath(
   _actorCoordsById
 ) {
   let graphDiagonal = new Graph([..._passableMap], { diagonal: true });
-  console.log(_actorCoordsById)
+  console.log(_actorCoordsById);
   _actorsInCombatById.forEach((actorId) => {
     if (actorId !== 0) {
-      graphDiagonal.grid
-      [_actorCoordsById[actorId].x]
-      [_actorCoordsById[actorId].y]
-      .weight = 0;
+      graphDiagonal.grid[_actorCoordsById[actorId].x][
+        _actorCoordsById[actorId].y
+      ].weight = 0;
     }
   });
   const start = graphDiagonal.grid[_startPoint.x][_startPoint.y];
