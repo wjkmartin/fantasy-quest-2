@@ -8,11 +8,12 @@ import combat from "../../../../../DataHandlers/redux/slices/combat";
 export default function RequestDuelButton(props) {
   let dispatch = useDispatch();
   const actorsById = useSelector(store => store.actors.actorsById);
+  const actorsHereById = useSelector(store => store.actors.byLocationName)[useSelector(store => store.locations.currentLocation.name)];
 
   function handleClick() {
     let isDuel = true;
-    props.actorIdsHere.forEach((actorId) => { //todo: this is stupid
-      if (actorsById[actorId].isAggressive === false || actorsById[actorId].isAggressive === undefined) { 
+    actorsHereById.forEach((actorId) => {
+      if (actorsById[actorId].isAggressive) { 
         isDuel = false;
         dispatch(combat.actions.addActorToCombatById(actorId)); 
       } else if (actorId === props.activeActor.id) {
