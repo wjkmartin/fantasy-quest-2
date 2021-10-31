@@ -14,8 +14,7 @@ import { getPath } from "../CombatLogic/determineValidMoves";
 export default function CombatAreaSquare(props) {
   const dispatch = useDispatch();
   const combat = useSelector(state => state.combat);
-
-  console.log(props.isValidToMoveHere)
+  const combatMoveButtonSelected = useSelector(state => state.UI.combatMoveButtonSelected);
 
   let moveStyle,
     attackStyle = '';
@@ -24,7 +23,7 @@ export default function CombatAreaSquare(props) {
     attackStyle = styles.validAttackArea;
   }
 
-  if (props.isValidToMoveHere === true) {
+  if (props.isValidToMoveHere && combatMoveButtonSelected) {
     moveStyle = styles.validMoveArea;
   }
 

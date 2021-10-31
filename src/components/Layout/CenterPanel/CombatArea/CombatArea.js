@@ -88,6 +88,8 @@ function CombatArea() {
     (state) => state.actors.byLocationName
   );
 
+  const actorValidMovesById = useSelector((state) => state.combat.actorValidMovesById) || [];
+
   const items = useSelector((state) => state.items);
 
   const dispatch = useDispatch();
@@ -168,11 +170,11 @@ function CombatArea() {
   }
 
   function updateMap(mapData, items) {
+    console.log('updateMap');
     const rowLength = mapData.width;
     let combatMap = [];
     const flatMap = [...mapData.passableMap].flat();
 
-    const moveIsToggled = UIState.combatMoveButtonSelected;
     const attackIsToggled = UIState.combatBasicAttackButtonSelected;
 
     flatMap.forEach((element, index) => {
@@ -190,17 +192,11 @@ function CombatArea() {
         }
       });
 
-      let isClickable = combatState.actorValidMovesById[0].some((element) =>
-        element[0] === coords.x && element[1] === coords.y
-      );
-
       let isAttackable = combatState.actorValidAttackTargetsById[0].some(
         (element) => _.isEqual(element, coords)
       );
 
       let isActorHereThatIsValidAttackTarget = isAttackable && attackIsToggled;
-
-      const isValidToMoveHere = isClickable && moveIsToggled;
 
       combatMap.push(
         <CombatAreaSquare
@@ -208,13 +204,13 @@ function CombatArea() {
           coords={coords}
           actorHere={actorsById[actorHereId] || undefined}
           actorToken={actorsById[actorHereId]?.token || undefined}
-          isValidToMoveHere={isValidToMoveHere}
+          isValidToMoveHere={actorValidMovesById[0].some(
+            (element) => {return (element[0] === coords.x && element[1] === coords.y)}
+          )}
           isActorHereThatIsValidAttackTarget={
             isActorHereThatIsValidAttackTarget
           }
           passableMap={mapData.passableMap}
-          moveIsToggled={moveIsToggled}
-          attackIsToggled={attackIsToggled}
           actorsById={actorsById}
           combatState={combatState}
           items={items}
