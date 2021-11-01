@@ -69,7 +69,7 @@ export default function CombatActionsPanel() {
   function onClickBasicAttackButton() {
     if (!combatBasicAttackButtonSelected) {
       if (combatMoveButtonSelected) dispatch(UI.actions.toggleCombatMoveButtonSelected());
-      if (!actorsInCombatById[0].actionUsed) {
+      if (!actorsById[0].actionUsed) {
         toggleAttackClick();
         dispatch(
           combat.actions.setValidAttackTargetsById({

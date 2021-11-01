@@ -21,6 +21,7 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
     }
 
   dispatch(UI.actions.setActorAttackAnimation({actorId: 0, direction: direction()}));
+  dispatch(actions.setActorAttributeByActorId(0, 'actionUsed', true))
 
   const equippedItemsPlayer =
     items.equippedItemsIdsByActorId[0] !== undefined
@@ -75,8 +76,8 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
     dispatch(actions.removeActorFromCurrentLocationById(targetObj.id));
     addXP(targetObj.level, dispatch, player)
     dispatch(actions.setActiveActorInfoWindowById())
+    
   }
-
   dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
   // attackStyle = " ";
 }
