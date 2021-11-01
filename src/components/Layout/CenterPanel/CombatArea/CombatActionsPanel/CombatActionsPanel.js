@@ -41,6 +41,7 @@ export default function CombatActionsPanel() {
 
   function onClickMoveButton() {
     if (!combatMoveButtonSelected) {
+      if (combatBasicAttackButtonSelected) dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
       if (actorsById[0].movementRemaining > 0) {
         toggleMoveClick();
         dispatch(
@@ -67,15 +68,16 @@ export default function CombatActionsPanel() {
 
   function onClickBasicAttackButton() {
     if (!combatBasicAttackButtonSelected) {
+      if (combatMoveButtonSelected) dispatch(UI.actions.toggleCombatMoveButtonSelected());
       if (!actorsInCombatById[0].actionUsed) {
         toggleAttackClick();
         dispatch(
-          actions.setValidAttackTargetsById({
+          combat.actions.setValidAttackTargetsById({
             actorId: 0,
             validTargets: determineValidAttacks(
               actorsInCombatById,
-              actorsById,
-              1
+              1,
+              combatState.actorCoordsById
             ),
           })
         );

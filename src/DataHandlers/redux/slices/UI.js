@@ -16,6 +16,7 @@ const initialState = {
   isAnimatingToCoords: [],
   actorIdAnimating: undefined,
   animationPath: undefined,
+  actorIdAttackAnimation: {0: undefined},
   playerCombatButtonsHidden: false,
   combatMoveButtonSelected: false,
   combatBasicAttackButtonSelected: false,
@@ -57,6 +58,9 @@ const UISlice = createSlice({
     setAnimationPath: (state, action) => {
       state.animationPath = action.payload;
     },
+    setActorAttackAnimation: (state, action) => {
+      state.actorIdAttackAnimation = {[action.payload.actorId]: action.payload.direction};
+    },
     setPlayerCombatButtonsHidden: (state, action) => {
       state.playerCombatButtonsHidden = action.payload;
     },
@@ -78,7 +82,9 @@ export const {
   clearCurrentDialogueText,
   setIsAnimatingToCoords,
   setAnimationPath,
+  setActorAttackAnimation,
   setPlayerCombatButtonsHidden,
+  toggleCombatBasicAttackButtonSelected
 } = UISlice.actions;
 
 export default UISlice;

@@ -177,6 +177,7 @@ function CombatArea() {
 
     const attackIsToggled = UIState.combatBasicAttackButtonSelected;
 
+
     flatMap.forEach((element, index) => {
       let actorHereId = undefined;
       const coords = {};
@@ -193,7 +194,7 @@ function CombatArea() {
       });
 
       let isAttackable = combatState.actorValidAttackTargetsById[0].some(
-        (element) => _.isEqual(element, coords)
+        (element) => {return element[0] === coords.x && element[1] === coords.y}
       );
 
       let isActorHereThatIsValidAttackTarget = isAttackable && attackIsToggled;

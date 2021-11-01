@@ -12,10 +12,26 @@ import { isEqual } from "underscore";
 import { getPath } from "./determineValidMoves";
 
 export default function nextTurn() {
+
+
   function npcTryAttack(_npcObject, _playerObject, actorCoords) {
     if (
       areCoordsAdjacent(actorCoords[_npcObject.id], actorCoords[_playerObject.id]) //if beside player, attack
     ) {
+      const direction = () => {
+        const deltaX = actorCoords[0].x - actorCoords[_npcObject.id].x; // 1, 0, -1
+        const deltaY = actorCoords[0].y - actorCoords[_npcObject.id].y; // 1, 0, -1
+        if (deltaX === -1 && deltaY === 0) return 'north';
+        else if (deltaX === 1 && deltaY === 0) return 'south';
+        else if (deltaX === 0 && deltaY === 1) return 'east';
+        else if (deltaX === 0 && deltaY === -1) return 'west';
+        else if (deltaX === -1 && deltaY === 1) return 'northEast';
+        else if (deltaX === -1 && deltaY === -1) return 'northWest';
+        else if (deltaX === 1 && deltaY === 1) return 'southEast';
+        else if (deltaX === 1 && deltaY === -1) return 'southWest';
+      }
+
+      store.dispatch(UI.actions.setActorAttackAnimation({actorId: _npcObject.id, direction: direction()}))
       const baseDamage = Math.max(
         1, //npcs will always do a base damage of 1
         Math.floor(_npcObject.abilityScores.strength / 2)

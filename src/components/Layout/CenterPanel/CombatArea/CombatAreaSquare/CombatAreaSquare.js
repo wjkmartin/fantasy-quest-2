@@ -62,7 +62,8 @@ export default function CombatAreaSquare(props) {
             dispatch,
             props.actorsById[0],
             props.items,
-            props.actorHere?.id
+            props.actorHere,
+            combat.actorCoordsById
           );
         }
       : props.nonPlayerActorIsHere &&
