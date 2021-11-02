@@ -1,23 +1,33 @@
-import React from "react";
+import React from 'react';
 
-import NpcDisplayArea from "./NpcDisplayArea/NpcDisplayArea";
+import NpcDisplayArea from './NpcDisplayArea/NpcDisplayArea';
+import LocalItemDisplayArea from './LocalItemDisplayArea/LocalItemDisplayArea';
 
-import { useSelector, useDispatch } from "react-redux";
-import actions from "../../../../DataHandlers/redux/actions"
-import styles from "./MainDisplayArea.module.css"
+import { useSelector, useDispatch } from 'react-redux';
+import UI from '../../../../DataHandlers/redux/slices/UI'
+import styles from './MainDisplayArea.module.css';
 
 export default function MainDisplayArea(props) {
   const dispatch = useDispatch();
   const currentLocation = useSelector(
     (state) => state.locations.currentLocation
   );
-  dispatch(actions.setMainImage(currentLocation.name));
+  
+  dispatch(UI.actions.setMainImage(currentLocation.name));
   const image = useSelector((state) => state.UI.mainImage);
 
   return (
     <div className={styles.MainDisplayArea}>
-      <NpcDisplayArea />
-      {(image !== undefined ? <img className={styles.mainImage} alt ={"location"} src={image} /> : "")}
+      <div className={styles.MainDisplayArea__header}>
+        <NpcDisplayArea currentLocation={currentLocation}/>
+        <LocalItemDisplayArea currentLocation={currentLocation}/>
+      </div>
+      
+      {image !== undefined ? (
+        <img className={styles.mainImage} alt={'location'} src={image} />
+      ) : (
+        ''
+      )}
     </div>
   );
 }

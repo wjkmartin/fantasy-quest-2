@@ -15,6 +15,11 @@ const initalState = {
   actorInTradeById: undefined,
   itemsPlayerWantsToTradeById: [],
   itemsOtherActorWantsToTrade: [],
+  itemsByLocationName: {
+    "centralSquare": [
+      new Item("weapon", "enchanted_steel_sword"),
+    ],
+  }
 };
 
 export default function (state = initalState, action) {
@@ -162,6 +167,21 @@ export default function (state = initalState, action) {
         inventoryByActorId: {
           ...state.inventoryByActorId,
           [action.actorId]: inventoryAfter,
+        },
+      };
+    }
+    case "REMOVE_ITEM_FROM_LOCATION": {
+      let itemsAfter = state.itemsByLocationName[action.locationName];
+      const itemIndex = itemsAfter.findIndex(
+        (item) => item.id === action.itemId
+      );
+      itemsAfter.splice(itemIndex, 1);
+
+      return {
+        ...state,
+        itemsByLocationName: {
+          ...state.itemsByLocationName,
+          [action.locationName]: [...itemsAfter],
         },
       };
     }

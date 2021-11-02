@@ -2,9 +2,6 @@ import React from "react";
 
 import styles from "./EquippedItemSlot.module.css";
 
-import "../../../../../../Assets/css/fontawesome.css";
-import "../../../../../../Assets/css/solid.css";
-
 
 export default function EquippedItemSlot(props) {
 

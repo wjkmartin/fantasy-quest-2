@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ConversationButton.module.css";
 
 import { useSelector, useDispatch } from "react-redux";
-import actions from "../../../../../DataHandlers/redux/actions";
+import UI from '../../../../../DataHandlers/redux/slices/UI'
 
 export default function ConversationButton(props) {
   const dispatch = useDispatch();
@@ -35,20 +35,20 @@ export default function ConversationButton(props) {
     active = values.conditions.length === metConditions;
   }
 
-  function handleClickAction(branch, values, store, actions) {
+  function handleClickAction(branch, values, store) {
     //deals with actions inside dialogue branches
     const label = values.text === undefined ? values : values.text;
 
-    dispatch(actions.addtoCurrentDialogueText(label));
+    dispatch(UI.actions.addToCurrentDialogueText(label));
 
     if (values.onClick !== undefined && active) {
-      values.onClick(store, actions, dispatch);
+      values.onClick(store, dispatch);
     }
 
     switch (branch) {
       case "quitConvo": {
-        dispatch(actions.endConversation());
-        dispatch(actions.clearCurrentDialogueText());
+        dispatch(UI.actions.endConversation());
+        dispatch(UI.actions.clearCurrentDialogueText());
         break;
       }
       default: {
@@ -60,7 +60,7 @@ export default function ConversationButton(props) {
   return (
     <button
       className={visible ? styles.ConversationButton : styles.hide}
-      onClick={() => handleClickAction(dialogueBranch, values, state, actions)}
+      onClick={() => handleClickAction(dialogueBranch, values, state)}
       disabled={active ? false : true}
     >
       {values.text === undefined ? values : values.text}

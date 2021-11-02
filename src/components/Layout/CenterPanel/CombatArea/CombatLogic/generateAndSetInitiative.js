@@ -1,16 +1,15 @@
 import _ from "underscore";
 
-export default function generateInitiative(actorsInCombat) {
-  let actors = actorsInCombat;
+export default function generateInitiative(actorIdsInCombat, actorsById) {
   let turnOrderUnsorted = {};
 
   let initiative = [];
 
-  Object.values(actors).forEach((actor) => {
-    const actorDexterity = Math.round(actor.abilityScores.dexterity / 2) - 5;
+  actorIdsInCombat.forEach((actorId) => {
+    const actorDexterity = Math.round(actorsById[actorId].abilityScores.dexterity / 2) - 5;
     const actorRoll = _.random(1, 20);
     const initiativeTotal = actorDexterity + actorRoll;
-    turnOrderUnsorted[actor.id] = initiativeTotal;
+    turnOrderUnsorted[actorId] = initiativeTotal;
   });
   const sortedTurnOrder = Object.assign({}, turnOrderUnsorted);
  

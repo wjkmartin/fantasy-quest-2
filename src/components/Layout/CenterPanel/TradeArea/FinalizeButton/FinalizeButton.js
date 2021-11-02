@@ -6,11 +6,11 @@ import actions from '../../../../../DataHandlers/redux/actions'
 
 export default function FinalizeButton(props) {
     let dispatch = useDispatch()
-    const playerGold = useSelector(state => state.actors.actorsById[0].gold)
+    const player = useSelector(state => state.actors.actorsById[0])
 
     function onClickButton(props) {
-        if (playerGold >= (props.balance * -1)) {
-            dispatch(actions.modifyActorAttributeByActorId(0, 'gold', props.balance))
+        if (player.gold >= (props.balance * -1)) {
+            dispatch(actions.setActorAttributeByActorId(0, 'gold', player.gold + props.balance))
 
             props.itemsToSendById.forEach(itemId => {
                 dispatch(actions.tradeItemByIdFromActorToActorByIds(itemId, 0, props.actorInTradeId))

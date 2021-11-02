@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./NpcDisplayArea.module.css";
 
-import actions from "../../../../../DataHandlers/redux/actions";
+import UI from "../../../../../DataHandlers/redux/slices/UI";
 
 const NpcDisplayArea = () => {
   const dispatch = useDispatch();
-  const actorsByLocation = useSelector((state) => state.actors.byLocationName);
+  const actorIdsByLocation = useSelector((state) => state.actors.byLocationName);
+  const actorsById = useSelector((state) => state.actors.actorsById);
 
-  const currentLocation = useSelector(
+  const currentSuperLocation = useSelector(
     (state) => state.locations.currentLocation
   );
 
@@ -17,68 +18,59 @@ const NpcDisplayArea = () => {
     (state) => state.locations.currentSubLocation
   );
 
-  let currentActors = [];
+  const currentLocation = (currentSubLocation === undefined ? currentSuperLocation : currentSubLocation);
 
-  if (currentSubLocation !== undefined) {
-    currentActors =
-      actorsByLocation[currentSubLocation.name] !== undefined
-        ? actorsByLocation[currentSubLocation.name]
-        : [];
-  } else if (actorsByLocation[currentLocation.name] !== undefined) {
-    currentActors = actorsByLocation[currentLocation.name];
+  const currentActors = (actorIdsByLocation[currentLocation.name] || [])
+
+  const aggressiveActorHere = () => {
+    if (currentActors !== undefined) {
+      for (let i = 0; i < currentActors.length; i++) {
+        if (actorsById[currentActors[i]].isAggressive) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
-  let atLeastOneAggressiveActorHere = () => {
-    let _atLeastOneAggressiveActorHere = false;
-    currentActors.forEach((actor) => {
-      if (actor.isAggressive) {
-        _atLeastOneAggressiveActorHere = true;
-        
-      }
-    });
-    return _atLeastOneAggressiveActorHere;
-  };
-
   const setActiveActorInfoWindowById = useCallback(
-    (id) => dispatch(actions.setActiveActorInfoWindowById(id)),
+    (id) => dispatch(UI.actions.setActiveItemOrNpcTarget({type: 'actor', id: id})),
     [dispatch]
   );
 
-  const currentActorsButtonsList = currentActors.map((actor, index) => {
+  const currentActorsButtonsList = currentActors.map((actorId) => {
     return (
       <li
         className={`${styles.Npc} ${
-          actor.isAggressive === true
+          actorsById[actorId].isAggressive === true
             ? styles.aggressive
-            : actor.type === "hunter"
+            : actorsById[actorId].type === "hunter"
             ? styles.hunter
             : ""
         } `}
-        key={`${actor.actorName}${index}`}
-        onClick={() => setActiveActorInfoWindowById(actor.id)}
+        key={`${actorsById[actorId].actorName}${actorsById[actorId].actorName}`}
+        onClick={() => setActiveActorInfoWindowById(actorId)}
       >
-        {`${actor.actorName}`}
+        {`${actorsById[actorId].actorName}`}
       </li>
     );
   });
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.NpcDisplayArea}>
         <div className={styles.npcsHereLabel}>
-          {" "}
-          PEOPLE<br></br>HERE:
+          PEOPLE<br></br>HERE
         </div>
         <ul className={styles.NpcList}>
           {currentActors !== undefined ? currentActorsButtonsList : " "}
         </ul>
       </div>
-      {atLeastOneAggressiveActorHere() ? (
+      {aggressiveActorHere() ? (
         <div className={styles.aggressiveNpcsNotification}>
           <p>
-            {" "}
             You can't go anywhere until you deal with the above aggressives or
-            evade them!{" "}
+            evade them!
           </p>
         </div>
       ) : (

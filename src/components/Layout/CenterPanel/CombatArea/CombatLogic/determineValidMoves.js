@@ -1,28 +1,28 @@
-import { astar, Graph } from "./aStar";
+import { astar, Graph } from './aStar';
 
 export function determineValidMoves(
   passableMap,
   actorsInCombatById,
-  actorsById
+  actorsById,
+  actorCoordsById
 ) {
-  const player = actorsById[0];
-  const start_x = player.coords[0];
-  const start_y = player.coords[1];
+  const start_x = actorCoordsById[0].x;
+  const start_y = actorCoordsById[0].y;
 
-  let movement = player.movementRemaining + 1;
+  let movement = actorsById[0].movementRemaining + 1;
 
   let validSquares = [];
   let squaresToReturnTo = [{ x: start_x, y: start_y, dist: 0 }];
 
   const dirs = [
-    "west",
-    "north",
-    "east",
-    "south",
-    "north-east",
-    "north-west",
-    "south-east",
-    "south-west",
+    'west',
+    'north',
+    'east',
+    'south',
+    'north-east',
+    'north-west',
+    'south-east',
+    'south-west',
   ];
 
   while (squaresToReturnTo.length > 0) {
@@ -53,21 +53,21 @@ export function determineValidMoves(
 
   function getCoordsForDirection(direction, x, y) {
     switch (direction) {
-      case "west":
+      case 'west':
         return { x, y: y + 1 };
-      case "north":
+      case 'north':
         return { x: x - 1, y };
-      case "east":
+      case 'east':
         return { x, y: y - 1 };
-      case "south":
+      case 'south':
         return { x: x + 1, y };
-      case "south-east":
+      case 'south-east':
         return { x: x + 1, y: y - 1 };
-      case "north-east":
+      case 'north-east':
         return { x: x - 1, y: y - 1 };
-      case "south-west":
+      case 'south-west':
         return { x: x + 1, y: y + 1 };
-      case "north-west":
+      case 'north-west':
         return { x: x - 1, y: y + 1 };
       default:
         break;
@@ -77,13 +77,14 @@ export function determineValidMoves(
   function removeOtherActorLocations(
     arrayOrig,
     actorsInCombatById,
-    actorsById
+    actorCoordsById
   ) {
     let validSquares2 = arrayOrig;
     actorsInCombatById.forEach((actorId) => {
-      const actor_x = actorsById[actorId].coords[0];
-      const actor_y = actorsById[actorId].coords[1];
-
+      console.log(actorCoordsById[actorId])
+      const actor_x = actorCoordsById[actorId].x;
+      const actor_y = actorCoordsById[actorId].y;
+      console.log(validSquares2)
       const index = validSquares2.findIndex(
         (elem) => elem[0] === actor_x && elem[1] === actor_y
       );
@@ -99,13 +100,15 @@ export function determineValidMoves(
   const validMovesBeforePathing = removeOtherActorLocations(
     validSquares,
     actorsInCombatById,
-    actorsById
+    actorCoordsById
   );
+
+  console.log(validMovesBeforePathing);
 
   let graphDiagonal = new Graph(passableMap, { diagonal: true });
   actorsInCombatById.forEach((actorId) => {
-    graphDiagonal.grid[actorsById[actorId].coords[0]][
-      actorsById[actorId].coords[1]
+    graphDiagonal.grid[actorCoordsById[actorId].x][
+      actorCoordsById[actorId].y
     ].weight = 0;
   });
 
@@ -134,20 +137,20 @@ export function getPath(
   _startPoint,
   _endPoint,
   _actorsInCombatById = [],
-  _actorsById
+  _actorsById,
+  _actorCoordsById
 ) {
   let graphDiagonal = new Graph([..._passableMap], { diagonal: true });
-
+  console.log(_actorCoordsById);
   _actorsInCombatById.forEach((actorId) => {
     if (actorId !== 0) {
-      graphDiagonal.grid[_actorsById[actorId].coords[0]][
-        _actorsById[actorId].coords[1]
+      graphDiagonal.grid[_actorCoordsById[actorId].x][
+        _actorCoordsById[actorId].y
       ].weight = 0;
     }
   });
-
-  const end = graphDiagonal.grid[_endPoint[0]][_endPoint[1]];
-  const start = graphDiagonal.grid[_startPoint[0]][_startPoint[1]];
+  const start = graphDiagonal.grid[_startPoint.x][_startPoint.y];
+  const end = graphDiagonal.grid[_endPoint.x][_endPoint.y];
   const path = astar.search(graphDiagonal, start, end, {
     heuristic: astar.heuristics.diagonal,
   });

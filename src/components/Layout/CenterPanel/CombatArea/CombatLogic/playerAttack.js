@@ -1,10 +1,29 @@
 import _ from "underscore";
 import actions from "../../../../../DataHandlers/redux/actions";
+import UI from "../../../../../DataHandlers/redux/slices/UI";
+import item from "../../../../../DataHandlers/redux/slices/items";
 
 import Item from "../../../../../Entities/Item/Item";
 import { addXP } from "./experience";
 
-export function onClickAttackSquare(dispatch, player, items, target, UIStateActiveActor) {
+export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoords) {
+
+  const direction = () => {
+      const deltaX = actorCoords[targetObj.id].x - actorCoords[0].x; // 1, 0, -1
+      const deltaY = actorCoords[targetObj.id].y - actorCoords[0].y; // 1, 0, -1
+      if (deltaX === -1 && deltaY === 0) return 'north';
+      else if (deltaX === 1 && deltaY === 0) return 'south';
+      else if (deltaX === 0 && deltaY === 1) return 'east';
+      else if (deltaX === 0 && deltaY === -1) return 'west';
+      else if (deltaX === -1 && deltaY === 1) return 'northEast';
+      else if (deltaX === -1 && deltaY === -1) return 'northWest';
+      else if (deltaX === 1 && deltaY === 1) return 'southEast';
+      else if (deltaX === 1 && deltaY === -1) return 'southWest';
+    }
+
+  dispatch(UI.actions.setActorAttackAnimation({actorId: 0, direction: direction()}));
+  dispatch(actions.setActorAttributeByActorId(0, 'actionUsed', true))
+
   const equippedItemsPlayer =
     items.equippedItemsIdsByActorId[0] !== undefined
       ? items.equippedItemsIdsByActorId[0]
@@ -34,32 +53,32 @@ export function onClickAttackSquare(dispatch, player, items, target, UIStateActi
       : Math.round((player.abilityScores.strength - 10) / 2);
 
   const ability = { damage: playerRawDamage + playerStrengthModifier };
-  const abilityTotalDamage = ability.damage - target.armor >= 0 ? ability.damage - target.armor : 0;
-  const enemyHealthAfterAttack = target.health - abilityTotalDamage;
-  dispatch(actions.setActorAttributeByActorId(target.id, 'health', (enemyHealthAfterAttack < 0 ? 0 : enemyHealthAfterAttack)))
+  const abilityTotalDamage = ability.damage - targetObj.armor >= 0 ? ability.damage - targetObj.armor : 0;
+  const enemyHealthAfterAttack = targetObj.health - abilityTotalDamage;
+  dispatch(actions.setActorAttributeByActorId(targetObj.id, 'health', (enemyHealthAfterAttack < 0 ? 0 : enemyHealthAfterAttack)))
   dispatch(
-    actions.addMessageToActivityLog(`Your attack deals ${abilityTotalDamage} damage!`)
+    UI.actions.addMessageToActivityLog(`Your attack deals ${abilityTotalDamage} damage!`)
   );
 
   if (enemyHealthAfterAttack <= 0) {
     // kill enemy logic
-    actions.addMessageToActivityLog(`${target.actorName} dies horribly!`);
-    target.drops.forEach((drop) => {
+    UI.actions.addMessageToActivityLog(`${targetObj.actorName} dies horribly!`);
+    targetObj.drops.forEach((drop) => {
       if (_.random(1, 100) <= drop.chance) {
-        actions.addMessageToActivityLog(
-          `${target.actorName} dropped ${drop.name}`
+        UI.actions.addMessageToActivityLog(
+          `${targetObj.actorName} dropped ${drop.name}`
         );
         dispatch(
-          actions.addItemToActorById(0, new Item(drop.item_type, drop.item))
+          item.actions.addItemToActorById({actorId:0, item: new Item(drop.item_type, drop.item)})
         );
       }
     });
-    dispatch(actions.killActorInCombat(target.id));
-    dispatch(actions.removeActorFromCurrentLocationById(target.id));
-    addXP(target.level, dispatch, player)
-    if (UIStateActiveActor === target.id) dispatch(actions.setActiveActorInfoWindowById())
+    dispatch(actions.killActorInCombat(targetObj.id));
+    dispatch(actions.removeActorFromCurrentLocationById(targetObj.id));
+    addXP(targetObj.level, dispatch, player)
+    dispatch(actions.setActiveActorInfoWindowById())
+    
   }
-
-  dispatch(actions.toggleAttackClick());
+  dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
   // attackStyle = " ";
 }

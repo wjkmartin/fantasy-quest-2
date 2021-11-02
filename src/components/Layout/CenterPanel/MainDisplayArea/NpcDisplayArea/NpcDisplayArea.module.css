@@ -35,8 +35,9 @@
   padding: 2%;
   font-size: 1rem;
   font-weight: 900;
-  text-align: center;
   font-family: 'Metamorphous', cursive;
+  display:inline-block;
+  text-align: center;
 } 
 
 .noselect {
@@ -51,10 +52,12 @@
 
 .NpcDisplayArea {
   display: flex;
-  border-bottom: 1px solid black;
-  max-height: 12%;
-  background-color: white;
+}
 
+.container {
+  width: 50%;
+  border-bottom: 1px solid black;
+  background-color: white;
 }
 
 .aggressiveNpcsNotification {

@@ -1,7 +1,7 @@
 import store from '../../../../../DataHandlers/redux/store'
-import actions from '../../../../../DataHandlers/redux/actions'
+import UI from '../../../../../DataHandlers/redux/slices/UI';
 
 export default function startConversation(actorId) {
-    store.dispatch(actions.startConversationWithActorById(actorId))
+    store.dispatch(UI.actions.startConversationWithActorById(actorId))
     
 }

@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Metamorphous&display=swap');
+
 p {
   margin-bottom: 0 !important;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+h2 {
+  font-family: 'Metamorphous', sans-serif;
 }
 
 #root {
