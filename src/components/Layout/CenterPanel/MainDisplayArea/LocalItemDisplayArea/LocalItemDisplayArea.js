@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { itemColorClass } from '../../../LeftPanel/Notebook/Inventory/util';
 
+import UI from '../../../../../DataHandlers/redux/slices/UI'
+
 import styles from './LocalItemDisplayArea.module.css';
 
 function LocalItemDisplayArea(props) {
@@ -20,7 +22,7 @@ function LocalItemDisplayArea(props) {
       <li
         className={`${styles.itemButton} ${styles[itemColorClass(item.rarity)]}`}
         key={item.name}
-        onClick={() => onItemClick(item)}
+        onClick={() => dispatch(UI.actions.setActiveItemOrNpcTarget({type: 'item', id: item.id}))}
       >
         {item.name}
       </li>

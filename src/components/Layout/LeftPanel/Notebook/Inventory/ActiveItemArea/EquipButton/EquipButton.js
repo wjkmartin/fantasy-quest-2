@@ -2,6 +2,7 @@ import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import actions from "../../../../../../../DataHandlers/redux/actions";
+import itemSlice from "../../../../../../../DataHandlers/redux/slices/items";
 
 export default function EquipButton(props) {
   const playerInventory = useSelector(
@@ -31,9 +32,9 @@ export default function EquipButton(props) {
       }
     });
     if (isEquipped) {
-      dispatch(actions.unequipItemByActorIds(0, itemId));
+      dispatch(itemSlice.actions.unequipItemByActorIds({actorId:0, itemId:itemId}));
     } else {
-      dispatch(actions.equipItemToActorByIds(0, itemId));
+      dispatch(itemSlice.actions.equipItemToActorByIds({actorId:0, itemId:itemId}));
     }
   }
 

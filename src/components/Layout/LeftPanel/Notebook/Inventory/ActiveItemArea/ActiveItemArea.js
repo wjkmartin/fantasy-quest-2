@@ -4,40 +4,33 @@ import React from "react";
 import EquipButton from "./EquipButton/EquipButton";
 import ActivateItemButton from "./ActivateItemButton/ActivateItemButton"
 
+import itemSlice from "../../../../../../DataHandlers/redux/slices/items";
+
 import styles from "./ActiveItemArea.module.css";
 import { itemColorClass, itemRarityName } from "../util";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ActiveItemArea(props) {
   const inTrade = useSelector((state) => state.items.inTrade);
+  const currentLocationName = useSelector((state) => state.locations.currentLocation).name;
+  const dispatch = useDispatch();
 
-  const buttonsEquipable = (
-    <>
-      <EquipButton
+  const equipButton = 
+   <EquipButton
         className={styles.ActiveItemArea_buttons_button}
         itemId={props.item.id}
-      />
-      <button className={styles.ActiveItemArea_buttons_button}>
-        Drop item
-      </button>
-    </>
-  );
+      />;
 
-  const buttonsUsableItem = (
-    <>
+  const useButton =
       <ActivateItemButton 
         className={styles.ActiveItemArea_buttons_button}
         itemId={props.item.id}
         setActiveItem={props.setActiveItem}
-      />
-      <button className={styles.ActiveItemArea_buttons_button}>
-        Drop item
-      </button>
-    </>
-  );
+      />;
 
-  const buttons = (props.item.type === 'consumable' ? buttonsUsableItem : buttonsEquipable)
+
+  const buttonAction = (props.item.type === 'consumable' ? useButton : equipButton)
 
   return (
     <>
@@ -59,7 +52,10 @@ export default function ActiveItemArea(props) {
         </p>
       </div>
       <div className={styles.ActiveItemArea_buttons}>
-        {inTrade ? "" : buttons}
+        {inTrade ? "" : buttonAction}
+        <button onClick={() => dispatch(itemSlice.actions.dropItemFromInventory({itemId: props.item.id, locationName: currentLocationName}))} className={styles.ActiveItemArea_buttons_button}>
+        Drop item
+      </button>
       </div>
     </>
   );

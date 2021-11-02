@@ -8,6 +8,8 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import './Assets/css/fontawesome.css';
+import './Assets/css/solid.css'
 
 import store from "./DataHandlers/redux/store";
 

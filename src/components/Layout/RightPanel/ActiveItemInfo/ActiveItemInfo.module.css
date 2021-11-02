@@ -1,0 +1,67 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.header h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.icon {
+    border-radius: 50%;
+    border: 3px solid black;
+}
+
+.descContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.itemDesc {
+    padding-top: 0.5rem;
+    text-align: center;
+}
+
+.itemDesc__details {
+    padding-top: 1rem;
+    font-weight: bold;
+}
+
+.pickupButton {
+    width: 90%;
+    height: 3rem;
+    background-color: #a0a0a0;
+    border-radius: 0.5rem;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 0px 5px 10px 10px;
+}
+
+.rarity-poor {
+    color: grey;
+  }
+  .rarity-common {
+    color: black;
+  }
+  .rarity-uncommon {
+    color: green;
+  }
+  .rarity-rare {
+    color: blue;
+  }
+  .rarity-very-rare {
+    color: purple;
+  }
+  .rarity-legendary {
+    color: orange;
+  }

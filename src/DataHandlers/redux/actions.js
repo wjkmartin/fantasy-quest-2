@@ -1,7 +1,5 @@
 //SPLIT THIS INTO MULTIPLE FILES!!!!!
 
-import { createAction } from "@reduxjs/toolkit";
-
 // =============  LOCATION  =============
 
 const setLocationById = (locationId) => {
@@ -70,21 +68,6 @@ const setActiveActorInfoWindowById = (id) => {
   return {
     type: "SET_ACTIVE_ACTOR_INFO_WINDOW_BY_ID",
     id: id,
-  };
-};
-
-const resetActorCombatPropsById = (id) => {
-  return {
-    type: "RESET_ACTOR_COMBAT_PROPS_BY_ID",
-    id: id,
-  };
-};
-
-const setActorLocationCombat = (id, coords) => {
-  return {
-    type: "SET_ACTOR_LOCATION_COMBAT",
-    id: id,
-    coords: coords,
   };
 };
 
@@ -170,151 +153,8 @@ const updatePowerDuration = (ref, id, durationRemaining) => {
   }
 }
 
-// =============  COMBAT  =============
-
-const startCombat = () => {
-  return { type: "START_COMBAT" };
-};
-
-const addActorToCombatById = (id) => {
-  return { type: "ADD_ACTOR_TO_COMBAT_BY_ID", id: id };
-};
-
-const setSetupToDone = () => {
-  return {
-    type: "SET_COMBAT_SETUP_TO_DONE",
-  };
-};
-
-const setPassableMap = (data) => {
-  return {
-    type: "SET_PASSABLE_MAP",
-    data: data,
-  };
-};
-
-const toggleMoveClick = () => {
-  return {
-    type: "TOGGLE_MOVE_CLICK",
-  };
-};
-
-const toggleAttackClick = () => {
-  return {
-    type: "TOGGLE_ATTACK_CLICK",
-  };
-};
-
-const setValidMovesById = (id, moves) => {
-  return {
-    type: "SET_VALID_MOVES_BY_ID",
-    id: id,
-    moves: moves,
-  };
-};
-
-const setValidAttackTargetsById = (id, attackTargetCoords) => {
-  return {
-    type: "SET_ATTACK_TARGETS_BY_ID",
-    id: id,
-    attacks: attackTargetCoords,
-  };
-};
-
-const incrementRoundCounter = () => {
-  return {
-    type: "INCREMENT_ROUND_COUNTER",
-  };
-};
-
-const setActorInitiative = (id, initiativeOrder) => {
-  return {
-    type: "SET_ACTOR_INITIATIVE",
-    id: id,
-    initiativeOrder: initiativeOrder,
-  };
-};
-
-const setInitiativeOrderList = (initiativeList) => {
-  return {
-    type: "SET_INITIATIVE_LIST",
-    initiativeList: initiativeList,
-  };
-};
-
-const setCurrentTurnById = (id) => {
-  return {
-    type: "SET_CURRENT_TURN_BY_ID",
-    id: id,
-  };
-};
-
-const endTurn = (initiativeList, currentTurnById) => {
-  return {
-    type: "END_TURN",
-    initiativeList: initiativeList,
-    currentTurnById: currentTurnById
-  };
-};
-
-const endCombat = () => {
-  return {
-    type: "END_COMBAT",
-  };
-};
-
-const killActorInCombat = (id) => {
-  return {
-    type: "KILL_ACTOR_IN_COMBAT",
-    id: id,
-  };
-};
-
-const setDuelFlag = () => {
-  return {
-    type: "SET_DUEL_FLAG",
-  };
-};
 
 // =============  ITEMS  =============
-
-const inventorySetActiveItemById = (itemId) => {
-  return {
-    type: "INVENTORY_SET_ACTIVE_ITEM",
-    id: itemId,
-  };
-};
-
-const equippedSetActiveItemById = (itemId) => {
-  return {
-    type: "EQUIPPED_SET_ACTIVE_ITEM",
-    id: itemId,
-  };
-};
-
-const addItemToActorById = (actorId, itemObject) => {
-  return {
-    type: "ADD_ITEM_TO_ACTOR_BY_ID",
-    id: actorId,
-    item: itemObject,
-  };
-};
-
-const equipItemToActorByIds = (actorId, itemId) => {
-  return {
-    type: "EQUIP_ITEM_TO_ACTOR_BY_IDS",
-    actorId: actorId,
-    itemId: itemId,
-  };
-};
-
-const unequipItemByActorIds = (actorId, itemId) => {
-  return {
-    type: "UNEQUIP_ITEM_FROM_ACTOR_BY_IDS",
-    actorId: actorId,
-    itemId: itemId,
-  };
-};
 
 const startTradeWithActorById = (actorId) => {
   return {
@@ -350,19 +190,13 @@ const tradeItemByIdFromActorToActorByIds = (
   };
 };
 
-const dropItemByIds = (actorId, itemId) => {
-  return {
-    type: "DROP_ITEM_FROM_ACTOR_BY_IDS",
-    actorId: actorId,
-    itemId: itemId,
-  };
-};
 
 const finalizeTrade = () => {
   return {
     type: "FINALIZE_TRADE",
   };
 };
+
 
 const setQuestStage = (quest, questStage) => {
   return {
@@ -394,17 +228,11 @@ export default {
   addPowerToActorByDataReferenceAndId,
   removePowerFromActorByDataReferenceAndId,
   updatePowerDuration,
-
-  inventorySetActiveItemById, //ITEMS
-  equippedSetActiveItemById,
-  addItemToActorById,
-  equipItemToActorByIds,
-  unequipItemByActorIds,
+//ITEMS,
   startTradeWithActorById,
   addItemToActiveTradeWindowById,
   removeItemFromActiveTradeWindowById,
   tradeItemByIdFromActorToActorByIds,
   finalizeTrade,
-  dropItemByIds,
   setQuestStage, //QUESTS
 };

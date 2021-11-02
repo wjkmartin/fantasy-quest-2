@@ -20,7 +20,7 @@ const initialState = {
   playerCombatButtonsHidden: false,
   combatMoveButtonSelected: false,
   combatBasicAttackButtonSelected: false,
-  activeTarget: {data: null, type: null},
+  activeTarget: {id: null, type: null},
 };
 
 const UISlice = createSlice({

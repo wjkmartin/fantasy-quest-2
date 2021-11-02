@@ -1,6 +1,7 @@
 import _ from "underscore";
 import actions from "../../../../../DataHandlers/redux/actions";
 import UI from "../../../../../DataHandlers/redux/slices/UI";
+import item from "../../../../../DataHandlers/redux/slices/items";
 
 import Item from "../../../../../Entities/Item/Item";
 import { addXP } from "./experience";
@@ -68,7 +69,7 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
           `${targetObj.actorName} dropped ${drop.name}`
         );
         dispatch(
-          actions.addItemToActorById(0, new Item(drop.item_type, drop.item))
+          item.actions.addItemToActorById({actorId:0, item: new Item(drop.item_type, drop.item)})
         );
       }
     });

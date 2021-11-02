@@ -170,6 +170,21 @@ export default function (state = initalState, action) {
         },
       };
     }
+    case "REMOVE_ITEM_FROM_LOCATION": {
+      let itemsAfter = state.itemsByLocationName[action.locationName];
+      const itemIndex = itemsAfter.findIndex(
+        (item) => item.id === action.itemId
+      );
+      itemsAfter.splice(itemIndex, 1);
+
+      return {
+        ...state,
+        itemsByLocationName: {
+          ...state.itemsByLocationName,
+          [action.locationName]: [...itemsAfter],
+        },
+      };
+    }
     default: {
       return state;
     }

@@ -1,13 +1,13 @@
 import React from "react";
 
 import { useDispatch } from "react-redux";
-import actions from "../../../../../../DataHandlers/redux/actions";
+import itemSlice from "../../../../../../DataHandlers/redux/slices/items";
 
 export default function UnequipButton(props) {
   let dispatch = useDispatch();
 
   function onClickButton(id) {
-    dispatch(actions.unequipItemByActorIds(0, id));
+    dispatch(itemSlice.actions.unequipItemByActorIds({actorId: 0, itemId: id}));
     props.setActiveItem(undefined)
   }
 

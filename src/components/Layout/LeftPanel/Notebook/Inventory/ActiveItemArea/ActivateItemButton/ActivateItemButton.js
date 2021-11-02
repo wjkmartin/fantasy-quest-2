@@ -1,12 +1,13 @@
 import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import actions from "../../../../../../../DataHandlers/redux/actions";
+import itemSlice from "../../../../../../../DataHandlers/redux/slices/items";
 
 export default function EquipButton(props) {
   const playerInventory = useSelector(
     (state) => state.items.inventoryByActorId[0]
   );
+  const currentLocationName = useSelector(state => state.locations.currentLocation).name
 
   const playerObject = useSelector(state => state.actors.actorsById)[0]
   let dispatch = useDispatch();
@@ -15,7 +16,7 @@ export default function EquipButton(props) {
     let item = playerInventory.find((item) => item.id === itemId);
     item.effectFunction(playerObject, dispatch)
     props.setActiveItem(undefined)
-    dispatch(actions.dropItemByIds(0, item.id))
+    dispatch(itemSlice.actions.dropItemFromInventory({itemId: item.id, locationName:currentLocationName}))
   }
 
   return (

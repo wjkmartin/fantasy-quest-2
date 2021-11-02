@@ -51,7 +51,7 @@ export default
         icon: 'fa-sword',
         rarity: 4,
         descDetails: 'Deals an additional 3d4 + 14 damage per hit.',
-        desc: 'Enchanted weapons deal devastating damage to the magically unprotected, albeit at a significant cost.',
+        desc: 'Enchanted weapons deal devastating damage to the magically unprotected, albeit at a significant cost. They can also overcome protections that would leave mundane weapons useless.',
         stats: {weaponDamageFunction: function() {return _.random(1,4) + _.random(1,4) + _.random(1,4) + 14}},
         value: 1000,
         slot: 'weapon_main',

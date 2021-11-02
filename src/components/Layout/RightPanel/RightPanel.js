@@ -14,19 +14,28 @@ const rightPanel = (props) => {
   const itemsByLocationName = useSelector(
     (state) => state.items.itemsByLocationName
   );
-  const currentLocation = useSelector((state) => state.locations.currentLocation);
+  const currentLocation = useSelector(
+    (state) => state.locations.currentLocation
+  );
   const activeTarget = useSelector((state) => state.UI.activeTarget);
-
 
   return (
     <div className={props.className}>
       {activeTarget.type === 'actor' ? (
         <ActiveActorInfo
-        activeActor={actorsById[activeTarget.id]}
-        className={styles.ActiveActorInfo}
-      />
-      ) : activeTarget.type ==='item' ? (
-        <ActiveItemInfo activeItem={itemsByLocationName[currentLocation.name].filter(item => {return item.id === activeTarget.id})} className={styles.ActiveItemInfo} />
+          activeActor={actorsById[activeTarget.id]}
+          className={styles.ActiveActorInfo}
+        />
+      ) : activeTarget.type === 'item' ? (
+        <ActiveItemInfo
+          locationName={currentLocation.name}
+          activeItem={itemsByLocationName[currentLocation.name].find(
+            (item) => {
+              return item.id === activeTarget.id;
+            }
+          )}
+          className={styles.ActiveItemInfo}
+        />
       ) : (
         <p className={styles.noTarget}> No active target </p>
       )}
