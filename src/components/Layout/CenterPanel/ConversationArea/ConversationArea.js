@@ -13,7 +13,7 @@ export default function ConversationArea(props) {
   const [dialogueState, setDialogueState] = useState("meet");
   const dispatch = useDispatch();
 
-  const activeActorId = useSelector((state) => state.actors.activeActorById);
+  const activeActorId = useSelector((state) => state.UI.activeTarget.id);
   const activeActor = useSelector((state) => state.actors.actorsById)[
     activeActorId
   ];

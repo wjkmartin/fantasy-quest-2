@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./NpcDisplayArea.module.css";
 
-import actions from "../../../../../DataHandlers/redux/actions";
+import UI from "../../../../../DataHandlers/redux/slices/UI";
 
 const NpcDisplayArea = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const NpcDisplayArea = () => {
   }
 
   const setActiveActorInfoWindowById = useCallback(
-    (id) => dispatch(actions.setActiveActorInfoWindowById(id)),
+    (id) => dispatch(UI.actions.setActiveItemOrNpcTarget({type: 'actor', id: id})),
     [dispatch]
   );
 
@@ -57,11 +57,10 @@ const NpcDisplayArea = () => {
   });
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.NpcDisplayArea}>
         <div className={styles.npcsHereLabel}>
-          {" "}
-          PEOPLE<br></br>HERE:
+          PEOPLE<br></br>HERE
         </div>
         <ul className={styles.NpcList}>
           {currentActors !== undefined ? currentActorsButtonsList : " "}

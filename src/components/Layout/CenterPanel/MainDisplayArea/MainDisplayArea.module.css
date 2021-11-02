@@ -11,3 +11,7 @@
     max-height: 80%;
     text-align: center;
 }
+
+.MainDisplayArea__header {
+    display: flex;
+}

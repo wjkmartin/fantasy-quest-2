@@ -5,6 +5,8 @@ import styled from 'styled-components';
 
 import actions from '../../../../DataHandlers/redux/actions';
 
+import UI from '../../../../DataHandlers/redux/slices/UI';
+
 import MinimapNode from './MinimapNode/MinimapNode';
 
 const MinimapStyled = styled.div`
@@ -79,7 +81,7 @@ function onClickNode(location, locations, mapWidth, dispatch) {
 function loadLocation(location, locations, mapWidth, dispatch) {
   discoverAdjacentNodes(location, locations, mapWidth, dispatch);
   dispatch(actions.setLocationById(location.id));
-  dispatch(actions.setActiveActorInfoWindowById(undefined));
+  dispatch(UI.actions.setActiveItemOrNpcTarget({type: null, id: null}));
 }
 
 function discoverAdjacentNodes(location, locations, mapWidth, dispatch) {

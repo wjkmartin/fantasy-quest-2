@@ -18,7 +18,6 @@ const actors = loadActors();
 const initalState = {
   byLocationName: groupBy(actors, "location"),
   actorsById: actors,
-  activeActorById: undefined,
   activePowersById: {
     0: [],
     1: [],
@@ -29,12 +28,6 @@ const initalState = {
 
 export default function (state = initalState, action) {
   switch (action.type) {
-    case "SET_ACTIVE_ACTOR_INFO_WINDOW_BY_ID": {
-      return {
-        ...state,
-        activeActorById: action.id,
-      };
-    }
     case "RESET_ACTOR_COMBAT_PROPS_BY_ID": {
       return {
         ...state,

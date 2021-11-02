@@ -37,7 +37,7 @@ export default function RequestDuelButton(props) {
   }
   return (
     <button onClick={() => handleClick()} className={props.className}>
-      {props.activeActor.isAggressive === true ? "Fight" : "Request duel"}
+      {props.activeActor?.isAggressive === true ? "Fight" : "Request duel"}
     </button>
   );
 }

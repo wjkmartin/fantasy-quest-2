@@ -15,6 +15,11 @@ const initalState = {
   actorInTradeById: undefined,
   itemsPlayerWantsToTradeById: [],
   itemsOtherActorWantsToTrade: [],
+  itemsByLocationName: {
+    "centralSquare": [
+      new Item("weapon", "enchanted_steel_sword"),
+    ],
+  }
 };
 
 export default function (state = initalState, action) {

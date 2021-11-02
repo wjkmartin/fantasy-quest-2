@@ -47,7 +47,7 @@ export default function CombatAreaSquare(props) {
   }
 
   function onClickShowInfo() {
-    dispatch(actions.setActiveActorInfoWindowById(props.actorHere?.id));
+    dispatch(UI.actions.setActiveItemOrNpcTarget({type: 'actor', id: props.actorHere?.id}));
   }
 
   return (

@@ -20,12 +20,17 @@ const initialState = {
   playerCombatButtonsHidden: false,
   combatMoveButtonSelected: false,
   combatBasicAttackButtonSelected: false,
+  activeTarget: {data: null, type: null},
 };
 
 const UISlice = createSlice({
   name: 'UI',
   initialState,
   reducers: {
+    setActiveItemOrNpcTarget: (state,action) => {
+      state.activeTarget.id = action.payload.id;
+      state.activeTarget.type = action.payload.type;
+    },
     startConversationWithActorById: (state, action) => {
       state.inConversation = true;
       state.actorInConversation = action.payload;
@@ -74,6 +79,7 @@ const UISlice = createSlice({
 });
 
 export const {
+  setActiveItemOrNpcTarget,
   startConversationWithActorById,
   endConversation,
   addMessageToActivityLog,

@@ -58,7 +58,7 @@ export default function nextTurn() {
         store.dispatch(UI.actions.addMessageToActivityLog(`You've lost the fight!`));
         store.dispatch(actions.setMap('city', 'centralSquare'));
         store.dispatch(actions.loadSavedMapStateForMap('city'));
-        store.dispatch(actions.setActiveActorInfoWindowById(undefined));
+        store.dispatch(UI.actions.setActiveItemOrNpcTarget({type: 'null', id: null}));
         store.dispatch(UI.actions.addMessageToActivityLog('In a sudden flash of light, you feel yourself dematerialize and a moment later you find yourself in front of the obelisk in the center of the city.', "italic"))
     }
       return true;

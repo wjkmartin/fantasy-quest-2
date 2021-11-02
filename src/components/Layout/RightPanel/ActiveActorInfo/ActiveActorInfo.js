@@ -16,18 +16,20 @@ function ActiveActorInfo(props) {
   const inCombat = combatObject.inCombat;
   const inDialogue = useSelector((state) => state.UI.inConversation);
   const actorObject = useSelector((state) => state.actors);
-  const activeActor = actorObject.actorsById[actorObject.activeActorById];
-  const currentLocation = useSelector(
+
+  const currentSuperLocation = useSelector(
     (state) => state.locations.currentLocation
   );
   const currentSubLocation = useSelector(
     (state) => state.locations.currentSubLocation
   );
 
+  const currentLocation = (currentSubLocation === undefined ? currentSuperLocation : currentSubLocation)
+
   const talkButton = (
     <TalkButton
       key={"talkButton"}
-      activeActor={activeActor}
+      activeActor={props.activeActor}
       className={styles.actionButton}
     />
   );
@@ -36,11 +38,9 @@ function ActiveActorInfo(props) {
     <RequestDuelButton
       key={"requestDuelButton"}
       playerName={actorObject.actorsById[0].actorName}
-      activeActor={activeActor}
+      activeActor={props.activeActor}
       actorIdsHere={
-        currentSubLocation !== undefined
-          ? actorObject.byLocationName[currentSubLocation.name]
-          : actorObject.byLocationName[currentLocation.name]
+        actorObject.byLocationName[currentLocation.name]
       }
       className={styles.actionButton}
     />
@@ -49,7 +49,7 @@ function ActiveActorInfo(props) {
   const tradeButton = (
     <TradeButton
       key={"tradeButton"}
-      activeActor={activeActor}
+      activeActor={props.activeActor}
       className={styles.actionButton}
     />
   );
@@ -65,27 +65,23 @@ function ActiveActorInfo(props) {
   const buttons = [talkButton, tradeButton, duelButton, inspectButton, addToFriendsButton];
   const monsterButtons = [duelButton];
   const healthPercentage =
-    activeActor === undefined
+  props.activeActor === undefined
       ? "none"
-      : Math.round(activeActor.health / activeActor.maxHealth * 100) + "%";
+      : Math.round(props.activeActor?.health / props.activeActor?.maxHealth * 100) + "%";
   const spPercentage =
-    activeActor === undefined
+  props.activeActor === undefined
       ? "none"
-      : Math.round(activeActor.sp / activeActor.maxSp * 100) + "%";
+      : Math.round(props.activeActor?.sp / props.activeActor?.maxSp * 100) + "%";
   const manaPercentage =
-    activeActor === undefined
+  props.activeActor === undefined
       ? "none"
-      : Math.round(activeActor.mana / activeActor.maxMana * 100) + "%";
+      : Math.round(props.activeActor?.mana / props.activeActor?.maxMana * 100) + "%";
 
-  return activeActor === undefined ? (
-    <div className={props.className}>
-      <p className={styles.noTarget}> No active target </p>
-    </div>
-  ) : (
+  return (
     <div className={props.className}>
       <div className={styles.topRow}>
         <img
-          src={activeActor.portrait}
+          src={props.activeActor?.portrait}
           alt="character portrait"
           className={styles.characterPortrait}
         />
@@ -100,19 +96,19 @@ function ActiveActorInfo(props) {
         >
           <p
             className={`${styles.actorName} ${
-              activeActor.type === "hunter" ? styles.hunter : ""
+              props.activeActor?.type === "hunter" ? styles.hunter : ""
             }`}
             id="targetActorName"
           >
-            ~ {activeActor.actorName} ~
+            ~ {props.activeActor?.actorName} ~
           </p>
           <p className={styles.actorTitle}>
             {`<< ${
-              activeActor.title !== undefined ? activeActor.title : ""
+              props.activeActor?.title !== undefined ? props.activeActor?.title : ""
             } >>`}
           </p>
           <p className={styles.actorTitle}>
-            {activeActor.raceLevelClassString}
+            {props.activeActor?.raceLevelClassString}
           </p>
           <div className={styles.barWrapper}>
             <FontAwesomeIcon className={styles.attributeIcon} icon={["fas", "plus"]}></FontAwesomeIcon>
@@ -127,7 +123,7 @@ function ActiveActorInfo(props) {
                 }}
               ></div>
               <div className={styles.bar__numerals}>
-              {activeActor.health} / {activeActor.maxHealth}
+              {props.activeActor?.health} / {props.activeActor?.maxHealth}
             </div>
             </div>
             
@@ -144,7 +140,7 @@ function ActiveActorInfo(props) {
                 }}
               ></div>
               <div className={styles.bar__numerals}>
-              {activeActor.sp} / {activeActor.maxSp}
+              {props.activeActor?.sp} / {props.activeActor?.maxSp}
             </div>
             </div>
             
@@ -161,7 +157,7 @@ function ActiveActorInfo(props) {
                 }}
               ></div>
               <div className={styles.bar__numerals}>
-              {activeActor.mana} / {activeActor.maxMana}
+              {props.activeActor?.mana} / {props.activeActor?.maxMana}
             </div>
             </div>
             
@@ -171,7 +167,7 @@ function ActiveActorInfo(props) {
       <div className={styles.bottomRow}>
         {inCombat || inDialogue
           ? " "
-          : activeActor.type === "monster"
+          : props.activeActor?.type === "monster"
           ? monsterButtons.map((button) => button)
           : buttons.map((button) => button)}
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+import UI from "../../../../../DataHandlers/redux/slices/UI";
 import actions from "../../../../../DataHandlers/redux/actions";
 
 import monsterData from "../../../../../Data/actors/monsters/monsterList";
@@ -12,7 +13,7 @@ export default function LocationButton(props) {
   const currentLocation = locationState.currentLocation;
 
   function handleActionButton(action, currentLocation) {
-    dispatch(actions.setActiveActorInfoWindowById(undefined));
+    dispatch(UI.actions.setActiveItemOrNpcTarget({type: null, id: null}));
     if (action === "top") {
       dispatch(actions.setLocationById(currentLocation.id));
     } else if (action.type === "justButton") {
