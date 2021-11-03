@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import actions from "../../../../../../../DataHandlers/redux/actions";
+import actors from "../../../../../../../DataHandlers/redux/slices/actors";
 import itemSlice from "../../../../../../../DataHandlers/redux/slices/items";
 
 export default function EquipButton(props) {
@@ -22,10 +22,10 @@ export default function EquipButton(props) {
       switch (statType) {
         default:
           dispatch(
-            actions.modifyActorAttributeByActorId(
-              0,
-              statType,
-              isEquipped ? -1 * item.stats[statType] : item.stats[statType]
+            actors.actions.modifyActorAttributeByActorId(
+              {actorId: 0,
+              attribute: statType,
+              value: isEquipped ? -1 * item.stats[statType] : item.stats[statType]}
             )
           );
           break;

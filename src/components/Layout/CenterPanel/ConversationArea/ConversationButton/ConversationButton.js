@@ -2,10 +2,15 @@ import React from "react";
 import styles from "./ConversationButton.module.css";
 
 import { useSelector, useDispatch } from "react-redux";
+
+import actorSlice from "../../../../../DataHandlers/redux/slices/actors";
+import itemSlice from "../../../../../DataHandlers/redux/slices/items";
 import UI from '../../../../../DataHandlers/redux/slices/UI'
+
 
 export default function ConversationButton(props) {
   const dispatch = useDispatch();
+  const actions = {actorSlice, itemSlice, UI};
   let state = useSelector((state) => state);
   let player = state.actors.actorsById[0];
 
@@ -35,14 +40,14 @@ export default function ConversationButton(props) {
     active = values.conditions.length === metConditions;
   }
 
-  function handleClickAction(branch, values, store) {
+  function handleClickAction(branch, values) {
     //deals with actions inside dialogue branches
     const label = values.text === undefined ? values : values.text;
 
     dispatch(UI.actions.addToCurrentDialogueText(label));
 
     if (values.onClick !== undefined && active) {
-      values.onClick(store, dispatch);
+      values.onClick(state, actions, dispatch); 
     }
 
     switch (branch) {
@@ -60,7 +65,7 @@ export default function ConversationButton(props) {
   return (
     <button
       className={visible ? styles.ConversationButton : styles.hide}
-      onClick={() => handleClickAction(dialogueBranch, values, state)}
+      onClick={() => handleClickAction(dialogueBranch, values)}
       disabled={active ? false : true}
     >
       {values.text === undefined ? values : values.text}

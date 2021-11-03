@@ -147,8 +147,9 @@ function Minimap() {
   const actorsById = useSelector((state) => state.actors.actorsById);
 
   const actorsAtCurrentLocation = useSelector(
-    (state) => state.actors.byLocationName[currentLocation.name]
-  );
+    (state) => state.actors.actorsById).filter(
+      (actor) => actor.location === currentLocation.id
+    );
 
   let isAggressiveActorAtCurrentLocation = false;
 

@@ -72,20 +72,20 @@ const CombatGrid = styled.div`
 function CombatArea() {
   const combatState = useSelector((state) => state.combat);
   const UIState = useSelector((state) => state.UI);
-  const currentLocation = useSelector(
+
+  const currentSuperLocation = useSelector(
     (state) => state.locations.currentLocation
   );
   const currentSubLocation = useSelector(
     (state) => state.locations.currentSubLocation
   );
 
+  const currentLocation = (currentSubLocation === undefined ? currentSuperLocation : currentSubLocation);
+
   const actorsById = useSelector((state) => state.actors.actorsById);
+
   const actorIdsInCombat = useSelector(
     (state) => state.combat.actorsInCombatById
-  );
-
-  const actorIdsByLocation = useSelector(
-    (state) => state.actors.byLocationName
   );
 
   const actorValidMovesById = useSelector((state) => state.combat.actorValidMovesById) || [];
@@ -96,14 +96,10 @@ function CombatArea() {
 
   let mapData = {};
 
-  Object.assign(mapData, combatMaps['notDefined']); // loads a simple map if a proper battlemap is not defined in battlemaps.js
-
-  if (combatMaps[currentLocation.name] !== undefined) {
-    Object.assign(mapData, combatMaps[currentLocation.name]);
-  } else if (currentSubLocation !== undefined) {
-    if (combatMaps[currentSubLocation.name] !== undefined) {
-      Object.assign(mapData, combatMaps[currentSubLocation.name]);
-    }
+  if (combatMaps[currentLocation.name]) {
+    mapData = combatMaps[currentLocation.name];
+  } else {
+    mapData = combatMaps['notDefined']; // loads a simple map if a proper battlemap is not defined in battlemaps.js
   }
 
   if (!combatState.setupDone) {
@@ -131,7 +127,7 @@ function CombatArea() {
   const combatMap = updateMap(mapData, items);
 
   function combatSetup() {
-    dispatch(combat.actions.resetActorCombatPropsById(0));
+    dispatch(combat.actions.resetActorCombatPropsById(0)); 
     dispatch(
       combat.actions.setActorCoordsById({
         actorId: 0,
@@ -142,16 +138,17 @@ function CombatArea() {
       })
     );
 
-    actorIdsByLocation[
-      currentSubLocation !== undefined
-        ? currentSubLocation.name
-        : currentLocation.name
-    ].forEach((actorId, index) => {
+  
+    const actorsAtCurrentLocation = actorsById.filter(
+      (actor) => actor.location === currentLocation.name
+    );
+
+    actorsAtCurrentLocation.forEach((actor, index) => {
       const startCoords = mapData.enemyStartCoords[index];
-      dispatch(combat.actions.resetActorCombatPropsById(actorId));
+      dispatch(combat.actions.resetActorCombatPropsById(actor.id)); 
       dispatch(
         combat.actions.setActorCoordsById({
-          actorId: actorId,
+          actorId: actor.id,
           coords: { x: startCoords[0], y: startCoords[1] },
         })
       );

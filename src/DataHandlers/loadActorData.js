@@ -7,7 +7,6 @@ export const loadActors = () => {
 
   for (let i = 0; i < actorData.length; i++) {
     let actor = new Actor(actorData[i]);
-    actor.id = i;
     actors.push(actor);
   }
   return actors;

@@ -2,9 +2,10 @@ import React, { useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import actions from '../../../../../DataHandlers/redux/actions';
+
 import UI from '../../../../../DataHandlers/redux/slices/UI';
 import combat from '../../../../../DataHandlers/redux/slices/combat';
+import actors from '../../../../../DataHandlers/redux/slices/actors';
 
 import styles from './CombatActionsPanel.module.css';
 
@@ -95,7 +96,8 @@ export default function CombatActionsPanel() {
 
   function onClickEndTurnButton() {
     dispatch(UI.actions.setPlayerCombatButtonsHidden(true));
-    dispatch(actions.resetActionAndMovementById(0));
+    dispatch(actors.actions.setActorAttributeByActorId({ actorId: 0, attribute: 'actionUsed', value: false }));
+    dispatch(actors.actions.setActorAttributeByActorId({ actorId: 0, attribute: 'movementRemaining', value: actorsById[0].speed }));
     dispatch(combat.actions.endTurn());
     nextTurn();
   }

@@ -3,18 +3,18 @@ import logger from 'redux-logger';
 
 import { combineReducers } from 'redux';
 import locations from './reducers/locations';
-import actors from './reducers/actors';
 import quests from './reducers/quests';
 
 import combatSlice from './slices/combat';
 import UISlice from './slices/UI';
 import itemSlice from './slices/items';
+import actorSlice from './slices/actors';
 
 
 
 const rootReducer = combineReducers({
   locations: locations,
-  actors: actors,
+  actors: actorSlice.reducer,
   items: itemSlice.reducer,
   combat: combatSlice.reducer,
   UI: UISlice.reducer,

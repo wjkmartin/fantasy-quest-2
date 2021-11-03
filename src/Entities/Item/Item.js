@@ -8,7 +8,6 @@ import consumables from '../../Data/items/consumables'
 export default class Item {
   static id = 0;
   constructor(type, item /* prototype */) {
-    
     this.type = type;
     Item.id += 1;
     this.id = Item.id

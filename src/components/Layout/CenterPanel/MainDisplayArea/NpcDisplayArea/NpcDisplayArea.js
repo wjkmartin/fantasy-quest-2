@@ -7,7 +7,6 @@ import UI from "../../../../../DataHandlers/redux/slices/UI";
 
 const NpcDisplayArea = () => {
   const dispatch = useDispatch();
-  const actorIdsByLocation = useSelector((state) => state.actors.byLocationName);
   const actorsById = useSelector((state) => state.actors.actorsById);
 
   const currentSuperLocation = useSelector(
@@ -20,38 +19,38 @@ const NpcDisplayArea = () => {
 
   const currentLocation = (currentSubLocation === undefined ? currentSuperLocation : currentSubLocation);
 
-  const currentActors = (actorIdsByLocation[currentLocation.name] || [])
+  const currentActors = actorsById.filter((actor) => {
+    return (
+      actor.location === currentLocation.name &&
+      !actor.isDead
+    );
+  });
 
-  const aggressiveActorHere = () => {
-    if (currentActors !== undefined) {
-      for (let i = 0; i < currentActors.length; i++) {
-        if (actorsById[currentActors[i]].isAggressive) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+  console.log(currentActors);
+
+  const aggressiveActorHere = currentActors.some((actor) => {
+    return actor.isAggressive;
+  });
 
   const setActiveActorInfoWindowById = useCallback(
     (id) => dispatch(UI.actions.setActiveItemOrNpcTarget({type: 'actor', id: id})),
     [dispatch]
   );
 
-  const currentActorsButtonsList = currentActors.map((actorId) => {
+  const currentActorsButtonsList = currentActors.map((actor) => {
     return (
       <li
         className={`${styles.Npc} ${
-          actorsById[actorId].isAggressive === true
+          actor.isAggressive === true
             ? styles.aggressive
-            : actorsById[actorId].type === "hunter"
+            : actor.type === "hunter"
             ? styles.hunter
             : ""
         } `}
-        key={`${actorsById[actorId].actorName}${actorsById[actorId].actorName}`}
-        onClick={() => setActiveActorInfoWindowById(actorId)}
+        key={`${actor.actorName}${actor.actorName}`}
+        onClick={() => setActiveActorInfoWindowById(actor.id)}
       >
-        {`${actorsById[actorId].actorName}`}
+        {`${actor.actorName}`}
       </li>
     );
   });
@@ -66,7 +65,7 @@ const NpcDisplayArea = () => {
           {currentActors !== undefined ? currentActorsButtonsList : " "}
         </ul>
       </div>
-      {aggressiveActorHere() ? (
+      {aggressiveActorHere ? (
         <div className={styles.aggressiveNpcsNotification}>
           <p>
             You can't go anywhere until you deal with the above aggressives or

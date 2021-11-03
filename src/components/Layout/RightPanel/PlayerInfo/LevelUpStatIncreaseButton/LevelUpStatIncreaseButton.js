@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import actions from "../../../../../DataHandlers/redux/actions";
+import actors from "../../../../../DataHandlers/redux/slices/actors";
 import styles from './LevelUpStatIncreaseButton.module.css'
 
 const LevelUpStatIncreaseButton = (props) => {
     const dispatch = useDispatch()
     function click() {
-        dispatch(actions.modifyActorAttributeByActorId(0, 'levelsUpAvailable', -1))
-        dispatch(actions.modifyActorAttributeByActorId(0, props.stat, 1))
+        dispatch(actors.actions.modifyActorAttributeByActorId({actorId: 0, attribute: 'levelsUpAvailable', value: -1}))
+        dispatch(actors.actions.modifyActorAttributeByActorId({actorId: 0, attribute: props.stat, value: 1}))
     }
     return (<div className={styles.LevelUpStatIncreaseButton} onClick={() => click()}>+</div>)
 }

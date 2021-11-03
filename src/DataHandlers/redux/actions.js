@@ -215,19 +215,6 @@ export default {
   saveCurrentMapState,
   loadSavedMapStateForMap,
   modifyLocationPropertyById,
-  setActiveActorInfoWindowById, //ACTOR
-  attackTargetWithAbility,
-
-  moveActorLocationCombat,
-  resetActionAndMovementById,
-  modifyActorAttributeByActorId,
-  setActorAttributeByActorId,
-
-  removeActorFromCurrentLocationById,
-  createNewActorFromDataFileAndLocation,
-  addPowerToActorByDataReferenceAndId,
-  removePowerFromActorByDataReferenceAndId,
-  updatePowerDuration,
 //ITEMS,
   startTradeWithActorById,
   addItemToActiveTradeWindowById,

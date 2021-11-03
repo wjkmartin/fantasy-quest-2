@@ -1,4 +1,4 @@
-import actions from "../../DataHandlers/redux/actions"
+import actor from '../../DataHandlers/redux/slices/actors'
 import _ from 'underscore'
 
 export default {
@@ -11,7 +11,7 @@ export default {
 
             if (healthDif > 0) {
                 const healingRoll = _.random(1,8) + _.random(1,8) + 25;
-                dispatch(actions.modifyActorAttributeByActorId(0, 'health', (healingRoll > healthDif ? healthDif : healingRoll)))
+                dispatch(actor.actions.modifyActorAttributeByActorId({actorId: 0, attribute: 'health', value: (healingRoll > healthDif ? healthDif : healingRoll)}))
             }
         },
         icon: 'fa-flask-potion',
@@ -31,7 +31,7 @@ export default {
 
             if (healthDif > 0) {
                 const healingRoll = _.random(1,12) + _.random(1,12) + _.random(1,12) + 50;
-                dispatch(actions.modifyActorAttributeByActorId(0, 'health', (healingRoll > healthDif ? healthDif : healingRoll)))
+                dispatch(actor.actions.modifyActorAttributeByActorId({actorId: 0, attribute: 'health', value: (healingRoll > healthDif ? healthDif : healingRoll)}))
             }
         },
         icon: 'fa-flask-potion',

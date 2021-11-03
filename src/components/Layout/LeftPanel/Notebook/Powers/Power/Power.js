@@ -3,6 +3,7 @@ import styles from "./Power.module.css";
 
 import { useDispatch } from "react-redux";
 import actions from "../../../../../../DataHandlers/redux/actions";
+import actor from "../../../../../../DataHandlers/redux/slices/actors";
 
 export default function Power(props) {
   const power = props.powerData;
@@ -13,7 +14,7 @@ export default function Power(props) {
   useEffect(() => {
     Object.keys(power.stats).forEach((stat) => {
       dispatch(
-        actions.modifyActorAttributeByActorId(0, stat, power.stats[stat])
+        actor.actions.modifyActorAttributeByActorId({actorId: 0, attribute: stat, value: power.stats[stat]})
       );
     });
   }, []);
@@ -28,10 +29,10 @@ export default function Power(props) {
       clearInterval(myInterval);
       if (durationRemainingSeconds === 1) {
         
-        dispatch(actions.removePowerFromActorByDataReferenceAndId(power.ref, 0));
+        dispatch(actor.actions.removePowerFromActorByDataRefAndActorId({powerDataRef: power.ref, actorId: 0}));
         Object.keys(power.stats).forEach((stat) => {
           dispatch(
-            actions.modifyActorAttributeByActorId(0, stat, power.stats[stat] * -1)
+            actor.actions.modifyActorAttributeByActorId({actorId: 0, attribute: stat, value: power.stats[stat] * -1})
           );
         });
       }

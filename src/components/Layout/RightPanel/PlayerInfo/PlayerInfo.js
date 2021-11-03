@@ -8,9 +8,9 @@ import { getDerivedPhysicalString } from "./util";
 import LevelUpStatIncreaseButton from "./LevelUpStatIncreaseButton/LevelUpStatIncreaseButton";
 
 const PlayerInfo = (props) => {
-  let player = useSelector((state) => state.actors.actorsById[0]);
-  let playerInv = useSelector((state) => state.items.inventoryByActorId[0]);
-  let playerEquippedItemsByIds = useSelector(
+  const player = useSelector((state) => state.actors.actorsById[0]);
+  const playerInv = useSelector((state) => state.items.inventoryByActorId[0]);
+  const playerEquippedItemsByIds = useSelector(
     (state) => state.items.equippedItemsIdsByActorId[0]
   );
 

@@ -3,6 +3,7 @@ import styles from './FinalizeButton.module.css'
 
 import { useSelector, useDispatch } from 'react-redux'
 import actions from '../../../../../DataHandlers/redux/actions'
+import actor from '../../../../../DataHandlers/redux/slices/actors';
 
 export default function FinalizeButton(props) {
     let dispatch = useDispatch()
@@ -10,7 +11,7 @@ export default function FinalizeButton(props) {
 
     function onClickButton(props) {
         if (player.gold >= (props.balance * -1)) {
-            dispatch(actions.setActorAttributeByActorId(0, 'gold', player.gold + props.balance))
+            dispatch(actor.actions.setActorAttributeByActorId({actorId: 0, attribute: 'gold', value: player.gold + props.balance}))
 
             props.itemsToSendById.forEach(itemId => {
                 dispatch(actions.tradeItemByIdFromActorToActorByIds(itemId, 0, props.actorInTradeId))

@@ -2,6 +2,7 @@ import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import UI from "../../../../../DataHandlers/redux/slices/UI";
+import actors from "../../../../../DataHandlers/redux/slices/actors";
 import actions from "../../../../../DataHandlers/redux/actions";
 
 import monsterData from "../../../../../Data/actors/monsters/monsterList";
@@ -38,9 +39,9 @@ export default function LocationButton(props) {
               location.monstersToSpawn.forEach((monster) => {
                 dispatch(
                   //create monster of given type in actors list with location.name
-                  actions.createNewActorFromDataFileAndLocation(
-                    monsterData[monster],
-                    location.name
+                  actors.actions.createNewActorFromDataFileAndLocation(
+                    {actorData: monsterData[monster],
+                    location: location.name}
                   )
                 );
               });

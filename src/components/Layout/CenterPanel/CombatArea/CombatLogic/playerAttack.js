@@ -1,7 +1,8 @@
 import _ from "underscore";
-import actions from "../../../../../DataHandlers/redux/actions";
 import UI from "../../../../../DataHandlers/redux/slices/UI";
 import item from "../../../../../DataHandlers/redux/slices/items";
+import actor from "../../../../../DataHandlers/redux/slices/actors";
+import combat from "../../../../../DataHandlers/redux/slices/combat";
 
 import Item from "../../../../../Entities/Item/Item";
 import { addXP } from "./experience";
@@ -22,7 +23,7 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
     }
 
   dispatch(UI.actions.setActorAttackAnimation({actorId: 0, direction: direction()}));
-  dispatch(actions.setActorAttributeByActorId(0, 'actionUsed', true))
+  dispatch(actor.actions.setActorAttributeByActorId({actorId: 0, attribute: 'actionUsed', value: true}))
 
   const equippedItemsPlayer =
     items.equippedItemsIdsByActorId[0] !== undefined
@@ -55,7 +56,7 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
   const ability = { damage: playerRawDamage + playerStrengthModifier };
   const abilityTotalDamage = ability.damage - targetObj.armor >= 0 ? ability.damage - targetObj.armor : 0;
   const enemyHealthAfterAttack = targetObj.health - abilityTotalDamage;
-  dispatch(actions.setActorAttributeByActorId(targetObj.id, 'health', (enemyHealthAfterAttack < 0 ? 0 : enemyHealthAfterAttack)))
+  dispatch(actor.actions.setActorAttributeByActorId({actorId: targetObj.id, attribute: 'health', value: (enemyHealthAfterAttack < 0 ? 0 : enemyHealthAfterAttack)}))
   dispatch(
     UI.actions.addMessageToActivityLog(`Your attack deals ${abilityTotalDamage} damage!`)
   );
@@ -73,10 +74,10 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
         );
       }
     });
-    dispatch(actions.killActorInCombat(targetObj.id));
-    dispatch(actions.removeActorFromCurrentLocationById(targetObj.id));
+    dispatch(combat.actions.removeActorFromCombatById({actorId: targetObj.id}));
+    dispatch(actor.actions.removeActorFromCurrentLocationById({actorId: targetObj.id}));
     addXP(targetObj.level, dispatch, player)
-    dispatch(actions.setActiveActorInfoWindowById())
+    dispatch(UI.actions.setActiveItemOrNpcTarget({id: null, type: null}));
     
   }
   dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());

@@ -1,15 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-import styles from "./ActiveActorInfo.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styles from './ActiveActorInfo.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import RequestDuelButton from "./RequestDuelButton/RequestDuelButton";
-import TradeButton from "./TradeButton/TradeButton";
-import TalkButton from "./TalkButton/TalkButton";
-import InspectButton from "./InspectButton/InspectButton";
-import AddToFriendsButton from "./AddToFriendsButton/AddToFriendsButton"
-
+import RequestDuelButton from './RequestDuelButton/RequestDuelButton';
+import TradeButton from './TradeButton/TradeButton';
+import TalkButton from './TalkButton/TalkButton';
+import InspectButton from './InspectButton/InspectButton';
+import AddToFriendsButton from './AddToFriendsButton/AddToFriendsButton';
 
 function ActiveActorInfo(props) {
   const combatObject = useSelector((state) => state.combat);
@@ -24,11 +23,18 @@ function ActiveActorInfo(props) {
     (state) => state.locations.currentSubLocation
   );
 
-  const currentLocation = (currentSubLocation === undefined ? currentSuperLocation : currentSubLocation)
+  const currentLocation =
+    currentSubLocation === undefined
+      ? currentSuperLocation
+      : currentSubLocation;
+
+  const actorsHere = actorObject.actorsById.filter(
+    (actor) => actor.location === currentLocation
+  );
 
   const talkButton = (
     <TalkButton
-      key={"talkButton"}
+      key={'talkButton'}
       activeActor={props.activeActor}
       className={styles.actionButton}
     />
@@ -36,46 +42,56 @@ function ActiveActorInfo(props) {
 
   const duelButton = (
     <RequestDuelButton
-      key={"requestDuelButton"}
-      playerName={actorObject.actorsById[0].actorName}
+      key={'requestDuelButton'}
       activeActor={props.activeActor}
-      actorIdsHere={
-        actorObject.byLocationName[currentLocation.name]
-      }
       className={styles.actionButton}
     />
   );
 
   const tradeButton = (
     <TradeButton
-      key={"tradeButton"}
+      key={'tradeButton'}
       activeActor={props.activeActor}
       className={styles.actionButton}
     />
   );
 
   const inspectButton = (
-    <InspectButton key={"inspectButton"} className={styles.actionButton} />
+    <InspectButton key={'inspectButton'} className={styles.actionButton} />
   );
 
   const addToFriendsButton = (
-    <AddToFriendsButton key={"addToFriendsButton"} className={styles.actionButton} />
+    <AddToFriendsButton
+      key={'addToFriendsButton'}
+      className={styles.actionButton}
+    />
   );
 
-  const buttons = [talkButton, tradeButton, duelButton, inspectButton, addToFriendsButton];
+  const buttons = [
+    talkButton,
+    tradeButton,
+    duelButton,
+    inspectButton,
+    addToFriendsButton,
+  ];
   const monsterButtons = [duelButton];
   const healthPercentage =
-  props.activeActor === undefined
-      ? "none"
-      : Math.round(props.activeActor?.health / props.activeActor?.maxHealth * 100) + "%";
+    props.activeActor === undefined
+      ? 'none'
+      : Math.round(
+          (props.activeActor?.health / props.activeActor?.maxHealth) * 100
+        ) + '%';
   const spPercentage =
-  props.activeActor === undefined
-      ? "none"
-      : Math.round(props.activeActor?.sp / props.activeActor?.maxSp * 100) + "%";
+    props.activeActor === undefined
+      ? 'none'
+      : Math.round((props.activeActor?.sp / props.activeActor?.maxSp) * 100) +
+        '%';
   const manaPercentage =
-  props.activeActor === undefined
-      ? "none"
-      : Math.round(props.activeActor?.mana / props.activeActor?.maxMana * 100) + "%";
+    props.activeActor === undefined
+      ? 'none'
+      : Math.round(
+          (props.activeActor?.mana / props.activeActor?.maxMana) * 100
+        ) + '%';
 
   return (
     <div className={props.className}>
@@ -87,16 +103,16 @@ function ActiveActorInfo(props) {
         />
         <div
           style={{
-            width: "70%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "space-evenly",
+            width: '70%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
           }}
         >
           <p
             className={`${styles.actorName} ${
-              props.activeActor?.type === "hunter" ? styles.hunter : ""
+              props.activeActor?.type === 'hunter' ? styles.hunter : ''
             }`}
             id="targetActorName"
           >
@@ -104,70 +120,78 @@ function ActiveActorInfo(props) {
           </p>
           <p className={styles.actorTitle}>
             {`<< ${
-              props.activeActor?.title !== undefined ? props.activeActor?.title : ""
+              props.activeActor?.title !== undefined
+                ? props.activeActor?.title
+                : ''
             } >>`}
           </p>
           <p className={styles.actorTitle}>
             {props.activeActor?.raceLevelClassString}
           </p>
           <div className={styles.barWrapper}>
-            <FontAwesomeIcon className={styles.attributeIcon} icon={["fas", "plus"]}></FontAwesomeIcon>
+            <FontAwesomeIcon
+              className={styles.attributeIcon}
+              icon={['fas', 'plus']}
+            ></FontAwesomeIcon>
             <div className={styles.bar}>
               <div
                 style={{
                   width: healthPercentage,
-                  position: "absolute",
-                  height: "11px",
-                  backgroundColor: "#e06666",
-                  borderRadius: "10% 10% 10% 10% / 0% 50% 50% 0% ",
+                  position: 'absolute',
+                  height: '11px',
+                  backgroundColor: '#e06666',
+                  borderRadius: '10% 10% 10% 10% / 0% 50% 50% 0% ',
                 }}
               ></div>
               <div className={styles.bar__numerals}>
-              {props.activeActor?.health} / {props.activeActor?.maxHealth}
+                {props.activeActor?.health} / {props.activeActor?.maxHealth}
+              </div>
             </div>
-            </div>
-            
           </div>
           <div className={styles.barWrapper}>
-            <FontAwesomeIcon className={styles.attributeIcon} icon={["fas", "user"]}></FontAwesomeIcon>
+            <FontAwesomeIcon
+              className={styles.attributeIcon}
+              icon={['fas', 'user']}
+            ></FontAwesomeIcon>
             <div className={styles.bar}>
               <div
                 style={{
                   width: spPercentage,
-                  height: "11px",
-                  backgroundColor: "#93c47d",
-                  borderRadius: "10% 10% 10% 10% / 0% 50% 50% 0% ",
+                  height: '11px',
+                  backgroundColor: '#93c47d',
+                  borderRadius: '10% 10% 10% 10% / 0% 50% 50% 0% ',
                 }}
               ></div>
               <div className={styles.bar__numerals}>
-              {props.activeActor?.sp} / {props.activeActor?.maxSp}
+                {props.activeActor?.sp} / {props.activeActor?.maxSp}
+              </div>
             </div>
-            </div>
-            
           </div>
           <div className={styles.barWrapper}>
-            <FontAwesomeIcon className={styles.attributeIcon} icon={["fas", "star"]}></FontAwesomeIcon>
+            <FontAwesomeIcon
+              className={styles.attributeIcon}
+              icon={['fas', 'star']}
+            ></FontAwesomeIcon>
             <div className={styles.bar}>
               <div
                 style={{
                   width: manaPercentage,
-                  height: "11px",
-                  backgroundColor: "#6fa8dc",
-                  borderRadius: "10% 10% 10% 10% / 0% 50% 50% 0% ",
+                  height: '11px',
+                  backgroundColor: '#6fa8dc',
+                  borderRadius: '10% 10% 10% 10% / 0% 50% 50% 0% ',
                 }}
               ></div>
               <div className={styles.bar__numerals}>
-              {props.activeActor?.mana} / {props.activeActor?.maxMana}
+                {props.activeActor?.mana} / {props.activeActor?.maxMana}
+              </div>
             </div>
-            </div>
-            
           </div>
         </div>
       </div>
       <div className={styles.bottomRow}>
         {inCombat || inDialogue
-          ? " "
-          : props.activeActor?.type === "monster"
+          ? ' '
+          : props.activeActor?.type === 'monster'
           ? monsterButtons.map((button) => button)
           : buttons.map((button) => button)}
       </div>

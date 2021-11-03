@@ -8,20 +8,21 @@ import combat from "../../../../../DataHandlers/redux/slices/combat";
 export default function RequestDuelButton(props) {
   let dispatch = useDispatch();
   const actorsById = useSelector(store => store.actors.actorsById);
-  const actorsHereById = useSelector(store => store.actors.byLocationName)[useSelector(store => store.locations.currentLocation.name)];
+  const currentLocation = useSelector(store => store.locations.currentLocation).name;
+  const actorsHere = actorsById.filter(actor => actor.location === currentLocation);
 
   function handleClick() {
     let isDuel = true;
-    actorsHereById.forEach((actorId) => {
-      if (actorsById[actorId].isAggressive) { 
+    actorsHere.forEach((actor) => {
+      if (actor.isAggressive) { 
         isDuel = false;
-        dispatch(combat.actions.addActorToCombatById(actorId)); 
-      } else if (actorId === props.activeActor.id) {
+        dispatch(combat.actions.addActorToCombatById(actor.id)); 
+      } else if (actor.id === props.activeActor.id) {
         dispatch(
           UI.actions.addMessageToActivityLog(
-            `${props.playerName} has started a duel with ${props.activeActor.actorName}`, 'red')
+            `${actorsById[0].actorName} has started a duel with ${props.activeActor.actorName}`, 'red')
         );
-        dispatch(combat.actions.addActorToCombatById(actorId));
+        dispatch(combat.actions.addActorToCombatById(actor.id));
         dispatch(combat.actions.setIsDuel(false));
       }
     });

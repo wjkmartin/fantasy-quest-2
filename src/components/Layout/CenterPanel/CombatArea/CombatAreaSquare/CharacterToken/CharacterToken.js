@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import actions from '../../../../../../DataHandlers/redux/actions';
 
 import UI from '../../../../../../DataHandlers/redux/slices/UI';
 import combat from '../../../../../../DataHandlers/redux/slices/combat';
+import actorSlice from '../../../../../../DataHandlers/redux/slices/actors';
 
 import movementAnimationsByDirection from './movementAnimationsByDirection';
 import attackAnimationsByDirection from './attackAnimationsByDirection';
@@ -136,10 +136,10 @@ export default function CharacterToken(props) {
   function resetAnimationParams(_actorIdAnimating, _coordsFinal) {
     didAnimate.current = true;
     dispatch(
-      actions.setActorAttributeByActorId(
-        _actorIdAnimating,
-        'movementRemaining',
-        actorsById[_actorIdAnimating].movementRemaining - animationPath.length
+      actorSlice.actions.setActorAttributeByActorId(
+        {actorId: _actorIdAnimating,
+        attribute: 'movementRemaining',
+        value: actorsById[_actorIdAnimating].movementRemaining - animationPath.length}
       )
     );
     dispatch(UI.actions.setAnimationPath(undefined));
