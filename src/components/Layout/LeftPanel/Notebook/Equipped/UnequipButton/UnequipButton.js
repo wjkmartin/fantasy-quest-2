@@ -7,7 +7,7 @@ export default function UnequipButton(props) {
   let dispatch = useDispatch();
 
   function onClickButton(id) {
-    dispatch(itemSlice.actions.unequipItemFromActorByIds({actorId: 0, itemId: id}));
+    dispatch(itemSlice.actions.unequipItemByActorIds({actorId: 0, itemId: id}));
     props.setActiveItem(undefined)
   }
 

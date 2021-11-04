@@ -10,7 +10,9 @@ import LevelUpStatIncreaseButton from "./LevelUpStatIncreaseButton/LevelUpStatIn
 const PlayerInfo = (props) => {
   const player = useSelector((state) => state.actors.actorsById[0]);
   const playerInv = useSelector((state) => state.items.inventoryByActorId[0]);
-  const playerEquippedItemsByIds = playerInv.filter(item => item.equipped);
+  const playerEquippedItemsByIds = useSelector(
+    (state) => state.items.equippedItemsIdsByActorId[0]
+  );
 
   const healthPercentage =
     Math.round((player.health / player.maxHealth) * 100) + "%";

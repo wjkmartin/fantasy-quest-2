@@ -19,7 +19,7 @@ export default function ActiveItemArea(props) {
   const equipButton = 
    <EquipButton
         className={styles.ActiveItemArea_buttons_button}
-        item={props.item}
+        itemId={props.item.id}
       />;
 
   const useButton =

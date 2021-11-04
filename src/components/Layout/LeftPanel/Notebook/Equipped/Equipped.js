@@ -11,13 +11,19 @@ import styles from "./Equipped.module.css";
 import UnequipButton from "./UnequipButton/UnequipButton";
 
 export default function Equipped() {
+  const playerEquippedItemsById = useSelector(
+    (state) => state.items.equippedItemsIdsByActorId
+  )[0];
+
   const playerItems = useSelector((state) => state.items.inventoryByActorId)[0];
-  const equippedItems = playerItems.filter((item) => item.equipped);
 
   let playerEquippedItemsBySlot = {};
 
-  if (equippedItems.length > 0) {
-    playerEquippedItemsBySlot = equippedItems //will still have to handle multiple items going into same slot
+  if (playerEquippedItemsById.length > 0) {
+    playerEquippedItemsBySlot = playerEquippedItemsById //will still have to handle multiple items going into same slot
+      .map((id) => {
+        return playerItems.find((item) => item.id === id);
+      })
       .reduce((obj, item) => {
         obj[item.slot] = item;
         return obj;

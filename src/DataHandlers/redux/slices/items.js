@@ -11,6 +11,7 @@ const initialState = {
     4: [new Item("consumable", "potion_of_healing"), new Item("consumable", "potion_of_healing")],
     5: [new Item("weapon", "rusty_sword"), new Item("weapon", "iron_sword"), new Item("weapon", "steel_sword"), new Item("weapon", "enchanted_steel_sword")],
   },
+  equippedItemsIdsByActorId: { 0: [] }, // this sucks - improve to be something like : equipped items by actorId , { 0: {head: item, weapon: item} } etc
   inTrade: false,
   actorInTradeById: undefined,
   itemsPlayerWantsToTradeById: [],
@@ -32,20 +33,23 @@ const itemSlice = createSlice({
         },
         equipItemToActorByIds: (state, action) => {
             const { actorId, itemId } = action.payload;
-            const itemIndex = state.inventoryByActorId[actorId].findIndex(item => item.id === itemId);
-            state.inventoryByActorId[actorId][itemIndex].equipped = true;
+            state.equippedItemsIdsByActorId[actorId].push(itemId);
         },
         unequipItemFromActorByIds: (state, action) => {
             const { actorId, itemId } = action.payload;
-            const itemIndex = state.inventoryByActorId[actorId].findIndex(item => item.id === itemId);
-            state.inventoryByActorId[actorId][itemIndex].equipped = false;
+            state.equippedItemsIdsByActorId[actorId] = state.equippedItemsIdsByActorId[actorId].filter(id => id !== itemId);
         },
         dropItemFromInventory: (state, action) => {
             const { itemId, locationName } = action.payload;
             const item = state.inventoryByActorId[0].find(item => item.id === itemId);
-            const itemIndex = state.inventoryByActorId[actorId].findIndex(item => item.id === itemId);
-            state.inventoryByActorId[0][itemIndex].equipped = false;
             state.inventoryByActorId[0] = state.inventoryByActorId[0].filter(item => item.id !== itemId);
+            state.itemsByLocationName[locationName].push(item);
+        },
+        dropItemFromEquipped: (state, action) => { 
+            // currently not used
+            const { itemId, locationName } = action.payload;
+            const item = state.equippedItemsIdsByActorId[0].find(item => item.id === itemId);
+            state.equippedItemsIdsByActorId[0] = state.equippedItemsIdsByActorId[0].filter(item => item.id !== itemId);
             state.itemsByLocationName[locationName].push(item);
         },
         removeItemFromLocation: (state, action) => {
