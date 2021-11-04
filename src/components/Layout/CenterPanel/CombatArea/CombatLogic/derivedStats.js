@@ -6,7 +6,7 @@ export function getTotalDerivedDamageWithAbility(
 ) {
   const abilitySimpleAttack = {
     damage: function (attackerObj, defenderObj) {
-      return Math.floor(attackerObj.abilityScores.strength / 2) - 5;
+      return Math.floor(attackerObj.strength / 2) - 5;
     },
   };
 

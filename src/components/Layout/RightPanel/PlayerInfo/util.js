@@ -1,7 +1,7 @@
 export function getDerivedPhysicalString(playerObj, playerInv, equippedByIds) {
   let weaponDamageString = "";
   const playerBaseAttackDamage =
-    Math.floor((playerObj.abilityScores.strength - 10) / 2);
+    Math.floor((playerObj.strength - 10) / 2);
   
   if (equippedByIds.length > 0) {
     const playerMainWeapon = playerInv.find(

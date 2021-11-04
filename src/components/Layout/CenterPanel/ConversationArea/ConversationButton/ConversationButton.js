@@ -3,19 +3,19 @@ import styles from "./ConversationButton.module.css";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import actorSlice from "../../../../../DataHandlers/redux/slices/actors";
-import itemSlice from "../../../../../DataHandlers/redux/slices/items";
+import actors from "../../../../../DataHandlers/redux/slices/actors";
+import items from "../../../../../DataHandlers/redux/slices/items";
 import UI from '../../../../../DataHandlers/redux/slices/UI'
 
 
 export default function ConversationButton(props) {
   const dispatch = useDispatch();
-  const actions = {actorSlice, itemSlice, UI};
+  const actions = {actors, items, UI};
   let state = useSelector((state) => state);
   let player = state.actors.actorsById[0];
-
   const dialogueBranch = Object.keys(props.buttonData)[0];
   const values = Object.values(props.buttonData)[0];
+  console.log(values)
 
   let active = true;
   let visible = true;
@@ -29,7 +29,7 @@ export default function ConversationButton(props) {
             if (player.gold >= condition.value) metConditions++;
             break;
           default:
-            if (player.abilityScores[condition.check] >=
+            if (player[condition.check] >=
               condition.value) metConditions++
             break;
         }
@@ -40,24 +40,25 @@ export default function ConversationButton(props) {
     active = values.conditions.length === metConditions;
   }
 
-  function handleClickAction(branch, values) {
+  function handleClickAction(_branch, _values) {
     //deals with actions inside dialogue branches
-    const label = values.text === undefined ? values : values.text;
+    const label = _values.text === undefined ? _values : _values.text;
 
     dispatch(UI.actions.addToCurrentDialogueText(label));
-
-    if (values.onClick !== undefined && active) {
-      values.onClick(state, actions, dispatch); 
+    
+    if (_values.onClick !== undefined && active) {
+      console.log("onClick action");
+      _values.onClick(state, actions, dispatch); 
     }
 
-    switch (branch) {
+    switch (_branch) {
       case "quitConvo": {
         dispatch(UI.actions.endConversation());
         dispatch(UI.actions.clearCurrentDialogueText());
         break;
       }
       default: {
-        props.setDialogueState(branch);
+        props.setDialogueState(_branch);
       }
     }
   }

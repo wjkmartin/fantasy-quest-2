@@ -49,9 +49,9 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
 
   const playerRawDamage = playerWeaponDamage + bonusDamage;
   const playerStrengthModifier =
-    Math.round((player.abilityScores.strength - 10) / 2) < 0
+    Math.round((player.strength - 10) / 2) < 0
       ? 0
-      : Math.round((player.abilityScores.strength - 10) / 2);
+      : Math.round((player.strength - 10) / 2);
 
   const ability = { damage: playerRawDamage + playerStrengthModifier };
   const abilityTotalDamage = ability.damage - targetObj.armor >= 0 ? ability.damage - targetObj.armor : 0;

@@ -6,7 +6,7 @@ export default function generateInitiative(actorIdsInCombat, actorsById) {
   let initiative = [];
 
   actorIdsInCombat.forEach((actorId) => {
-    const actorDexterity = Math.round(actorsById[actorId].abilityScores.dexterity / 2) - 5;
+    const actorDexterity = Math.round(actorsById[actorId].dexterity / 2) - 5;
     const actorRoll = _.random(1, 20);
     const initiativeTotal = actorDexterity + actorRoll;
     turnOrderUnsorted[actorId] = initiativeTotal;

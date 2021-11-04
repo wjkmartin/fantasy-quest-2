@@ -70,14 +70,14 @@ const PlayerInfo = (props) => {
 
       <div className={styles.playerStatsAS}>
         <div className={styles.playerStatsAS__col_1}>
-          <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'strength'} /> : '')}<div>Strength: </div><div>{player.abilityScores.strength}</div></div>
-          <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'dexterity'} /> : '')}<div>Dexterity: </div><div>{player.abilityScores.dexterity}</div></div>
-          <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'constitution'} /> : '')}<div>Constitution: </div><div>{player.abilityScores.constitution}</div></div>
+          <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'strength'} /> : '')}<div>Strength: </div><div>{player.strength}</div></div>
+          <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'dexterity'} /> : '')}<div>Dexterity: </div><div>{player.dexterity}</div></div>
+          <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'constitution'} /> : '')}<div>Constitution: </div><div>{player.constitution}</div></div>
         </div>
         <div className={styles.playerStatsAS__col_2}>
-        <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'charisma'} /> : '')}<div>Charisma: </div><div>{player.abilityScores.charisma}</div></div>
-        <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'wisdom'} /> : '')}<div>Wisdom: </div><div>{player.abilityScores.wisdom}</div></div>
-        <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'intelligence'} /> : '')}<div>Intelligence: </div><div>{player.abilityScores.intelligence}</div></div>
+        <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'charisma'} /> : '')}<div>Charisma: </div><div>{player.charisma}</div></div>
+        <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'wisdom'} /> : '')}<div>Wisdom: </div><div>{player.wisdom}</div></div>
+        <div className={styles.ASrow}>{(player.levelsUpAvailable > 0 ? <LevelUpStatIncreaseButton stat={'intelligence'} /> : '')}<div>Intelligence: </div><div>{player.intelligence}</div></div>
         </div>
       </div>
 

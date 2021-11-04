@@ -41,7 +41,7 @@ export default function nextTurn() {
       );
       const baseDamage = Math.max(
         1, //npcs will always do a base damage of 1
-        Math.floor(_npcObject.abilityScores.strength / 2)
+        Math.floor(_npcObject.strength / 2)
       );
       const weapon =
         _npcObject.weapon === undefined
