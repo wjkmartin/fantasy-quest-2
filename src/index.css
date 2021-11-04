@@ -5,8 +5,25 @@ p {
   font-family: 'Fira Sans', sans-serif;
 }
 
+a {
+  color: #000 !important;
+  text-decoration: none;
+}
+
 h2 {
   font-family: 'Metamorphous', sans-serif;
+}
+
+button {
+  font-family: 'Fira Sans', sans-serif;
+  border: 1px solid #000;
+  background: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #000;
+  color: #fff;
 }
 
 #root {

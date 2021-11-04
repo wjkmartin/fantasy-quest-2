@@ -13,7 +13,7 @@ export default function Item(props) {
     (state) => state.items.itemsPlayerWantsToTradeById
   );
 
-  const playerEquippedItems = useSelector(state => state.items.equippedItemsIdsByActorId[0])
+  const playerEquippedItems = useSelector(state => state.items.inventoryByActorId[0]).filter(item => item.equipped);
 
   const [{ isDragging }, drag] = useDrag({
     type: "item",
@@ -47,7 +47,7 @@ export default function Item(props) {
         />
         <div className={styles.Item__itemBasicInfo}>
           <p className={styles.Item__itemBasicInfo_itemLabel}>
-            {props.item.name + (playerEquippedItems.includes(props.item.id) ? " (equipped)" : "")}
+            {props.item.name + (playerEquippedItems.find(item => item.id === props.item.id) ? " (equipped)" : "")}
           </p>
           <p className={styles.Item__itemBasicInfo_itemDescDetails}>
             {props.item.descDetails}
