@@ -1,14 +1,13 @@
-import dialogue from './d_arinya'
-import token from '../../../Assets/img/combat_tokens/arinya.png'
-import portrait from '../../../Assets/img/character_images/arinya/portrait.png'
+import dialogue from './d_arinya';
+import token from '../../../Assets/img/combat_tokens/arinya.png';
+import portrait from '../../../Assets/img/character_images/arinya/portrait.png';
 
 export default {
-
-  actorName: "Arinya",
+  actorName: 'Arinya',
   level: 1,
-  actorClass: "Hunter",
-  title: "Kin of the Once Dead Valley",
-  race: "Elf",
+  actorClass: 'Hunter',
+  title: 'Kin of the Once Dead Valley',
+  race: 'Elf',
   health: 100,
   maxHealth: 100,
   sp: 10,
@@ -18,17 +17,17 @@ export default {
   armor: 5,
   dodge: 10,
   focus: 33,
-  abilityScores: {
-    strength: 12,
-    dexterity: 18,
-    constitution: 12,
-    charisma: 15,
-    wisdom: 16,
-    intelligence: 11,
-  },
+
+  strength: 12,
+  dexterity: 18,
+  constitution: 12,
+  charisma: 15,
+  wisdom: 16,
+  intelligence: 11,
+
   isDead: false,
   hasFocusSpell: false,
-  location: "tavern_inside",
+  location: 'tavern_inside',
   gold: 100,
   speed: 3,
   range: 2,
@@ -36,12 +35,12 @@ export default {
   type: 'npc',
   token: token,
   portrait: portrait,
-  drops: [{
-    item: 'potion_of_healing',
-    chance: 1, //this means 1 in 6
-    name: 'a dirty bottle with some kind of fluid inside!'
-  }],
-  img: {
-
-  }
+  drops: [
+    {
+      item: 'potion_of_healing',
+      chance: 1, //this means 1 in 6
+      name: 'a dirty bottle with some kind of fluid inside!',
+    },
+  ],
+  img: {},
 };

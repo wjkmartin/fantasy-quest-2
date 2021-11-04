@@ -16,14 +16,14 @@ export default {
   armor: 5,
   dodge: 10,
   focus: 33,
-  abilityScores: {
+
     strength: 20,
     dexterity: 20,
     constitution: 20,
     charisma: 20,
     wisdom: 20,
     intelligence: 20,
-  },
+
   isDead: false,
   hasFocusSpell: false,
   location: "docks1",

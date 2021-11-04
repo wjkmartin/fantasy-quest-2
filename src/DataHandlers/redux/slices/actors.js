@@ -7,6 +7,7 @@ const actors = loadActors();
 
 const initialState = {
   actorsById: actors,
+  powersById: {0: []}
 };
 
 const actorSlice = createSlice({
@@ -15,35 +16,14 @@ const actorSlice = createSlice({
     reducers: {
         modifyActorAttributeByActorId: (state, action) => {
             const { actorId, attribute, value } = action.payload;
-            if (
-                attribute === "strength" ||
-                attribute === "dexterity" ||
-                attribute === "constitution" ||
-                attribute === "charisma" ||
-                attribute === "wisdom" ||
-                attribute === "intelligence"
-              ) { 
-                state.actorsById[actorId].abilityScores[attribute] = state.actorsById[actorId].abilityScores[attribute] + value;
-              } else {
-                state.actorsById[actorId][attribute] = state.actorsById[actorId][attribute] + value;
-              }
+            state.actorsById[actorId][attribute] = state.actorsById[actorId][attribute] + value;  
         },
         // @param {string} actorId - the id of the actor to be modified
         // @param {string} attribute - the attribute to set
         // @param {number} value - the value to set the attribute to
         setActorAttributeByActorId: (state, action) => {
             const { actorId, attribute, value } = action.payload;
-            if (
-                attribute === "strength" ||
-                attribute === "dexterity" ||
-                attribute === "constitution" ||
-                attribute === "charisma" ||
-                attribute === "wisdom" ||
-                attribute === "intelligence"
-              ) { 
-                state.actorsById[actorId].abilityScores[attribute] = value;
-              } else {
-                state.actorsById[actorId][attribute] = value;
+             state.actorsById[actorId][attribute] = value;
               }
         },
         removeActorFromCurrentLocationById: (state, action) => {
@@ -65,29 +45,24 @@ const actorSlice = createSlice({
             const { actorData, location } = action.payload;
             let newActor = loadSingleActorFromData(actorData);
             newActor.location = location;
-            console.log(newActor);
             state.actorsById[newActor.id] = newActor;
         },
         addPowerToActorByDataRefAndActorId: (state, action) => {
             const { actorId, powerDataRef } = action.payload;
             const power = powers[powerDataRef];
-            state.actorsById[actorId].powers.push(power);
+            state.powersById[actorId].push(power);
         },
         removePowerFromActorByDataRefAndActorId: (state, action) => {
             const { actorId, powerDataRef } = action.payload;
-            const power = powers[powerDataRef];
-            state.actorsById[actorId].powers.splice(
-                state.actorsById[actorId].powers.indexOf(power),
-                1
-            );
+            state.powersById[actorId].filter((power) => power.ref !== powerDataRef);
         },
-        updatePowerDurationByDataRefAndActorId: (state, action) => {
-            const { actorId, powerDataRef, duration } = action.payload;
-            const power = powers[powerDataRef];
-            state.actorsById[actorId].powers[
-                state.actorsById[actorId].powers.indexOf(power)
-            ].duration = duration;
-        },
+        // updatePowerDurationByDataRefAndActorId: (state, action) => {
+        //     const { actorId, powerDataRef, duration } = action.payload;
+        //     const power = powers[powerDataRef];
+        //     state.actorsById[actorId].powers[
+        //         state.actorsById[actorId].powers.indexOf(power)
+        //     ].duration = duration;
+        // },
 
     }
 })

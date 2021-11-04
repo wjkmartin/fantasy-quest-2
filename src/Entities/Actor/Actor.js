@@ -6,8 +6,8 @@ class Actor {
     Object.assign(this, actorData);
     this.id = Actor.id
     this.raceLevelClassString = actorData.race + " Level " + actorData.level + " " + actorData.actorClass;
-    this.dodge = Math.floor(actorData.abilityScores.dexterity / 10);
-    this.focus = Math.floor(actorData.abilityScores.wisdom * 2.5);
+    this.dodge = Math.floor(actorData.dexterity / 10);
+    this.focus = Math.floor(actorData.wisdom * 2.5);
     this.movementRemaining = this.speed;
     this.abilities = { basicAttack: basicAttack };
     this.dialogueState = "meet";

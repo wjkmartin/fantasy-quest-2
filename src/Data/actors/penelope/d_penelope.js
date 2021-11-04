@@ -53,9 +53,9 @@ export default {
             {
               check: (state) => {
                 return (
-                  state.actors.actorsById[0].powers.find((power) => {
-                    return power.ref === 'rolep_strength';
-                  }) === undefined
+                  state.actors.powersById[0].find(
+                    (power) => power.ref === 'rolep-strength'
+                  ) === undefined
                 );
               },
             },
@@ -85,7 +85,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  state.actors.actorsById[0].powers.find((power) => {
+                  state.actors.powersById[0].find((power) => {
                     return power.ref === 'rolep_dexterity';
                   }) === undefined
                 );
@@ -117,7 +117,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  state.actors.actorsById[0].powers.find((power) => {
+                  state.actors.powersById[0].find((power) => {
                     return power.ref === 'rolep_constitution';
                   }) === undefined
                 );
@@ -149,7 +149,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  state.actors.actorsById[0].powers.find((power) => {
+                  state.actors.powersById[0].find((power) => {
                     return power.ref === 'rolep_charisma';
                   }) === undefined
                 );
@@ -181,7 +181,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  state.actors.actorsById[0].powers.find((power) => {
+                  state.actors.powersById[0].find((power) => {
                     return power.ref === 'rolep_wisdom';
                   }) === undefined
                 );
@@ -213,7 +213,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  state.actors.actorsById[0].powers.find((power) => {
+                  state.actors.powersById[0].find((power) => {
                     return power.ref === 'rolep_intelligence';
                   }) === undefined
                 );
