@@ -1,5 +1,6 @@
 # fantasy-quest-2
 An rpg on the web built in React. Currently my largest React / Redux project to date.
+More info can be found here, on my website: www.willmartin.ca/portfolio
 
 Not a ton of content yet, but please take a look. 
 
