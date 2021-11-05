@@ -23,14 +23,14 @@
 }
 
 .TradeArea__header {
-    height: 10%;
+    height: 5%;
+    padding-bottom: 10px;
     border-bottom: 1px solid black;    
 }
 
 .TradeArea__balanceArea {
-    height: 70%;
+    height: 65%;
     display: flex;
-    
 }
 
 .TradeArea__balanceArea_player {
@@ -46,6 +46,7 @@
 
 .TradeArea__buttonArea_commentArea {
     border-top: 1px solid black;
+    height: 11rem;
 }
 
 .TradeArea__buttonArea {
