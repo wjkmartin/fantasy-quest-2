@@ -25,19 +25,8 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
   dispatch(UI.actions.setActorAttackAnimation({actorId: 0, direction: direction()}));
   dispatch(actor.actions.setActorAttributeByActorId({actorId: 0, attribute: 'actionUsed', value: true}))
 
- 
-  const playerInventory = items.itemsById.filter(item => item.actorId === 0);
   const equippedItemsPlayer = items.itemsById.filter(item => item.equipped === true);
-  let playerEquippedWeapon = "unarmed";
-
-  if (equippedItemsPlayer.length > 0) {
-    playerEquippedWeapon = playerInventory.find(
-      ({ id, slot }) =>
-        equippedItemsPlayer.includes(id) && slot === "weapon_main"
-    );
-    playerEquippedWeapon =
-      playerEquippedWeapon === undefined ? "unarmed" : playerEquippedWeapon;
-  }
+  const playerEquippedWeapon = equippedItemsPlayer.find((item) => item.slot === "weapon_main") ||"unarmed";
 
   const playerWeaponDamage =
     playerEquippedWeapon !== "unarmed"
@@ -62,11 +51,14 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
   if (enemyHealthAfterAttack <= 0) {
     // kill enemy logic
     UI.actions.addMessageToActivityLog(`${targetObj.actorName} dies horribly!`);
+    // TODO: verify drops
     targetObj.drops.forEach((drop) => {
       if (_.random(1, 100) <= drop.chance) {
         UI.actions.addMessageToActivityLog(
           `${targetObj.actorName} dropped ${drop.name}`
         );
+        // TODO: add drop to inventory
+
         dispatch(
           item.actions.setItemOwnerByIds({actorId:0, item: new Item(drop.item_type, drop.item)})
         );
