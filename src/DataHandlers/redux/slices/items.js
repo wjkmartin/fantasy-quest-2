@@ -14,8 +14,9 @@ const initialState = {
     new Item('weapon', 'iron_sword', 5),
     new Item('weapon', 'steel_sword', 5),
     new Item('weapon', 'enchanted_steel_sword', 5),
-    new Item('weapon', 'enchanted_steel_sword', -1, 'centralSquare')
+    new Item('weapon', 'enchanted_steel_sword', -1, 'centralSquare'),
   ],
+
   inTrade: false,
   actorInTradeById: undefined,
   itemsPlayerWantsToTradeById: [],
@@ -28,7 +29,7 @@ const itemSlice = createSlice({
   reducers: {
     setItemOwnerByIds: (state, action) => {
       const { actorId, itemId } = action.payload;
-      const item = state.itemsById.find((item) => item.id === itemId)
+      const item = state.itemsById.find((item) => item.id === itemId);
       item.ownerId = actorId;
     },
     equipItemById: (state, action) => {
@@ -42,9 +43,7 @@ const itemSlice = createSlice({
     },
     dropItemFromInventory: (state, action) => {
       const { itemId, locationName } = action.payload;
-      const item = state.itemsById.find(
-        (item) => item.id === itemId
-      );
+      const item = state.itemsById.find((item) => item.id === itemId);
       item.ownerId = undefined;
       item.equipped = false;
       item.location = locationName;
@@ -58,7 +57,7 @@ const itemSlice = createSlice({
       const { itemId } = action.payload;
       const item = state.itemsById.find((item) => item.id === itemId);
       item.ownerId = undefined;
-    }
+    },
   },
 });
 

@@ -7,10 +7,14 @@ import actorSlice from '../../../../../../../DataHandlers/redux/slices/actors';
 export default function EquipButton(props) {
   const playerInCombat = useSelector((state) => state.combat.inCombat);
   let dispatch = useDispatch();
-  console.log(props.item)
-  const itemsEquipped = useSelector((state) => state.items.itemsById).filter((item) => item.equipped);
-  const activeItem = useSelector((state) => state.items.itemsById).find((item) => item.id === props.item.id);
-  
+  console.log(props.item);
+  const itemsEquipped = useSelector((state) => state.items.itemsById).filter(
+    (item) => item.equipped
+  );
+  const activeItem = useSelector((state) => state.items.itemsById).find(
+    (item) => item.id === props.item.id
+  );
+
   function onClickButton() {
     Object.keys(props.item.stats).forEach((statType) => {
       dispatch(
@@ -40,17 +44,12 @@ export default function EquipButton(props) {
           })
         );
       }
-      dispatch(
-        itemSlice.actions.equipItemById(props.item.id)
-      );
+      dispatch(itemSlice.actions.equipItemById(props.item.id));
     }
   }
 
   const equipButton = (
-    <button
-      className={props.className}
-      onClick={() => onClickButton()}
-    >
+    <button className={props.className} onClick={() => onClickButton()}>
       {activeItem.equipped ? 'Unequip Item' : 'Equip Item'}
     </button>
   );

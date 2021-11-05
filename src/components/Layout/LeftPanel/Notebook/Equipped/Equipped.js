@@ -17,8 +17,11 @@ export default function Equipped() {
 
   let playerEquippedItemsBySlot = {};
 
-  if (equippedItems.length > 0) {
-    playerEquippedItemsBySlot = equippedItems //will still have to handle multiple items going into same slot
+  if (playerEquippedItemsById.length > 0) {
+    playerEquippedItemsBySlot = playerEquippedItemsById //will still have to handle multiple items going into same slot
+      .map((id) => {
+        return playerItems.find((item) => item.id === id);
+      })
       .reduce((obj, item) => {
         obj[item.slot] = item;
         return obj;
