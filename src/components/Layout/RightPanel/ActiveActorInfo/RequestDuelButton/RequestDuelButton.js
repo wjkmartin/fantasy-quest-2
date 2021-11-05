@@ -1,9 +1,10 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../../../../../DataHandlers/redux/actions";
+
 import UI from "../../../../../DataHandlers/redux/slices/UI";
 import combat from "../../../../../DataHandlers/redux/slices/combat";
+import locations from "../../../../../DataHandlers/redux/slices/locations";
 
 export default function RequestDuelButton(props) {
   let dispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function RequestDuelButton(props) {
         )
       );
     }
-    dispatch(actions.saveCurrentMapState())
+    dispatch(locations.actions.saveCurrentMapState())
     dispatch(combat.actions.addActorToCombatById(0));
     dispatch(combat.actions.startCombat());
   }

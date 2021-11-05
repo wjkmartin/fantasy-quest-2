@@ -4,16 +4,12 @@ import styles from "./Item.module.css";
 import { itemColorClass } from "../util";
 import { useDrag } from "react-dnd";
 
-import { useDispatch, useSelector } from "react-redux";
-import actions from "../../../../../../DataHandlers/redux/actions";
+import { useSelector } from "react-redux";
 
 export default function Item(props) {
-  let dispatch = useDispatch();
   const itemsInTrade = useSelector(
     (state) => state.items.itemsPlayerWantsToTradeById
   );
-
-  const playerEquippedItems = useSelector(state => state.items.inventoryByActorId[0]).filter(item => item.equipped);
 
   const [{ isDragging }, drag] = useDrag({
     type: "item",
@@ -23,7 +19,7 @@ export default function Item(props) {
       const itemInTrade = itemsInTrade.includes(item.id);
       if (item && dropResult && !itemInTrade) {
         props.setActiveItem(undefined)
-        dispatch(actions.addItemToActiveTradeWindowById(item.id));
+        // dispatch(actions.addItemToActiveTradeWindowById(item.id));
       }
     },
     collect: (monitor) => ({
@@ -47,7 +43,7 @@ export default function Item(props) {
         />
         <div className={styles.Item__itemBasicInfo}>
           <p className={styles.Item__itemBasicInfo_itemLabel}>
-            {props.item.name + (playerEquippedItems.find(item => item.id === props.item.id) ? " (equipped)" : "")}
+            {props.item.name + (props.item.equipped ? " (equipped)" : "")}
           </p>
           <p className={styles.Item__itemBasicInfo_itemDescDetails}>
             {props.item.descDetails}

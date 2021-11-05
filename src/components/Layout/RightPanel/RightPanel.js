@@ -11,12 +11,13 @@ import PlayerInfo from './PlayerInfo/PlayerInfo';
 
 const rightPanel = (props) => {
   const actorsById = useSelector((state) => state.actors.actorsById);
-  const itemsByLocationName = useSelector(
-    (state) => state.items.itemsByLocationName
+  const itemsById = useSelector(
+    (state) => state.items.itemsById
   );
   const currentLocation = useSelector(
     (state) => state.locations.currentLocation
   );
+  const itemsAtCurrentLocation = itemsById.filter((item) => item.location === currentLocation.name);
   const activeTarget = useSelector((state) => state.UI.activeTarget);
 
   return (
@@ -29,7 +30,7 @@ const rightPanel = (props) => {
       ) : activeTarget.type === 'item' ? (
         <ActiveItemInfo
           locationName={currentLocation.name}
-          activeItem={itemsByLocationName[currentLocation.name].find(
+          activeItem={itemsAtCurrentLocation.find(
             (item) => {
               return item.id === activeTarget.id;
             }

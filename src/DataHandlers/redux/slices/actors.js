@@ -16,15 +16,14 @@ const actorSlice = createSlice({
     reducers: {
         modifyActorAttributeByActorId: (state, action) => {
             const { actorId, attribute, value } = action.payload;
-            state.actorsById[actorId][attribute] = state.actorsById[actorId][attribute] + value;  
+            state.actorsById[actorId][attribute] += value
         },
         // @param {string} actorId - the id of the actor to be modified
         // @param {string} attribute - the attribute to set
         // @param {number} value - the value to set the attribute to
         setActorAttributeByActorId: (state, action) => {
             const { actorId, attribute, value } = action.payload;
-             state.actorsById[actorId][attribute] = value;
-              }
+             state.actorsById[actorId][attribute] = value;  
         },
         removeActorFromCurrentLocationById: (state, action) => {
             const { actorId } = action.payload;

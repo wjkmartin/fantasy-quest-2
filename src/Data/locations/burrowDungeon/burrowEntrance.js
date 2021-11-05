@@ -10,5 +10,5 @@ export default
         { "Return to the surface.": goblinBurrowTransition },
       ],
     type: 'top',
-    discovered: true,
+    isDiscovered: true,
 };

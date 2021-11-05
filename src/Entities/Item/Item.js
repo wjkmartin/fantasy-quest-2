@@ -5,16 +5,24 @@ import legs from "../../Data/items/legs";
 import weapons from "../../Data/items/weapons";
 import consumables from '../../Data/items/consumables'
 
+import {immerable} from "immer"
+
 export default class Item {
+  [immerable] = true
   static id = 0;
-  constructor(type, item /* prototype */) {
+  constructor(type, item, ownerId, location /* prototype */) {
     this.type = type;
-    Item.id += 1;
     this.id = Item.id
+    Item.id += 1;
     this.qty = 1;
+    this.equipped = false;
+    this.ownerId = ownerId;
+    
+    if (location) {
+      this.location = location;
+    }
     
     let itemData;
-
     switch (type) {
       case "weapon": {
         itemData = weapons[item];

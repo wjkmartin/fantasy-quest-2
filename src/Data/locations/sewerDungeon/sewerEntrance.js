@@ -10,5 +10,5 @@ export default
         { "Return to the city.": sewerEntranceTransition },
       ],
     type: 'top',
-    discovered: true,
+    isDiscovered: true,
 };

@@ -25,11 +25,9 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
   dispatch(UI.actions.setActorAttackAnimation({actorId: 0, direction: direction()}));
   dispatch(actor.actions.setActorAttributeByActorId({actorId: 0, attribute: 'actionUsed', value: true}))
 
-  const equippedItemsPlayer =
-    items.equippedItemsIdsByActorId[0] !== undefined
-      ? items.equippedItemsIdsByActorId[0]
-      : undefined;
-  const playerInventory = items.inventoryByActorId[0];
+ 
+  const playerInventory = items.itemsById.filter(item => item.actorId === 0);
+  const equippedItemsPlayer = items.itemsById.filter(item => item.equipped === true);
   let playerEquippedWeapon = "unarmed";
 
   if (equippedItemsPlayer.length > 0) {
@@ -70,7 +68,7 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
           `${targetObj.actorName} dropped ${drop.name}`
         );
         dispatch(
-          item.actions.addItemToActorById({actorId:0, item: new Item(drop.item_type, drop.item)})
+          item.actions.setItemOwnerByIds({actorId:0, item: new Item(drop.item_type, drop.item)})
         );
       }
     });

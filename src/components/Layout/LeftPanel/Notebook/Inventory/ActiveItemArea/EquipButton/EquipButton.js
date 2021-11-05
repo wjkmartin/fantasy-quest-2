@@ -1,53 +1,47 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import actors from '../../../../../../../DataHandlers/redux/slices/actors';
 import itemSlice from '../../../../../../../DataHandlers/redux/slices/items';
+import actorSlice from '../../../../../../../DataHandlers/redux/slices/actors';
 
 export default function EquipButton(props) {
-  const playerInventory = useSelector(
-    (state) => state.items.inventoryByActorId[0]
-  );
-  const equippedItems = playerInventory.filter((item) => item.equipped);
-
   const playerInCombat = useSelector((state) => state.combat.inCombat);
-
-  const isEquipped = equippedItems.find((item) => item.id === props.item.id);
   let dispatch = useDispatch();
-
-  function onClickButton(_item) {
-    Object.keys(_item.stats).forEach((statType) => {
+  console.log(props.item)
+  const itemsEquipped = useSelector((state) => state.items.itemsById).filter((item) => item.equipped);
+  const activeItem = useSelector((state) => state.items.itemsById).find((item) => item.id === props.item.id);
+  
+  function onClickButton() {
+    Object.keys(props.item.stats).forEach((statType) => {
       dispatch(
-        actors.actions.modifyActorAttributeByActorId({
+        actorSlice.actions.modifyActorAttributeByActorId({
           actorId: 0,
           attribute: statType,
-          value: isEquipped
-            ? -1 * _item.stats[statType]
-            : _item.stats[statType],
+          value: activeItem.equipped
+            ? -1 * props.item.stats[statType]
+            : props.item.stats[statType],
         })
       );
     });
-    if (isEquipped) {
+    if (activeItem.equipped) {
       dispatch(
-        itemSlice.actions.unequipItemFromActorByIds({
-          actorId: 0,
-          itemId: _item.id,
+        itemSlice.actions.unequipItemById({
+          itemId: props.item.id,
         })
       );
     } else {
-      const alreadyEquippedItemIdInSameSlot = equippedItems.find(
-        (item) => item.slot === _item.slot
+      const alreadyEquippedItemIdInSameSlot = itemsEquipped.find(
+        (_item) => props.item.slot === _item.slot
       );
       if (alreadyEquippedItemIdInSameSlot) {
         dispatch(
-          itemSlice.actions.unequipItemFromActorByIds({
-            actorId: 0,
-            itemId: alreadyEquippedItemIdInSameSlot,
+          itemSlice.actions.unequipItemById({
+            itemId: alreadyEquippedItemIdInSameSlot.id,
           })
         );
       }
       dispatch(
-        itemSlice.actions.equipItemToActorByIds({ actorId: 0, itemId: _item.id })
+        itemSlice.actions.equipItemById(props.item.id)
       );
     }
   }
@@ -55,9 +49,9 @@ export default function EquipButton(props) {
   const equipButton = (
     <button
       className={props.className}
-      onClick={() => onClickButton(props.item)}
+      onClick={() => onClickButton()}
     >
-      {isEquipped ? 'Unequip Item' : 'Equip Item'}
+      {activeItem.equipped ? 'Unequip Item' : 'Equip Item'}
     </button>
   );
 

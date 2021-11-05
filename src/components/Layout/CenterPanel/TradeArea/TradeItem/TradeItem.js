@@ -9,7 +9,7 @@ import { itemColorClass } from "../../../LeftPanel/Notebook/Inventory/util";
 import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 
-import actions from "../../../../../DataHandlers/redux/actions";
+
 
 export default function TradeItem(props) {
   const itemsInTrade = useSelector(
@@ -23,7 +23,7 @@ export default function TradeItem(props) {
       const dropResult = monitor.getDropResult();
       const itemInTrade = itemsInTrade.includes(item.id);
       if (item && dropResult && itemInTrade) {
-        dispatch(actions.removeItemFromActiveTradeWindowById(item.id));
+        // dispatch(actions.removeItemFromActiveTradeWindowById(item.id));
       }
     },
     collect: (monitor) => ({

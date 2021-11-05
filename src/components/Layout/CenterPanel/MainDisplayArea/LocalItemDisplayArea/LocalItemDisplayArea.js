@@ -10,8 +10,10 @@ function LocalItemDisplayArea(props) {
   let currentItemsButtonList = [];
   const dispatch = useDispatch();
   const currentItems = useSelector(
-    (state) => state.items.itemsByLocationName[props.currentLocation.name]
-  ) || [];
+    (state) => state.items.itemsById.filter((item) => item.location === props.currentLocation.name)
+  );
+
+  console.log(currentItems);
 
   function onItemClick(item) {
     console.log(item.name)

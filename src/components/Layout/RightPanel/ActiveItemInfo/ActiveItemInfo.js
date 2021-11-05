@@ -26,7 +26,7 @@ function ActiveItemInfo(props) {
   //     magic: true
 
   function pickupItem(itemId) {
-    dispatch(itemSlice.actions.addItemToActorById({actorId:0, item: item}));
+    dispatch(itemSlice.actions.setItemOwnerByIds({actorId:0, itemId: item.id}));
     dispatch(itemSlice.actions.removeItemFromLocation({itemId: itemId, locationName: props.locationName}));
     dispatch(UI.actions.setActiveItemOrNpcTarget({ type: null, id: null }));
   }

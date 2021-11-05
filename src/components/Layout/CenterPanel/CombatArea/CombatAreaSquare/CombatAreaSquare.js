@@ -4,7 +4,7 @@ import styles from './CombatAreaSquare.module.css';
 
 import CharacterToken from './CharacterToken/CharacterToken';
 import { useDispatch, useSelector } from 'react-redux';
-import actions from '../../../../../DataHandlers/redux/actions';
+
 import UI from '../../../../../DataHandlers/redux/slices/UI';
 
 import { onClickAttackSquare } from '../CombatLogic/playerAttack';

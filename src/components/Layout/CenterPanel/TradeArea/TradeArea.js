@@ -14,10 +14,10 @@ export default function TradeArea() {
   const actorsById = useSelector((state) => state.actors.actorsById)
 
   const playerItemIds = itemState.itemsPlayerWantsToTradeById;
-  const playerInventory = itemState.inventoryByActorId[0];
+  const playerInventory = itemState.itemsById.filter(item => item.ownerId === 0);
 
   const npcInTradeById = itemState.actorInTradeById;
-  const npcInventory = itemState.inventoryByActorId[npcInTradeById];
+  const npcInventory = itemState.items.itemsById.filter(item => item.actorId === npcInTradeById);
 
   let [selectedItemIds, setSelectedItemIds] = useState([]);
 

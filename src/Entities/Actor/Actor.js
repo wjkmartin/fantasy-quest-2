@@ -1,6 +1,8 @@
+import { immerable } from "@reduxjs/toolkit/node_modules/immer";
 import basicAttack from "../CombatAbilities/basicAttack";
 
 class Actor {
+  [immerable] = true
   static id = 0;
   constructor(actorData) {
     Object.assign(this, actorData);

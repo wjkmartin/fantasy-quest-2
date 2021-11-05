@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import * as images from '../../../Assets/imgList';
+
 
 const initialState = {
   activityLog: [
@@ -45,9 +45,6 @@ const UISlice = createSlice({
         message: action.payload,
         styleType: action.styleType || 'normal',
       });
-    },
-    setMainImage: (state, action) => {
-      state.mainImage = images[action.payload];
     },
     addToCurrentDialogueText: (state, action) => {
       state.currentDialogueText.push(action.payload);

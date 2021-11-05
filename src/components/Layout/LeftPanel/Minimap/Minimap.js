@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 
-import actions from '../../../../DataHandlers/redux/actions';
+
 
 import UI from '../../../../DataHandlers/redux/slices/UI';
+import locationSlice from '../../../../DataHandlers/redux/slices/locations';
 
 import MinimapNode from './MinimapNode/MinimapNode';
 
@@ -41,7 +42,7 @@ const MinimapStyled = styled.div`
 
 function populateNodes(currentLocation, locations, mapWidth, dispatch) {
   const nodes = locations.map((location, index) => {
-    if (location === undefined || location.discovered === false)
+    if (location === undefined || location.isDiscovered === false)
       return (
         <div
           key={`__minimap__-${index}`}
@@ -80,7 +81,7 @@ function onClickNode(location, locations, mapWidth, dispatch) {
 
 function loadLocation(location, locations, mapWidth, dispatch) {
   discoverAdjacentNodes(location, locations, mapWidth, dispatch);
-  dispatch(actions.setLocationById(location.id));
+  dispatch(locationSlice.actions.setCurrentLocationById({id: location.id}));
   dispatch(UI.actions.setActiveItemOrNpcTarget({type: null, id: null}));
 }
 
@@ -102,8 +103,9 @@ function discoverAdjacentNodes(location, locations, mapWidth, dispatch) {
   const dirs = [topId, leftId, rightId, bottomId];
 
   dirs.forEach((dir) => {
-    if (dir !== undefined && locations[dir].discovered === false) {
-      dispatch(actions.setIsDiscovered(dir));
+    const id =  locations[dir]?.id || undefined
+    if (dir !== undefined && !locations[dir].isDiscovered) {
+      dispatch(locationSlice.actions.setIsDiscovered({id: id}));
     }
   });
 }
@@ -144,32 +146,11 @@ function Minimap() {
   const minimap = useSelector((state) => state.locations.map);
   const locations = useSelector((state) => state.locations.locations);
   const inConversation = useSelector((state) => state.UI.inConversation);
-  const actorsById = useSelector((state) => state.actors.actorsById);
-
-  const actorsAtCurrentLocation = useSelector(
-    (state) => state.actors.actorsById).filter(
-      (actor) => actor.location === currentLocation.id
-    );
-
-  let isAggressiveActorAtCurrentLocation = false;
+  
 
   const dispatch = useDispatch();
 
-  if (actorsAtCurrentLocation !== undefined) {
-    console.log(actorsAtCurrentLocation)
-    actorsAtCurrentLocation.forEach((actorId) => {
-      if (actorsById[actorId].isAggressive) {
-        isAggressiveActorAtCurrentLocation = true;
-      }
-    });
-    if (
-      isAggressiveActorAtCurrentLocation !== currentLocation.hasAggressiveActors
-    ) {
-      dispatch(
-        actions.setHasAggressiveActors(isAggressiveActorAtCurrentLocation)
-      );
-    }
-  }
+  
 
   discoverAdjacentNodes(
     currentSuperLocation,

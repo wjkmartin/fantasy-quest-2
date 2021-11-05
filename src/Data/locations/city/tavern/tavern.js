@@ -12,6 +12,6 @@ export default {
     { "Go through the alley to behind the tavern": tavern_behind },
   ],
   type: "top",
-  discovered: true
+  isDiscovered: true
 
 };

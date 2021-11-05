@@ -11,7 +11,8 @@ import styles from "./Equipped.module.css";
 import UnequipButton from "./UnequipButton/UnequipButton";
 
 export default function Equipped() {
-  const playerItems = useSelector((state) => state.items.inventoryByActorId)[0];
+  const items = useSelector((state) => state.items.itemsById);
+  const playerItems = items.filter((item) => item.ownerId == 0);
   const equippedItems = playerItems.filter((item) => item.equipped);
 
   let playerEquippedItemsBySlot = {};

@@ -1,9 +1,10 @@
 import store from '../../../../../DataHandlers/redux/store';
-import actions from '../../../../../DataHandlers/redux/actions';
+
 
 import UI from '../../../../../DataHandlers/redux/slices/UI';
 import combat from '../../../../../DataHandlers/redux/slices/combat';
 import actors from '../../../../../DataHandlers/redux/slices/actors';
+import locations from '../../../../../DataHandlers/redux/slices/locations';
 
 import weapons from '../../../../../Data/items/weapons';
 
@@ -83,8 +84,8 @@ export default function nextTurn() {
         store.dispatch(
           UI.actions.addMessageToActivityLog(`You've lost the fight!`)
         );
-        store.dispatch(actions.setMap('city', 'centralSquare'));
-        store.dispatch(actions.loadSavedMapStateForMap('city'));
+        store.dispatch(locations.actions.setMap({mapName: 'city', startLocationName:'centralSquare'}));
+        store.dispatch(locations.actions.loadSavedMapState({mapName: 'city'}));
         store.dispatch(
           UI.actions.setActiveItemOrNpcTarget({ type: 'null', id: null })
         );

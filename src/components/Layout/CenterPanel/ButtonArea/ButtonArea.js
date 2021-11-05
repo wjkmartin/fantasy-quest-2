@@ -26,7 +26,8 @@ export default function ButtonArea() {
         />
       );
     });
-  } else if (currentLocation.buttons !== undefined && !currentSubLocation) {
+  } else if (currentLocation.buttons !== undefined && currentSubLocation === undefined) {
+    console.log("currentLocation.buttons", currentLocation.buttons);
     buttons = currentLocation.buttons.map((elem) => {
       const label = Object.keys(elem)[0];
       const action = Object.values(elem)[0];
