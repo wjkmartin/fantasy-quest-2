@@ -15,6 +15,8 @@ export default function CombatAreaSquare(props) {
   const dispatch = useDispatch();
   const combat = useSelector(state => state.combat);
   const combatMoveButtonSelected = useSelector(state => state.UI.combatMoveButtonSelected);
+  const currentLocation = useSelector(state => state.locations.currentLocation);
+  const isDuel = useSelector(state => state.combat.isDuel);
 
   let moveStyle,
     attackStyle = '';
@@ -52,7 +54,7 @@ export default function CombatAreaSquare(props) {
 
   return (
     <div onClick={
-      props.isValidToMoveHere
+      props.isValidToMoveHere && combatMoveButtonSelected
       ? () => {
           onClickMovement(props.passableMap, props.coords, props.combatState.actorsInCombatById, props.actorsById, combat.actorCoordsById);
         }
@@ -63,12 +65,14 @@ export default function CombatAreaSquare(props) {
             props.actorsById[0],
             props.items,
             props.actorHere,
-            combat.actorCoordsById
+            combat.actorCoordsById,
+            currentLocation,
+            isDuel
           );
         }
-      : props.nonPlayerActorIsHere &&
-      props.moveIsToggled &&
-      props.attackIsToggled
+      : props.actorHere &&
+      !combatMoveButtonSelected &&
+      !props.attackIsToggled
       ? () => {
           onClickShowInfo();
         }

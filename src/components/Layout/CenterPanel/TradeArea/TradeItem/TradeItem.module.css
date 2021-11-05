@@ -1,10 +1,19 @@
 .TradeItem {
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
   margin: 1rem;
   border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.TradeItem__label {
   text-align: center;
-  line-height: 1.9;
+  font-size: 0.8rem;
+  font-weight: bold;
+  line-height: 1rem;
 }
 
 .TradeItem:hover {

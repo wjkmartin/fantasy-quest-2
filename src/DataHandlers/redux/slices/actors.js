@@ -26,13 +26,7 @@ const actorSlice = createSlice({
              state.actorsById[actorId][attribute] = value;  
         },
         removeActorFromCurrentLocationById: (state, action) => {
-            const { actorId } = action.payload;
-            const location = state.actorsById[actorId].location;
-            state.byLocationName[location.name].splice(
-                state.byLocationName[location.name].indexOf(actorId),
-                1
-            );
-            state.actorsById[actorId].location = undefined;
+            state.actorsById[action.payload].location = undefined;
             
         },
         addActorToGivenLocationById: (state, action) => {

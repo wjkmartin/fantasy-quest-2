@@ -20,7 +20,7 @@ const initialState = {
   inTrade: false,
   actorInTradeById: undefined,
   itemsPlayerWantsToTradeById: [],
-  itemsOtherActorWantsToTrade: [],
+  itemsSelectedByPlayerById: [],
 };
 
 const itemSlice = createSlice({
@@ -41,6 +41,11 @@ const itemSlice = createSlice({
       const item = state.itemsById.find((item) => item.id === itemId);
       item.equipped = false;
     },
+    createNewItem: (state, action) => {
+      const { itemType, itemName, ownerId, location} = action.payload;
+      const newItem = new Item(itemType, itemName, ownerId, location);
+      state.itemsById.push(newItem);
+    },
     dropItemFromInventory: (state, action) => {
       const { itemId, locationName } = action.payload;
       const item = state.itemsById.find((item) => item.id === itemId);
@@ -58,6 +63,47 @@ const itemSlice = createSlice({
       const item = state.itemsById.find((item) => item.id === itemId);
       item.ownerId = undefined;
     },
+    startTradeWithActor: (state, action) => {
+      state.inTrade = true;
+      state.actorInTradeById = action.payload;
+    },
+    addItemToTrade: (state, action) => {
+      const item = state.itemsById.find((item) => item.id === action.payload);
+      if (state.itemsPlayerWantsToTradeById.includes(action.payload) || state.itemsSelectedByPlayerById.includes(action.payload)) {
+        return;
+      } else {
+        if (item.ownerId === 0) {
+          state.itemsPlayerWantsToTradeById.push(action.payload);
+        } else {
+          state.itemsSelectedByPlayerById.push(action.payload);
+        }
+      }
+     
+    },
+    removeItemFromTrade: (state, action) => {
+      const item = state.itemsById.find((item) => item.id === action.payload);
+      if (item.ownerId === 0) {
+        state.itemsPlayerWantsToTradeById = state.itemsPlayerWantsToTradeById.filter((itemId) => itemId !== action.payload);
+      } else {
+        state.itemsSelectedByPlayerById = state.itemsSelectedByPlayerById.filter((itemId) => itemId !== action.payload);
+      }
+    },
+    doTrade: (state) => {
+      state.itemsPlayerWantsToTradeById.forEach((itemId) => {
+        const itemToRemove = state.itemsById.find((itemToFind) => itemToFind.id === itemId);
+        itemToRemove.ownerId = state.actorInTradeById;
+        itemToRemove.equipped = false;
+      });
+      state.itemsSelectedByPlayerById.forEach((itemId) => {
+        const itemToRemove = state.itemsById.find((itemToFind) => itemToFind.id === itemId);
+        itemToRemove.ownerId = 0;
+        itemToRemove.equipped = false;
+      });
+      state.inTrade = false;
+      state.actorInTradeById = undefined;
+      state.itemsPlayerWantsToTradeById = [];
+      state.itemsSelectedByPlayerById = [];
+    }, 
   },
 });
 
@@ -71,68 +117,10 @@ export const {
   dropItemFromEquipped,
   removeItemFromLocation,
   removeItemFromPlayerInventory,
+  startTradeWithActor,
+  addItemToTrade,
+  removeItemFromTrade,
+  doTrade,
 } = itemSlice.actions;
 export default itemSlice;
 
-// case "START_TRADE_WITH_ACTOR_BY_ID": {
-//   return {
-//     ...state,
-//     inTrade: true,
-//     actorInTradeById: action.actorId,
-//   };
-// }
-// case "ADD_ITEM_TO_ACTIVE_TRADE_WINDOW_BY_ID": {
-//   const currentTradeItemsById = state.itemsPlayerWantsToTradeById;
-//   let modifiedTradeItemsById = [...currentTradeItemsById];
-//   modifiedTradeItemsById.push(action.itemId);
-//   return {
-//     ...state,
-//     itemsPlayerWantsToTradeById: modifiedTradeItemsById,
-//   };
-// }
-// case "REMOVE_ITEM_FROM_ACTIVE_TRADE_WINDOW_BY_ID": {
-//   let modifiedTradeItemsById = [...state.itemsPlayerWantsToTradeById];
-//   modifiedTradeItemsById.splice(
-//     modifiedTradeItemsById.findIndex((id) => id === action.itemId),
-//     1
-//   );
-//   return {
-//     ...state,
-//     itemsPlayerWantsToTradeById: modifiedTradeItemsById,
-//   };
-// }
-// case "TRADE_ITEM_BY_ID_FROM_ACTOR_TO_ACTOR_BY_IDS": {
-//   let itemToTradeIndex = state.inventoryByActorId[
-//     action.actorSendingId
-//   ].findIndex((item) => item.id === action.itemId);
-//   const item =
-//     state.inventoryByActorId[action.actorSendingId][itemToTradeIndex];
-
-//   let actorInventoryWithoutTradedItem = [
-//     ...state.inventoryByActorId[action.actorSendingId],
-//   ];
-//   actorInventoryWithoutTradedItem.splice(itemToTradeIndex, 1);
-
-//   let actorInventoryWithTradedItem = [
-//     ...state.inventoryByActorId[action.actorRecievingId],
-//   ];
-//   actorInventoryWithTradedItem.push(item);
-
-//   return {
-//     ...state,
-//     inventoryByActorId: {
-//       ...state.inventoryByActorId,
-//       [action.actorSendingId]: actorInventoryWithoutTradedItem,
-//       [action.actorRecievingId]: actorInventoryWithTradedItem,
-//     },
-//   };
-// }
-// case "FINALIZE_TRADE": {
-//   return {
-//     ...state,
-//     inTrade: false,
-//     actorInTradeById: undefined,
-//     itemsPlayerWantsToTradeById: [],
-//     itemsOtherActorWantsToTrade: [],
-//   };
-// }

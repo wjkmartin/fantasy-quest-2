@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Inventory.module.css';
 
@@ -7,6 +7,7 @@ import Item from './Item/Item';
 import ActiveItemArea from './ActiveItemArea/ActiveItemArea';
 
 import { useDrop } from 'react-dnd';
+import itemSlice from '../../../../../DataHandlers/redux/slices/items';
 
 export default function Inventory() {
   const playerGold = useSelector((state) => state.actors.actorsById[0].gold);
@@ -19,10 +20,14 @@ export default function Inventory() {
     setActiveItem(item);
   }
 
+  const dispatch = useDispatch();
+
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: 'itemTrade',
     type: 'item',
-    drop: () => ({ name: 'inventory' }),
+    drop: (item) => (
+      dispatch(itemSlice.actions.removeItemFromTrade(item.id))
+    ),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),

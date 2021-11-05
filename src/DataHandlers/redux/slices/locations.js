@@ -61,7 +61,9 @@ const locationSlice = createSlice({
         setIsDiscovered: (state, action) => {
             const { id } = action.payload;
             const location = state.locations.find(location => location.id === id);
-            location.isDiscovered = true;
+            if (location) {
+                location.isDiscovered = true;
+            }
         },
         setIsVisited: (state, action) => {
             const { id } = action.payload;
@@ -69,11 +71,11 @@ const locationSlice = createSlice({
             location.isVisited = true;
         },
         saveCurrentMapState: (state) => {
-            state.savedMapStates[state.map.name] = state.map;
+            state.savedMapStates[state.map.name] = state.locations;
         },
         loadSavedMapState: (state, action) => {
             const { mapName } = action.payload;
-            state.map = state.savedMapStates[mapName];
+            state.locations = state.savedMapStates[mapName];
         },
         modifyLocationPropertyById: (state, action) => {
             const { id, property, value } = action.payload;

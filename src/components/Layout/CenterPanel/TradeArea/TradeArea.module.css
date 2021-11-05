@@ -69,3 +69,46 @@
     font-weight: 700;
 }
 
+.tradeItem {
+    width: 4rem;
+    height: 4rem;
+    margin: 1rem;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 1.9;
+  }
+  
+  .tradeItem:hover {
+    background-color: gainsboro;
+    border: 1px dashed black;
+  }
+  
+  .isSelected {
+    border: 2px solid black;
+    background-color: darkgray;
+  }
+  
+  .isSelected:hover {
+    border: 2px dashed black;
+    background-color: darkgray;
+  }
+  
+  .rarity-poor {
+    color: grey;
+  }
+  .rarity-common {
+    color: black;
+  }
+  .rarity-uncommon {
+    color: green;
+  }
+  .rarity-rare {
+    color: blue;
+  }
+  .rarity-very-rare {
+    color: purple;
+  }
+  .rarity-legendary {
+    color: orange;
+  }
+

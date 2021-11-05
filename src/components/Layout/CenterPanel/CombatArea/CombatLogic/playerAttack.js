@@ -7,7 +7,7 @@ import combat from "../../../../../DataHandlers/redux/slices/combat";
 import Item from "../../../../../Entities/Item/Item";
 import { addXP } from "./experience";
 
-export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoords) {
+export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoords, currentLocation, isDuel) {
 
   const direction = () => {
       const deltaX = actorCoords[targetObj.id].x - actorCoords[0].x; // 1, 0, -1
@@ -48,27 +48,29 @@ export function onClickAttackSquare(dispatch, player, items, targetObj, actorCoo
     UI.actions.addMessageToActivityLog(`Your attack deals ${abilityTotalDamage} damage!`)
   );
 
-  if (enemyHealthAfterAttack <= 0) {
+  if (enemyHealthAfterAttack <= 0 && !isDuel) {
     // kill enemy logic
     UI.actions.addMessageToActivityLog(`${targetObj.actorName} dies horribly!`);
     // TODO: verify drops
-    targetObj.drops.forEach((drop) => {
+    targetObj.drops?.forEach((drop) => {
       if (_.random(1, 100) <= drop.chance) {
         UI.actions.addMessageToActivityLog(
           `${targetObj.actorName} dropped ${drop.name}`
         );
-        // TODO: add drop to inventory
-
         dispatch(
-          item.actions.setItemOwnerByIds({actorId:0, item: new Item(drop.item_type, drop.item)})
+          item.actions.createNewItem({actorId:0, item: new Item(drop.item_type, drop.item, -1, currentLocation.name)})
         );
       }
     });
-    dispatch(combat.actions.removeActorFromCombatById({actorId: targetObj.id}));
-    dispatch(actor.actions.removeActorFromCurrentLocationById({actorId: targetObj.id}));
+    dispatch(combat.actions.removeActorFromCombatById(targetObj.id));
+    dispatch(actor.actions.removeActorFromCurrentLocationById(targetObj.id));
     addXP(targetObj.level, dispatch, player)
     dispatch(UI.actions.setActiveItemOrNpcTarget({id: null, type: null}));
     
+  } else if (enemyHealthAfterAttack <= 0 && isDuel) {
+    UI.actions.addMessageToActivityLog(`You defeated ${targetObj.actorName}!`);
+    dispatch(combat.actions.removeActorFromCombatById(targetObj.id));
+    dispatch(UI.actions.setActiveItemOrNpcTarget({id: null, type: null}));
   }
   dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
   // attackStyle = " ";

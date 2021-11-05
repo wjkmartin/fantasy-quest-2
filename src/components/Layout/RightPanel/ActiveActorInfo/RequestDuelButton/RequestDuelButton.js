@@ -9,8 +9,10 @@ import locations from "../../../../../DataHandlers/redux/slices/locations";
 export default function RequestDuelButton(props) {
   let dispatch = useDispatch();
   const actorsById = useSelector(store => store.actors.actorsById);
-  const currentLocation = useSelector(store => store.locations.currentLocation).name;
-  const actorsHere = actorsById.filter(actor => actor.location === currentLocation);
+  const currentSuperLocation = useSelector(store => store.locations.currentLocation);
+  const currentSubLocation = useSelector(store => store.locations.currentSubLocation);
+  const currentLocation = currentSubLocation || currentSuperLocation;
+  const actorsHere = actorsById.filter(actor => actor.location === currentLocation.name);
 
   function handleClick() {
     let isDuel = true;
@@ -24,17 +26,18 @@ export default function RequestDuelButton(props) {
             `${actorsById[0].actorName} has started a duel with ${props.activeActor.actorName}`, 'red')
         );
         dispatch(combat.actions.addActorToCombatById(actor.id));
-        dispatch(combat.actions.setIsDuel(false));
+        dispatch(combat.actions.setIsDuel(true));
       }
     });
     if (!isDuel) {
       dispatch(
-        UI.actions.addMessageToActivityLog(`${props.playerName} is in a fight to the death!`, 'red'
+        UI.actions.addMessageToActivityLog(`${actorsById[0].actorName} is in a fight to the death!`, 'red'
         )
       );
     }
     dispatch(locations.actions.saveCurrentMapState())
     dispatch(combat.actions.addActorToCombatById(0));
+    dispatch(combat.actions.setIsDuel(false));
     dispatch(combat.actions.startCombat());
   }
   return (

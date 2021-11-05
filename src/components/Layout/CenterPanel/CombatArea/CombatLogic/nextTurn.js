@@ -114,7 +114,7 @@ export default function nextTurn() {
     //only player is alive
     store.dispatch(combat.actions.endCombat());
     store.dispatch(UI.actions.addMessageToActivityLog(`You've won!`, 'green'));
-  } else {
+  } else if (combatData.inCombat) {
     if (actorsById[currentActorTurnId].isDead === true) {
       //actor is dead, end their turn and go to next
       store.dispatch(combat.actions.endTurn());

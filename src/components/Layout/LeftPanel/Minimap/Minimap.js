@@ -40,7 +40,7 @@ const MinimapStyled = styled.div`
   }
 `;
 
-function populateNodes(currentLocation, locations, mapWidth, dispatch) {
+function populateNodes(currentLocation, locations, mapWidth, dispatch, actorsById) {
   const nodes = locations.map((location, index) => {
     if (location === undefined || location.isDiscovered === false)
       return (
@@ -54,7 +54,7 @@ function populateNodes(currentLocation, locations, mapWidth, dispatch) {
         <MinimapNode
           icon={location.icon}
           onClick={
-            isTravelAllowed(currentLocation, location, mapWidth)
+            isTravelAllowed(currentLocation, location, mapWidth, actorsById)
               ? () => onClickNode(location, locations, mapWidth, dispatch)
               : undefined
           }
@@ -67,8 +67,14 @@ function populateNodes(currentLocation, locations, mapWidth, dispatch) {
   return nodes;
 }
 
-function isTravelAllowed(currentLocation, location, mapWidth) {
-  if (currentLocation.hasAggressiveActors) {
+function isTravelAllowed(currentLocation, location, mapWidth, actorsById) {
+  const aggressiveActorsHere = actorsById.some(
+    (actor) =>
+      actor.location === currentLocation.name &&
+      actor.isAggressive &&
+      !actor.isDead
+  );
+  if (aggressiveActorsHere) {
     return false;
   } else if (isNeighbor(currentLocation.id, location.id, mapWidth)) {
     return true;
@@ -146,11 +152,9 @@ function Minimap() {
   const minimap = useSelector((state) => state.locations.map);
   const locations = useSelector((state) => state.locations.locations);
   const inConversation = useSelector((state) => state.UI.inConversation);
-  
+  const actorsById = useSelector((state) => state.actors.actorsById);
 
   const dispatch = useDispatch();
-
-  
 
   discoverAdjacentNodes(
     currentSuperLocation,
@@ -163,7 +167,8 @@ function Minimap() {
     currentSuperLocation,
     Object.values(locations),
     minimap.nodes[0].length,
-    dispatch
+    dispatch,
+    actorsById
   ).map((node) => node);
 
   return (

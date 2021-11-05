@@ -9,6 +9,12 @@ h2 {
   font-family: 'Metamorphous', sans-serif;
 }
 
+a {
+  font-family: 'Fira Sans', sans-serif;
+  color: rgb(20, 18, 18) !important;
+  text-decoration: none !important;
+}
+
 button {
   font-family: 'Fira Sans', sans-serif;
   background-color: #f7f7f7;

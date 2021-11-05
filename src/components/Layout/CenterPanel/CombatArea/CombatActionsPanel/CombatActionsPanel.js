@@ -96,6 +96,8 @@ export default function CombatActionsPanel() {
 
   function onClickEndTurnButton() {
     dispatch(UI.actions.setPlayerCombatButtonsHidden(true));
+    if (combatMoveButtonSelected) dispatch(UI.actions.toggleCombatMoveButtonSelected());
+    if (combatBasicAttackButtonSelected) dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
     dispatch(actors.actions.setActorAttributeByActorId({ actorId: 0, attribute: 'actionUsed', value: false }));
     dispatch(actors.actions.setActorAttributeByActorId({ actorId: 0, attribute: 'movementRemaining', value: actorsById[0].speed }));
     dispatch(combat.actions.endTurn());
