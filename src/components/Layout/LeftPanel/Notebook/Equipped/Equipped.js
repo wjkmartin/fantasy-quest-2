@@ -17,16 +17,12 @@ export default function Equipped() {
 
   let playerEquippedItemsBySlot = {};
 
-  if (playerEquippedItemsById.length > 0) {
-    playerEquippedItemsBySlot = playerEquippedItemsById //will still have to handle multiple items going into same slot
-      .map((id) => {
-        return playerItems.find((item) => item.id === id);
-      })
+    playerEquippedItemsBySlot = equippedItems
       .reduce((obj, item) => {
         obj[item.slot] = item;
         return obj;
       }, {});
-  }
+
 
   let [activeItem, setActiveItem] = useState(undefined);
 
