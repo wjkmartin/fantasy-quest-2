@@ -34,12 +34,10 @@ export default {
   // token: token,
   portrait: portrait,
   token: token,
-  drops: [{
-    item: 'potion_of_healing',
-    chance: 1, //this means 1 in 6
-    name: 'a dirty bottle with some kind of fluid inside!'
-  }],
   img: {
 
-  }
+  },
+  willBuyTypes: ['consumable'],
+  willBuyRarity: 0
+  
 };

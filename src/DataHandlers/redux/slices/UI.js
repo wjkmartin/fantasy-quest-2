@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
-
 const initialState = {
   activityLog: [
     {
@@ -27,9 +25,10 @@ const UISlice = createSlice({
   name: 'UI',
   initialState,
   reducers: {
-    setActiveItemOrNpcTarget: (state,action) => {
-      state.activeTarget.id = action.payload.id;
-      state.activeTarget.type = action.payload.type;
+    setActiveItemOrNpcTarget: (state, action) => {
+      const { id, type } = action.payload;
+      state.activeTarget.id = id;
+      state.activeTarget.type = type;
     },
     startConversationWithActorById: (state, action) => {
       state.inConversation = true;

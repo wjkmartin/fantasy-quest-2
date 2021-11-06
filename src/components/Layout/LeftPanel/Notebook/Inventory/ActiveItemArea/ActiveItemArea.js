@@ -34,6 +34,21 @@ export default function ActiveItemArea(props) {
   const buttonAction =
     props.item.type === 'consumable' ? useButton : equipButton;
 
+  const dropItemButton = <button
+  onClick={() =>
+    dispatch(
+      itemSlice.actions.dropItemFromInventory({
+        itemId: props.item.id,
+        locationName: currentLocationName,
+      })
+    )
+  }
+  className={styles.ActiveItemArea_buttons_button}
+>
+  Drop item
+</button>
+
+
   return (
     <>
       <div className={styles.ActiveItemArea_info}>
@@ -54,19 +69,7 @@ export default function ActiveItemArea(props) {
       </div>
       <div className={styles.ActiveItemArea_buttons}>
         {inTrade ? '' : buttonAction}
-        <button
-          onClick={() =>
-            dispatch(
-              itemSlice.actions.dropItemFromInventory({
-                itemId: props.item.id,
-                locationName: currentLocationName,
-              })
-            )
-          }
-          className={styles.ActiveItemArea_buttons_button}
-        >
-          Drop item
-        </button>
+        {inTrade ? '' : dropItemButton}
       </div>
     </>
   );

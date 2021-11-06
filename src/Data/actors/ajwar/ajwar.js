@@ -37,4 +37,6 @@ export default {
   type: 'npc',
   token: token,
   portrait: portrait,
+  willBuyTypes: ["consumable"],
+  willBuyRarity: 2
 };

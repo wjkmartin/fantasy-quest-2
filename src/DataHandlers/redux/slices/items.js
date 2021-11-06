@@ -42,7 +42,7 @@ const itemSlice = createSlice({
       item.equipped = false;
     },
     createNewItem: (state, action) => {
-      const { itemType, itemName, ownerId, location} = action.payload;
+      const { itemType, itemName, ownerId, location=undefined} = action.payload;
       const newItem = new Item(itemType, itemName, ownerId, location);
       state.itemsById.push(newItem);
     },
@@ -114,20 +114,18 @@ const itemSlice = createSlice({
 });
 
 export const {
-  addItemToActorFromLocationByIdAndName: addItemToActorById,
+  setItemOwnerByIds,
   equipItemById,
-  unequipItemFromActorByIds,
-  inventorySetActiveItem,
-  equippedSetActiveItem,
+  unequipItemById,
+  createNewItem,
   dropItemFromInventory,
-  dropItemFromEquipped,
   removeItemFromLocation,
   removeItemFromPlayerInventory,
   startTradeWithActor,
   addItemToTrade,
   removeItemFromTrade,
   doTrade,
-  cancelTrade
+  cancelTrade,
 } = itemSlice.actions;
 export default itemSlice;
 

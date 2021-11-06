@@ -41,5 +41,24 @@ export default {
         value: 100,
         type: 'consumable',
         slot: 'none'
-    }
+    },
+    herb_healing: {
+        name: 'Brendlewort',
+        effectFunction: function(playerObject, dispatch) {
+            const playerHealth = playerObject.health
+            const playerMaxHealth = playerObject.maxHealth
+            const healthDif = (playerMaxHealth - playerHealth > 0 ? playerMaxHealth - playerHealth : 0)
+
+            if (healthDif > 0) {
+                dispatch(actor.actions.modifyActorAttributeByActorId({actorId: 0, attribute: 'health', value: 1}))
+            }
+        },
+        icon: 'fa-leaf',
+        rarity: 0,
+        descDetails: 'Restores 1 health.',
+        desc: 'A somewhat uncommon herb that can be used as a component of healing potions. The refining process is a closely guarded secret few possess, rendering it worthless to all but a few.',
+        value: 10,
+        type: 'consumable',
+        slot: 'none'
+    },
 }

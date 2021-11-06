@@ -8,6 +8,7 @@ import { useDrop } from 'react-dnd';
 
 import TradeItem from './TradeItem/TradeItem';
 import ItemInfo from './ItemInfo/ItemInfo';
+import UISlice from '../../../../DataHandlers/redux/slices/UI';
 
 export default function TradeArea() {
   const itemsById = useSelector((state) => state.items.itemsById);
@@ -19,12 +20,25 @@ export default function TradeArea() {
     (item) => item.ownerId === actorInTradeById
   );
 
+  const itemTypesActorWillBuy = actorsById[actorInTradeById].willBuyTypes || [];
+  const rarityActorWillBuy = (actorsById[actorInTradeById].willBuyRarity === undefined ? 100 : actorsById[actorInTradeById].willBuyRarity);
+
   const dispatch = useDispatch();
 
   const [collectedProps, drop] = useDrop(() => ({
     accept: 'item',
     drop: (item) => {
-      dispatch(itemSlice.actions.addItemToTrade(item.id));
+      console.log(rarityActorWillBuy)
+      console.log(itemsById[item.id].rarity >= rarityActorWillBuy)
+      if (itemTypesActorWillBuy.includes(itemsById[item.id].type) && itemsById[item.id].rarity >= rarityActorWillBuy) {
+        dispatch(itemSlice.actions.addItemToTrade(item.id));
+      } else {
+        if (actorsById[actorInTradeById].responses?.tradeItemTypeFail) {
+          dispatch(UISlice.actions.addMessageToActivityLog(`${actorsById[actorInTradeById].actorName}: ${actorsById[actorInTradeById].responses.tradeItemTypeFail}`));
+        } else {
+          dispatch(UISlice.actions.addMessageToActivityLog(`${actorsById[actorInTradeById].actorName}: I don't want to buy your ${itemsById[item.id].name.toLowerCase()}.`));
+        }
+      }
     },
   }));
 
@@ -75,11 +89,11 @@ export default function TradeArea() {
     );
   });
 
-  const playerItemValue = itemsPlayerWantsToTradeById.reduce((acc, itemId) => {
+  const playerItemValue = Math.floor(itemsPlayerWantsToTradeById.reduce((acc, itemId) => {
     return acc + itemsById[itemId].value;
-  }, 0);
+  }, 0) * 0.85);
 
-  const balanceOwing = playerItemValue - actorItemValue;
+  const balanceOwing = actorItemValue - playerItemValue;
 
   function finalizeTrade() {
     if (balanceOwing !== 0) {
@@ -91,7 +105,7 @@ export default function TradeArea() {
           actorSlice.actions.modifyActorAttributeByActorId({
             actorId: 0,
             attribute: 'gold',
-            value: balanceOwing,
+            value: -balanceOwing,
           })
         );
       }
@@ -107,7 +121,7 @@ export default function TradeArea() {
   }
 
   return (
-    <div ref={drop} className={styles.TradeArea}>
+    <div onMouseOut={handleMouseOut} ref={drop} className={styles.TradeArea}>
       <div className={styles.TradeArea__header}>
         <div className={styles.TradeArea__tradingWithArea}>
           Trading with {actorsById[actorInTradeById].actorName}

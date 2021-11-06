@@ -1,8 +1,10 @@
 import gatehouseE from "../locations/field/GatehouseEast/GatehouseEast.js";
 import grassyClearing from "../locations/field/grassyClearing.js";
 import goblinBurrow from "../locations/field/burrow.js";
+import bower from "../locations/field/bower.js";
 
 import * as roads from "../locations/roads";
+
 
 export default {
   name: "field",
@@ -38,7 +40,7 @@ export default {
       roads.crossRoad,
       roads.horRoad,
       roads.horRoad,
-      roads.horRoad,
+      bower,
       gatehouseE,
     ],
     [

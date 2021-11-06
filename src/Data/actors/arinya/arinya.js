@@ -17,14 +17,12 @@ export default {
   armor: 5,
   dodge: 10,
   focus: 33,
-
   strength: 12,
   dexterity: 18,
   constitution: 12,
   charisma: 15,
   wisdom: 16,
   intelligence: 11,
-
   isDead: false,
   hasFocusSpell: false,
   location: 'tavern_inside',
@@ -35,12 +33,9 @@ export default {
   type: 'npc',
   token: token,
   portrait: portrait,
-  drops: [
-    {
-      item: 'potion_of_healing',
-      chance: 1, //this means 1 in 6
-      name: 'a dirty bottle with some kind of fluid inside!',
-    },
-  ],
+  drops: [],
   img: {},
+  responses: {
+    tradeItemTypeFail: "I'm afraid that doesn't interest me, human."
+  }
 };

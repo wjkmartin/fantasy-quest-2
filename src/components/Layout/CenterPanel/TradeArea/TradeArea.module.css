@@ -78,6 +78,7 @@
 .onDrag {
   background-color: lightgray;
   position: relative;
+  z-index: 0;
 }
 
 .onDrag::before {
