@@ -24,7 +24,7 @@ export default {
   isDead: false,
   hasFocusSpell: false,
   location: '',
-  gold: 10000,
+  gold: 1,
   speed: 4,
   type: 'hunter',
   token: token,

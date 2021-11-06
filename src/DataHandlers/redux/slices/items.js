@@ -103,6 +103,12 @@ const itemSlice = createSlice({
       state.actorInTradeById = undefined;
       state.itemsPlayerWantsToTradeById = [];
       state.itemsSelectedByPlayerById = [];
+    },
+    cancelTrade: (state) => {
+      state.inTrade = false;
+      state.actorInTradeById = undefined;
+      state.itemsPlayerWantsToTradeById = [];
+      state.itemsSelectedByPlayerById = [];
     }, 
   },
 });
@@ -121,6 +127,7 @@ export const {
   addItemToTrade,
   removeItemFromTrade,
   doTrade,
+  cancelTrade
 } = itemSlice.actions;
 export default itemSlice;
 

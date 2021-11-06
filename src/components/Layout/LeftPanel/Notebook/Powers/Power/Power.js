@@ -8,7 +8,7 @@ export default function Power(props) {
   const power = props.powerData;
   let dispatch = useDispatch();
 
-  let [durationRemainingSeconds, setDurationRemainingSeconds] = useState(100);
+  let [durationRemainingSeconds, setDurationRemainingSeconds] = useState(props.powerData.duration * 60);
 
   useEffect(() => {
     Object.keys(power.stats).forEach((stat) => {
@@ -30,10 +30,10 @@ export default function Power(props) {
     }, 1000);
     return () => {
       clearInterval(myInterval);
-      if (durationRemainingSeconds === 0) {
+      if (durationRemainingSeconds === 1) {
         dispatch(
           actor.actions.removePowerFromActorByDataRefAndActorId({
-            powerDataRef: power.ref,
+            ref: power.ref,
             actorId: 0,
           })
         );
@@ -50,6 +50,8 @@ export default function Power(props) {
     };
   });
 
+  const durationRemainingMinutes = Math.floor(durationRemainingSeconds / 60);
+
   return (
     <div className={styles.Power}>
       <div>
@@ -59,7 +61,7 @@ export default function Power(props) {
           <p className={styles.powerDetails}> {power.details}</p>
         </div>
       </div>
-      {durationRemainingSeconds}
+      Time remaining: {durationRemainingMinutes}:{String(durationRemainingSeconds).padStart(2, '0')}
       <div className={styles.activateButtonContainer}>
         {power.type === 'active' ? (
           <button className={styles.activateButton}>Activate</button>

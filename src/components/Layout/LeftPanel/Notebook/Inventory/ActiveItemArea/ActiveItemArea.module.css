@@ -46,6 +46,7 @@
     margin: 0.5rem;
     width: 6rem;
     font-weight: 600;
+    min-height: 2rem;
   }
   
   .ActiveItemArea_buttons_button:hover {

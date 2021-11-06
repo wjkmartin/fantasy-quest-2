@@ -1,4 +1,29 @@
 .ItemInfo {
-    padding: 10px;
-    min-height: 10rem;
+  padding: 0.5rem 1rem;
+  min-height: 10rem;
+  max-width: 98%;
+  text-align: center;
+}
+
+.border {
+  border: 2px solid rgba(92, 76, 31, 0.322);
+}
+
+.rarity-poor {
+  color: grey;
+}
+.rarity-common {
+  color: black;
+}
+.rarity-uncommon {
+  color: green;
+}
+.rarity-rare {
+  color: blue;
+}
+.rarity-very-rare {
+  color: purple;
+}
+.rarity-legendary {
+  color: orange;
 }

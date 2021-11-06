@@ -46,8 +46,15 @@ const actorSlice = createSlice({
             state.powersById[actorId].push(power);
         },
         removePowerFromActorByDataRefAndActorId: (state, action) => {
-            const { actorId, powerDataRef } = action.payload;
-            state.powersById[actorId].filter((power) => power.ref !== powerDataRef);
+            const { actorId, ref } = action.payload;
+            return {
+                actorsById: state.actorsById,
+                powersById: {
+                    ...state.powersById,
+                    [actorId]: state.powersById[actorId].filter(power => power.ref !== ref)
+                }
+                
+            }
         },
         // updatePowerDurationByDataRefAndActorId: (state, action) => {
         //     const { actorId, powerDataRef, duration } = action.payload;

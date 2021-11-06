@@ -153,6 +153,7 @@ function Minimap() {
   const locations = useSelector((state) => state.locations.locations);
   const inConversation = useSelector((state) => state.UI.inConversation);
   const actorsById = useSelector((state) => state.actors.actorsById);
+  const inTrade = useSelector((state) => state.items.inTrade);
 
   const dispatch = useDispatch();
 
@@ -173,7 +174,7 @@ function Minimap() {
 
   return (
     <MinimapStyled minimap={minimap}>
-      {currentLocation.type === 'top' && !inCombat && !inConversation
+      {currentLocation.type === 'top' && !inTrade && !inCombat && !inConversation
         ? mapNodes
         : ''}{' '}
     </MinimapStyled>

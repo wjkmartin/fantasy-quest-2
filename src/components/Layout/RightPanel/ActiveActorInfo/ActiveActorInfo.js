@@ -100,6 +100,8 @@ function ActiveActorInfo(props) {
           src={props.activeActor?.portrait}
           alt="character portrait"
           className={styles.characterPortrait}
+          height="250"
+          width="100"
         />
         <div
           style={{

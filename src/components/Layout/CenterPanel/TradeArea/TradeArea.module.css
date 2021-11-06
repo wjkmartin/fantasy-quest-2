@@ -1,115 +1,133 @@
 .TradeArea {
-    margin: 3rem auto;
-    width: 90%;
-    height: 70%;
-    border: 1px solid black;
+  padding-top: 1rem;
+  margin: 3rem auto;
+  width: 90%;
+  height: 70%;
+  box-shadow: 2px 3px 20px black, 0 0 60px #8a4d0f inset;
+  background: #fffef0;
+  border-radius: 10px;
 }
 
 .TradeArea__valueArea {
-    height: 40%;
-    display: flex;
+  height: 40%;
+  display: flex;
 }
 
 .TradeArea__tradingWithArea {
-    height: 60%;
-    text-align: center;
-    font-weight: 700;
-    font-size: 1.4rem;
+  height: 60%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  font-family: Metamorphous, sans-serif;
+  color: #4e3113;
 }
 
 .TradeArea__valueArea_value {
-    width: 50%;
-    text-align: center;
+  width: 50%;
+  text-align: center;
 }
 
 .TradeArea__header {
-    height: 5%;
-    padding-bottom: 10px;
-    border-bottom: 1px solid black;    
+  height: 5%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
 }
 
 .TradeArea__balanceArea {
-    height: 65%;
-    display: flex;
+  height: 65%;
+  display: flex;
 }
 
 .TradeArea__balanceArea_player {
-    width: 50%;
-    height: 100%;
-    border-right: 2px dashed black;
-    display: flex;
-    flex-flow: wrap;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  align-content: flex-start;
 }
 .TradeArea__balanceArea_npc {
-    width: 50%;
+  width: 50%;
+  padding-right: 5%;
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  align-content: flex-start;
 }
 
 .TradeArea__buttonArea_commentArea {
-    border-top: 1px solid black;
-    height: 11rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 28%;
 }
 
 .TradeArea__buttonArea {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: middle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 35%;
+}
+
+.TradeArea__buttonArea button {
+  margin-bottom: 5px;
 }
 
 .onDrag {
-    background-color: lightgray;
-    position: relative;
+  background-color: lightgray;
+  position: relative;
 }
 
 .onDrag::before {
-    position: absolute;
-    content: "Drag item here to trade";
-    left: 50%;
-    top: 0;
-    transform: translate(-50%, 10rem);
-    font-weight: 700;
+  position: absolute;
+  content: 'Drag item here to trade';
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 10rem);
+  font-weight: 700;
 }
 
 .tradeItem {
-    width: 4rem;
-    height: 4rem;
-    margin: 1rem;
-    border: 1px solid black;
-    text-align: center;
-    line-height: 1.9;
-  }
-  
-  .tradeItem:hover {
-    background-color: gainsboro;
-    border: 1px dashed black;
-  }
-  
-  .isSelected {
-    border: 2px solid black;
-    background-color: darkgray;
-  }
-  
-  .isSelected:hover {
-    border: 2px dashed black;
-    background-color: darkgray;
-  }
-  
-  .rarity-poor {
-    color: grey;
-  }
-  .rarity-common {
-    color: black;
-  }
-  .rarity-uncommon {
-    color: green;
-  }
-  .rarity-rare {
-    color: blue;
-  }
-  .rarity-very-rare {
-    color: purple;
-  }
-  .rarity-legendary {
-    color: orange;
-  }
+  width: 4rem;
+  height: 4rem;
+  margin: 1rem;
+  border: 1px solid black;
+  text-align: center;
+  line-height: 1.9;
+}
 
+.tradeItem:hover {
+  background-color: gainsboro;
+  border: 1px dashed black;
+}
+
+.isSelected {
+  border: 2px solid black;
+  background-color: darkgray;
+}
+
+.isSelected:hover {
+  border: 2px dashed black;
+  background-color: darkgray;
+}
+
+.rarity-poor {
+  color: grey;
+}
+.rarity-common {
+  color: black;
+}
+.rarity-uncommon {
+  color: green;
+}
+.rarity-rare {
+  color: blue;
+}
+.rarity-very-rare {
+  color: purple;
+}
+.rarity-legendary {
+  color: orange;
+}

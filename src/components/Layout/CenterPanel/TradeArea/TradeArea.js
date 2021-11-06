@@ -48,6 +48,10 @@ export default function TradeArea() {
   const actorItemsElems = itemsActorCanTrade.map((item) => {
     return (
       <TradeItem
+        onClick={() => {
+          onClickItem();
+        }}
+        isSelected={itemsSelectedByPlayerById.includes(item.id)}
         handleMouseOver={handleMouseOver}
         handleMouseOut={handleMouseOut}
         key={`__ACTOR_TRADE_ITEM__${item.id}`}
@@ -71,8 +75,6 @@ export default function TradeArea() {
     );
   });
 
-
-
   const playerItemValue = itemsPlayerWantsToTradeById.reduce((acc, itemId) => {
     return acc + itemsById[itemId].value;
   }, 0);
@@ -80,14 +82,28 @@ export default function TradeArea() {
   const balanceOwing = playerItemValue - actorItemValue;
 
   function finalizeTrade() {
-    dispatch(itemSlice.actions.doTrade());
-    dispatch(
-      actorSlice.actions.modifyActorAttributeByActorId({
-        actorId: 0,
-        attribute: 'gold',
-        value: balanceOwing,
-      })
-    );
+    if (balanceOwing !== 0) {
+      if (actorsById[0].gold <= balanceOwing) {
+        dispatch(UISlice.actions.addMessageToActivityLog(`You don't have enough gold to complete this trade.`));
+      } else {
+        dispatch(itemSlice.actions.doTrade());
+        dispatch(
+          actorSlice.actions.modifyActorAttributeByActorId({
+            actorId: 0,
+            attribute: 'gold',
+            value: balanceOwing,
+          })
+        );
+      }
+    }
+  }
+
+  function onClickItem() {
+    if (itemsSelectedByPlayerById.includes(isHovering)) {
+      dispatch(itemSlice.actions.removeItemFromTrade(isHovering));
+    } else {
+      dispatch(itemSlice.actions.addItemToTrade(isHovering));
+    }
   }
 
   return (
@@ -116,11 +132,11 @@ export default function TradeArea() {
         </div>
       </div>
       <div className={styles.TradeArea__buttonArea_commentArea}>
-        {isHovering && <ItemInfo itemId={isHovering} />} 
+        <ItemInfo itemId={isHovering} />
         <div className={styles.TradeArea__buttonArea}>
           <button onClick={() => finalizeTrade()}>Finalize</button>
+          <button onClick={() => {dispatch(itemSlice.actions.cancelTrade()) }}>Cancel</button>
         </div>
-        <div className={styles.TradeArea__commentArea}></div>
       </div>
     </div>
   );

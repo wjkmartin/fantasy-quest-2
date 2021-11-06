@@ -19,13 +19,14 @@ export default function TradeItem(props) {
     <div ref={dragPreview} />
   ) : (
     <div
+      onClick={props.onClick}
       onMouseOver={() => props.handleMouseOver(props.itemId)}
       onMouseOut={props.handleMouseOut}
       ref={drag}
       {...collected}
-      className={`${styles.TradeItem} ${styles[itemColorClass(item.rarity)]}`}
+      className={`${props.isSelected && styles.isSelected} ${styles.TradeItem} ${styles[itemColorClass(item.rarity)]}`}
     >
-      <i className={`fas ${item.icon} fa-2x`} />
+      <i className={`${styles.TradeItem__icon} fas ${item.icon} fa-2x`} />
       <p className={styles.TradeItem__label}>{item.name}</p>
     </div>
   );

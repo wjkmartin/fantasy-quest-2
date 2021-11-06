@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import Power from "./Power/Power";
 
 export default function Powers(props) { 
-  let powers = useSelector((state) => state.actors.powersById[0]);
+  let powers = useSelector((state) => state.actors.powersById)[0] || [];
   let powersComponents = undefined;
 
   if (powers.length > 0) {

@@ -47,7 +47,6 @@ export default function ConversationButton(props) {
     dispatch(UI.actions.addToCurrentDialogueText(label));
     
     if (_values.onClick !== undefined && active) {
-      console.log("onClick action");
       _values.onClick(state, actions, dispatch); 
     }
 
@@ -65,7 +64,7 @@ export default function ConversationButton(props) {
 
   return (
     <button
-      className={visible ? styles.ConversationButton : styles.hide}
+      className={`${visible ? styles.ConversationButton : styles.hide} ${active ? '' : styles.inactive}`}
       onClick={() => handleClickAction(dialogueBranch, values)}
       disabled={active ? false : true}
     >

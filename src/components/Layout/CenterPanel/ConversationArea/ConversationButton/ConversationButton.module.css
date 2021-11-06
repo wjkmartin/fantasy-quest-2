@@ -1,15 +1,10 @@
 .ConversationButton {
-    width: 100%;
+    width: 99%;
     margin: .25rem 0 !important;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
-
 }
 
 .ConversationButton:hover {
-    background-color: darkgray;
+    background-color: #f5f5f5;
 }
 
 .ConversationButton:focus {
@@ -17,13 +12,8 @@
 }
 
 .inactive {
-    position: relative
-}
-
-.inactive:after {
-    content: "";
-    position: absolute;
-    color: rgba(112, 128, 144, 0.658) ;
+    background-color: rgba(197, 197, 197, 0.658) !important;
+    color: rgba(151, 151, 151, 0.658) !important;;
 }
 
 .hide {
