@@ -20,6 +20,7 @@ export default function ActiveItemArea(props) {
     <EquipButton
       className={styles.ActiveItemArea_buttons_button}
       item={props.item}
+      setActiveItem={props.setActiveItem}
     />
   );
 

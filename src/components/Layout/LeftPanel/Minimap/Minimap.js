@@ -109,9 +109,9 @@ function discoverAdjacentNodes(location, locations, mapWidth, dispatch) {
   const dirs = [topId, leftId, rightId, bottomId];
 
   dirs.forEach((dir) => {
-    const id =  locations[dir]?.id || undefined
-    if (dir !== undefined && !locations[dir].isDiscovered) {
-      dispatch(locationSlice.actions.setIsDiscovered({id: id}));
+    const id =  locations[dir]?.id
+    if (locations[dir]) {
+      if (!locations[dir].isDiscovered) dispatch(locationSlice.actions.setIsDiscovered({id: id}));
     }
   });
 }

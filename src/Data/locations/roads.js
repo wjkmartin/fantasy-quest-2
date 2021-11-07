@@ -19,5 +19,5 @@ export const crossRoad = {
     prettyName: "A road",
     name: 'top',
     type: 'top',
-    icon:  'square'
+    icon:  'compress'
 };

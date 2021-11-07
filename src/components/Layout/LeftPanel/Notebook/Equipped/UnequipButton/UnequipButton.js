@@ -5,9 +5,8 @@ import itemSlice from "../../../../../../DataHandlers/redux/slices/items";
 
 export default function UnequipButton(props) {
   let dispatch = useDispatch();
-
   function onClickButton(id) {
-    dispatch(itemSlice.actions.unequipItemByActorIds({actorId: 0, itemId: id}));
+    dispatch(itemSlice.actions.unequipItemById({ itemId: id}));
     props.setActiveItem(undefined)
   }
 

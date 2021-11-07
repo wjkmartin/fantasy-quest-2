@@ -13,7 +13,7 @@ export default function Inventory() {
   const playerGold = useSelector((state) => state.actors.actorsById[0].gold);
 
   const items = useSelector((state) => state.items.itemsById);
-  const playerInventory = items.filter((item) => item.ownerId === 0);
+  const playerInventory = items.filter((item) => item.ownerId === 0 && item.equipped === false);
   let [activeItem, setActiveItem] = useState(undefined);
 
   function onClickItem(item) {

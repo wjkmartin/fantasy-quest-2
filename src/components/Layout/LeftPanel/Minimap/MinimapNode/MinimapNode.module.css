@@ -2,6 +2,8 @@
     width: 25px !important;
     height: 25px;
     color: rgb(105, 74, 74);
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 .MinimapNodeEmpty {

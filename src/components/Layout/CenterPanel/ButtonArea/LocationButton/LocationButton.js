@@ -43,7 +43,7 @@ export default function LocationButton(props) {
         //visiting this map for the first time
         miniMaps[action.mapLink].nodes.forEach((locationRow) => {
           locationRow.forEach((location) => {
-            if (location === undefined) {
+            if (location === null || location === undefined) {
               return;
             } else if (location.monstersToSpawn === undefined) {
               return;

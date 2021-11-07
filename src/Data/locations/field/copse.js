@@ -1,9 +1,8 @@
 import itemSlice from '../../../DataHandlers/redux/slices/items';
 
 export default {
-  name: 'bower', // should be
-  icon: 'tree',
-
+  name: 'copse', 
+  icon: 'leaf',
   buttons: [
     {
       'Take a look around for herbs': {
