@@ -15,18 +15,6 @@ a {
   text-decoration: none !important;
 }
 
-/* button {
-  font-family: 'Fira Sans', sans-serif;
-  background-color: #C2AA91;
-  background: ;
-  color: white;
-  border: 1px solid rgba(87, 55, 23, 0.514);
-  border-radius: 5px !important;
-  font-size: 1.2rem;
-  cursor: pointer;
-  
-} */
-
 /* CSS */
 button {
   font-family: 'Fira Sans', sans-serif;
@@ -37,8 +25,6 @@ button {
   color: #422800;
   cursor: pointer;
   display: inline-block;
-  font-weight: 600;
-  font-size: 18px;
   padding: 0 18px;
   line-height: 50px;
   text-align: center;
@@ -46,6 +32,7 @@ button {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  max-height: 25px;
 }
 
 .button:hover {
