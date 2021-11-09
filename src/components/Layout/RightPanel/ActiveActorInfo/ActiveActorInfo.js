@@ -67,6 +67,12 @@ function ActiveActorInfo(props) {
     />
   );
 
+  const evadeButton = (
+    <button key={'evadeButton'} className={styles.actionButton}>
+      <FontAwesomeIcon icon={['fas', 'shoe-prints']} /> Evade
+    </button>
+  );
+
   const buttons = [
     talkButton,
     tradeButton,
@@ -74,7 +80,7 @@ function ActiveActorInfo(props) {
     inspectButton,
     addToFriendsButton,
   ];
-  const monsterButtons = [duelButton];
+  const monsterButtons = [duelButton, evadeButton];
   const healthPercentage =
     props.activeActor === undefined
       ? 'none'

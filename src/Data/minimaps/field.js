@@ -61,6 +61,7 @@ const gladeList = {
   glade2: {
     ...glade,
     name: 'glade2',
+    monstersToSpawn: ['baseGoblin', 'baseGoblin'],
   },
 }
 

@@ -1,5 +1,6 @@
 // import dialogueAjwar from './d_ajwar.js';
-import token from '../../../../Assets/img/combat_tokens/goblin.png';
+import token from '../../../../Assets/img/combat_tokens/troll.png';
+import image from '../../../../Assets/img/character_images/troll/troll.jpg'
 
 export default {
   actorName: 'Sewer Troll',
@@ -22,7 +23,6 @@ export default {
   charisma: 3,
   wisdom: 3,
   intelligence: 3,
-
   isDead: false,
   hasFocusSpell: false,
   location: 'mossyCistern',
@@ -30,10 +30,11 @@ export default {
   speed: 1,
   type: 'monster',
   token: token,
+  portrait: image,
   drops: [
     {
       item: 'potion_of_healing',
-      chance: 1, //this means 1 in 6
+      chance: 6, //this means 1 in 6
       name: 'a dirty bottle with some kind of fluid inside!',
     },
   ],

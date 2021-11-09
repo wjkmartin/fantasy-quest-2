@@ -6,6 +6,8 @@ import UI from "../../../../../DataHandlers/redux/slices/UI";
 import combat from "../../../../../DataHandlers/redux/slices/combat";
 import locations from "../../../../../DataHandlers/redux/slices/locations";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export default function RequestDuelButton(props) {
   let dispatch = useDispatch();
   const actorsById = useSelector(store => store.actors.actorsById);
@@ -42,7 +44,7 @@ export default function RequestDuelButton(props) {
   }
   return (
     <button onClick={() => handleClick()} className={props.className}>
-      {props.activeActor?.isAggressive === true ? "Fight" : "Request duel"}
+      {props.activeActor?.isAggressive === true ? (<span><i className="fas fa-swords" /> Fight</span>) : (<span><i className="fas fa-swords" /> Request duel</span>)}
     </button>
   );
 }

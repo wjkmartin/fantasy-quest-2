@@ -11,6 +11,8 @@ export default function Item(props) {
     (state) => state.items.itemsPlayerWantsToTradeById
   );
 
+  const itemIsinTrade = itemsInTrade.includes(props.item.id);
+
   const [{ isDragging }, drag] = useDrag({
     type: 'item',
     item: { id: props.item.id, type: 'item' },
@@ -32,10 +34,10 @@ export default function Item(props) {
     <div
       ref={drag}
       style={{ opacity }}
-      className={styles.Item}
+      className={`${styles.Item}`}
       onClick={props.onClick}
     >
-      <div className={styles.Item__itemLine}>
+      <div className={`${itemIsinTrade ? styles.inTrade : ''} ${styles.Item__itemLine}`}>
         <i
           className={`${styles.Item__itemIcon} ${
             styles[itemColorClass(props.item.rarity)]

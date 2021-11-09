@@ -14,7 +14,7 @@ const initialState = {
     new Item('weapon', 'iron_sword', 5),
     new Item('weapon', 'steel_sword', 5),
     new Item('weapon', 'enchanted_steel_sword', 5),
-    new Item('weapon', 'enchanted_steel_sword', -1, 'centralSquare'),
+    // new Item('weapon', 'enchanted_steel_sword', -1, 'centralSquare'),
   ],
 
   inTrade: false,

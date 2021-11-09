@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.25rem 0;
-    background-color: rgba(245, 245, 245, 0.527);
+    background-color: rgba(92, 92, 92, 0.856);
 }
 
 .actorList {
@@ -19,6 +19,7 @@
 .header {
     font-size: 22px;
     font-family: Metamorphous, serif;
+    color: white;
 }
 
 .actor {
@@ -35,6 +36,7 @@
     padding-top: 10px;
     height: 20px;
     font-family: 'Cardo', serif;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.116);
 }
 
 .currentTurn {

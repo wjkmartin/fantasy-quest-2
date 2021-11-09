@@ -4,9 +4,12 @@
     position: relative;
     width: 2rem;
     height: 2rem;
-    border: 2px solid white;
-    background-color: gainsboro;
+    border: 2px solid rgba(255, 255, 255, 0.384);
+    background-color: rgba(226, 220, 220, 0.185);
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .itemSlot::before {
@@ -25,8 +28,8 @@
     position: relative;
     width: 2rem;
     height: 2rem;
-    border: 2px solid white;
-    background-color: darkgray;
+    border: 2px solid rgba(255, 255, 255, 0.404);
+    background-color: rgba(169, 169, 169, 0.26);
     border-radius: 50%;
   }
   
@@ -42,10 +45,26 @@
     bottom: -0.39rem;
   }
 
-
-
   .itemIcon {
     text-align: center;
     line-height: .6;
-    transform: translateX(-.4rem);
+  }
+
+  .rarity-poor {
+    color: grey;
+  }
+  .rarity-common {
+    color: black;
+  }
+  .rarity-uncommon {
+    color: green;
+  }
+  .rarity-rare {
+    color: blue;
+  }
+  .rarity-very-rare {
+    color: purple;
+  }
+  .rarity-legendary {
+    color: orange;
   }
