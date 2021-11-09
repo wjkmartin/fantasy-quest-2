@@ -112,7 +112,7 @@ export default function CombatActionsPanel() {
     >
       {actorsById[0].movementRemaining > 0 ? (
         <button
-          className={styles.move}
+          className={styles.combatActionButton}
           onClick={() => {
             onClickMoveButton();
           }}
@@ -122,9 +122,9 @@ export default function CombatActionsPanel() {
       ) : (
         ''
       )}
-      {!actorsInCombatById[0].actionUsed ? (
+      {!actorsById[0].actionUsed ? (
         <button // eventually make this "use selected ability"
-          className={styles.attack}
+          className={styles.combatActionButton}
           onClick={() => {
             onClickBasicAttackButton();
           }}
@@ -136,7 +136,7 @@ export default function CombatActionsPanel() {
       )}
 
       <button
-        className={styles.endTurn}
+        className={styles.combatActionButton}
         onClick={() => {
           onClickEndTurnButton();
         }}

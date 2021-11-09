@@ -5,6 +5,10 @@
     justify-content: center;
 }
 
+.combatActionButton {
+    margin: 0 5px;
+}
+
 .hidden {
     display: none;
 }

@@ -11,7 +11,8 @@ export default {
     centralSquare: city_square,
     tavern: tavern,
     tavern_inside: tavern,
-    grassy_clearing: field_01,
+    glade1: field_01,
+    glade2: field_01,
     mossyCistern: sewer_01,
     notDefined: notDefined,
     burrowTunnel: burrow01

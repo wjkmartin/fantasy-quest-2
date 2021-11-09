@@ -28,6 +28,7 @@
   
   .ActiveItemArea_info_details {
     padding: .75rem 0 0 1rem;
+    font-size: .9rem;
   }
   
   .ActiveItemArea_buttons {
@@ -40,8 +41,8 @@
   }
   
   .ActiveItemArea_buttons_button {
-    border: none;
-    background-color: gainsboro;
+    border: 2px solid rgba(252, 250, 248, 0.39);
+    background-color: rgba(255, 255, 255, 0.322);
     display: inline-block;
     margin: 0.5rem;
     width: 6rem;
@@ -50,7 +51,7 @@
   }
   
   .ActiveItemArea_buttons_button:hover {
-    background-color: darkgray;
+    background-color: rgba(169, 169, 169, 0.459);
   }
 
   .rarity-poor {

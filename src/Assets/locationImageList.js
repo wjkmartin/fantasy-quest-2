@@ -28,5 +28,9 @@ export default {
     },
     field: {
         roadImages: [],
-    }
+    },
+    sewerDungeon: {
+
+    },
+    burrowDungeon: {}
 }

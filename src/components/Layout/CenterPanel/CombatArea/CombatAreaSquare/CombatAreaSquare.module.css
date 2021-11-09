@@ -3,7 +3,7 @@
 }
 
 .validAttackArea {
-    background-color: lightgreen;
+    background-color: rgba(143, 240, 140, 0.685);
 }
 
 .CombatSquare {
@@ -16,5 +16,5 @@
 }
 
 .CombatSquare:hover {
-    background-color: lightgrey !important;  
+    background-color: rgba(212, 212, 211, 0.589) !important;  
   }
