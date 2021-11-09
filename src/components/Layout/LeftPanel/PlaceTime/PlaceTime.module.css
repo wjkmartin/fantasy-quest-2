@@ -4,12 +4,12 @@
     height: 3%;
     align-items: center;
     font-size: 1.5rem;
-    margin: 1rem 0;
+    margin: 2rem 0 0 0;
     font-family: 'Metamorphous', cursive;
     font-weight: 700;
-    color: rgb(20, 18, 18);
+    color: #fcfcfc;
 }
 
 .dropShadow {
-    text-shadow: 2px 2px 0px #fff, 4px 3px 0px rgba(0, 0, 0, 0.274), 2px 4px 3px rgba(0,0,0,0.5);
+    text-shadow: 0 0 0.5rem #534b4b;
 }

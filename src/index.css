@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Metamorphous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cardo&family=Metamorphous&display=swap');
+
 
 p {
   margin-bottom: 0 !important;
-  font-family: 'Fira Sans', sans-serif;
+  font-family: 'Cardo', serif;
 }
 
 h2 {
@@ -10,28 +11,29 @@ h2 {
 }
 
 a {
-  font-family: 'Fira Sans', sans-serif;
+  font-family: 'Cardo', serif;
   color: rgb(20, 18, 18) !important;
   text-decoration: none !important;
 }
 
 /* CSS */
 button {
-  font-family: 'Fira Sans', sans-serif;
-  background-color: #fbeee0;
+  font-family: 'Cardo', serif !important;
+  background-color: #ebd1b8;
   border: 2px solid #422800;
   border-radius: 30px;
   box-shadow: #422800 2px 2px 0 0;
   color: #422800;
   cursor: pointer;
   display: inline-block;
-  padding: 0 18px;
   text-align: center;
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   max-height: 25px;
+  line-height: 120% !important;
+  font-weight: 550;
 }
 
 .button:hover {
@@ -42,13 +44,6 @@ button {
   box-shadow: #422800 2px 2px 0 0;
   transform: translate(2px, 2px);
 }
-
-
-/* button:hover {
-  background-color: #e6e6e6;
-  border: 1px solid rgba(87, 55, 23, 0.514);
-  border-radius: 5px;
-} */
 
 #root {
   height: 100vh;
@@ -79,23 +74,31 @@ button {
 }
 
 .nav-item {
-  background-color: gainsboro;
   border: none;
   border-radius: 0px !important;
   margin-right: 4px;
   margin-top: 0.2rem;
-  color: black;
+  color: rgb(199, 199, 199);
+  text-shadow: 0px 0px 0px rgb(199, 199, 199);
   font-weight: 600;
   font-size: 0.9em;
+  border: none !important;
+  font-size: 12px;
 }
 
 .nav-item:hover {
-  color: black;
   transform: skewX(-3deg);
+  border: none !important;
 }
 
 .nav-link {
   padding: 0.25rem 0.25rem !important;
+}
+
+.nav-link.active {
+  background-color: #ebd1b8 !important;
+  border-radius: 4px !important;
+  color: #422800 !important;
 }
 
 .nav-tabs {

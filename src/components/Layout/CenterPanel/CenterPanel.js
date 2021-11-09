@@ -34,8 +34,7 @@ function conversation(props) {
 function combat(props) {
   return (
     <div className={props.className}>
-      <CombatArea></CombatArea>
-      {/* <HotBar /> */}
+      <CombatArea />
     </div>
   );
 }

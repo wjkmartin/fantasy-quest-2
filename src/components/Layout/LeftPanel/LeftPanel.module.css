@@ -4,17 +4,16 @@
     font-size: .70rem;
     font-family: 'Metamorphous', cursive;
     margin: 2% 2% 0 2%;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: 2px 3px 20px black, 0 0 60px #8a4d0f inset;
+    background: #e7dace;
+    border-radius: 3px;
+    overflow: hidden;
 }
 
 .TimePlaceIndicator {
     height: 5%;
-    margin: 1% 1% 0 1%;
 }
 
 .MiniMap {
     height: 35%;
-    margin: 1% 1% 0 1%;
-
 }

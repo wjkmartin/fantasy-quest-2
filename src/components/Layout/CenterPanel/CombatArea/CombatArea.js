@@ -33,6 +33,7 @@ const CombatGrid = styled.div`
   width: ${(props) =>
     props.mapData.width * props.mapData.heightWidthPerSquare}rem;
   position: relative;
+  box-shadow: 10px 15.1px 10.1px -5px hsl(0deg 0% 0% / 0.45);
   box-shadow: 20px 10px 10px -2px #1e1c1a;
   background-size: contain;
   background-repeat: no-repeat;
@@ -42,7 +43,13 @@ const CombatGrid = styled.div`
     width: ${(props) =>
       props.mapData.width * props.mapData.heightWidthPerSquare}rem;
     height: 10px;
-    background-color: #a08670;
+    background: #4e3131; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #4e3131,
+      #000000
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4e3131, #000000);
     transform: skew(45deg) translateX(5px);
     transform-origin: center;
     border-left: 1px solid black;
@@ -56,7 +63,13 @@ const CombatGrid = styled.div`
     width: 10px;
     height: ${(props) =>
       props.mapData.height * props.mapData.heightWidthPerSquare}rem;
-    background-color: #a08670;
+    background: #4e3131; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #4e3131,
+      #000000
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4e3131, #000000);
     transform: translateX(
         ${(props) =>
           props.mapData.width * props.mapData.heightWidthPerSquare}rem
@@ -80,7 +93,10 @@ function CombatArea() {
     (state) => state.locations.currentSubLocation
   );
 
-  const currentLocation = (currentSubLocation === undefined ? currentSuperLocation : currentSubLocation);
+  const currentLocation =
+    currentSubLocation === undefined
+      ? currentSuperLocation
+      : currentSubLocation;
 
   const actorsById = useSelector((state) => state.actors.actorsById);
 
@@ -88,7 +104,8 @@ function CombatArea() {
     (state) => state.combat.actorsInCombatById
   );
 
-  const actorValidMovesById = useSelector((state) => state.combat.actorValidMovesById) || [];
+  const actorValidMovesById =
+    useSelector((state) => state.combat.actorValidMovesById) || [];
 
   const items = useSelector((state) => state.items);
 
@@ -127,7 +144,7 @@ function CombatArea() {
   const combatMap = updateMap(mapData, items);
 
   function combatSetup() {
-    dispatch(combat.actions.resetActorCombatPropsById(0)); 
+    dispatch(combat.actions.resetActorCombatPropsById(0));
     dispatch(
       combat.actions.setActorCoordsById({
         actorId: 0,
@@ -138,14 +155,13 @@ function CombatArea() {
       })
     );
 
-  
     const actorsAtCurrentLocation = actorsById.filter(
       (actor) => actor.location === currentLocation.name
     );
 
     actorsAtCurrentLocation.forEach((actor, index) => {
       const startCoords = mapData.enemyStartCoords[index];
-      dispatch(combat.actions.resetActorCombatPropsById(actor.id)); 
+      dispatch(combat.actions.resetActorCombatPropsById(actor.id));
       dispatch(
         combat.actions.setActorCoordsById({
           actorId: actor.id,
@@ -174,11 +190,10 @@ function CombatArea() {
 
     const attackIsToggled = UIState.combatBasicAttackButtonSelected;
 
-
     flatMap.forEach((element, index) => {
       let actorHereId = undefined;
       const coords = {};
-      coords.x = Math.floor(index / rowLength); 
+      coords.x = Math.floor(index / rowLength);
       coords.y = index % rowLength;
 
       actorIdsInCombat.forEach((actorId) => {
@@ -191,7 +206,9 @@ function CombatArea() {
       });
 
       let isAttackable = combatState.actorValidAttackTargetsById[0].some(
-        (element) => {return element[0] === coords.x && element[1] === coords.y}
+        (element) => {
+          return element[0] === coords.x && element[1] === coords.y;
+        }
       );
 
       let isActorHereThatIsValidAttackTarget = isAttackable && attackIsToggled;
@@ -202,9 +219,9 @@ function CombatArea() {
           coords={coords}
           actorHere={actorsById[actorHereId] || undefined}
           actorToken={actorsById[actorHereId]?.token || undefined}
-          isValidToMoveHere={actorValidMovesById[0].some(
-            (element) => {return (element[0] === coords.x && element[1] === coords.y)}
-          )}
+          isValidToMoveHere={actorValidMovesById[0].some((element) => {
+            return element[0] === coords.x && element[1] === coords.y;
+          })}
           isActorHereThatIsValidAttackTarget={
             isActorHereThatIsValidAttackTarget
           }

@@ -15,7 +15,7 @@ export default function EquipButton(props) {
   );
 
   function onClickButton() {
-    props.setActiveItem(false)
+    props.setActiveItem(undefined)
     Object.keys(props.item.stats).forEach((statType) => {
       dispatch(
         actorSlice.actions.modifyActorAttributeByActorId({

@@ -3,7 +3,7 @@ import React from 'react';
 import NpcDisplayArea from './NpcDisplayArea/NpcDisplayArea';
 import LocalItemDisplayArea from './LocalItemDisplayArea/LocalItemDisplayArea';
 
-import * as images from '../../../../Assets/imgList';
+import images from '../../../../Assets/locationImageList';
 
 import { useSelector } from 'react-redux';
 
@@ -14,7 +14,22 @@ export default function MainDisplayArea(props) {
     (state) => state.locations.currentLocation
   );
 
-  const image = images[currentLocation.name]
+  const currentSubLocation = useSelector(
+    (state) => state.locations.currentSubLocation
+  );
+  
+  const currentMap = useSelector((state) => state.locations.map.name);
+  let image;
+
+  if (currentLocation.name === 'road') {
+    const numberOfImages = images[currentMap].roadImages.length;
+    image = images[currentMap].roadImages[Math.floor(Math.random() * (numberOfImages + 1))]
+  } else if (currentSubLocation) {
+    image = images[currentMap][currentSubLocation.name]
+  } else {
+    image = images[currentMap][currentLocation?.name]
+  }
+
 
   return (
     <div className={styles.MainDisplayArea}>
@@ -22,12 +37,13 @@ export default function MainDisplayArea(props) {
         <NpcDisplayArea currentLocation={currentLocation}/>
         <LocalItemDisplayArea currentLocation={currentLocation}/>
       </div>
-      
+      <div className={styles.imageContainer}>
       {image !== undefined ? (
         <img className={styles.mainImage} alt={'location'} src={image} />
       ) : (
         ''
       )}
+      </div>
     </div>
   );
 }

@@ -17,7 +17,7 @@ export const horRoad = {
 export const crossRoad = {
     description1: 'A crossroads.',
     prettyName: "A road",
-    name: 'top',
+    name: 'road',
     type: 'top',
     icon:  'compress'
 };

@@ -3,7 +3,7 @@ import token from '../../../Assets/img/combat_tokens/player.png';
 export default {
   actorName: 'Zaster', //change everywhere to be just name
   level: 1,
-  actorClass: 'Wizard',
+  actorClass: 'Spellsword',
   race: 'Human',
   health: 100,
   maxHealth: 100,
@@ -14,7 +14,6 @@ export default {
   armor: 0,
   dodge: undefined,
   focus: undefined,
-
   strength: 30,
   dexterity: 10,
   constitution: 10,

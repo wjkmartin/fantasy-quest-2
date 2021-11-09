@@ -18,9 +18,6 @@ const actorSlice = createSlice({
             const { actorId, attribute, value } = action.payload;
             state.actorsById[actorId][attribute] += value
         },
-        // @param {string} actorId - the id of the actor to be modified
-        // @param {string} attribute - the attribute to set
-        // @param {number} value - the value to set the attribute to
         setActorAttributeByActorId: (state, action) => {
             const { actorId, attribute, value } = action.payload;
              state.actorsById[actorId][attribute] = value;  
@@ -56,16 +53,9 @@ const actorSlice = createSlice({
                 
             }
         },
-        // updatePowerDurationByDataRefAndActorId: (state, action) => {
-        //     const { actorId, powerDataRef, duration } = action.payload;
-        //     const power = powers[powerDataRef];
-        //     state.actorsById[actorId].powers[
-        //         state.actorsById[actorId].powers.indexOf(power)
-        //     ].duration = duration;
-        // },
-
     }
 })
+
 
 export const {
     modifyActorAttributeByActorId,
