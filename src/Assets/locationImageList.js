@@ -19,6 +19,8 @@ import copse from './img/locations/field/copse.jpg'
 
 import sewerBG from './img/locations/sewerDungeon/sewerBG.png'
 
+import burrowDungeonBG from './img/locations/burrowDungeon/burrowDungeonBG.jpg'
+
 export default {
     city: {
         bg: cityBG,
@@ -45,5 +47,7 @@ export default {
         bg: sewerBG
 
     },
-    burrowDungeon: {}
+    burrowDungeon: {
+        bg: burrowDungeonBG,
+    }
 }

@@ -5,7 +5,7 @@ export default
     name: 'burrowEntrance',
     icon: "archway",
     prettyName: 'Goblin Burrow Entrance',
-    description1: 'The sounds of the city can be heard through the pipe that you\'ve just entered by.',
+    description1: 'There\'s almost no light filtering in through the narrow opening. Cries of pain can be heard from further down the cramped tunnels.',
     buttons:[
         { "Return to the surface.": goblinBurrowTransition },
       ],

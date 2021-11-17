@@ -6,8 +6,6 @@ import UI from "../../../../../DataHandlers/redux/slices/UI";
 import combat from "../../../../../DataHandlers/redux/slices/combat";
 import locations from "../../../../../DataHandlers/redux/slices/locations";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 export default function RequestDuelButton(props) {
   let dispatch = useDispatch();
   const actorsById = useSelector(store => store.actors.actorsById);

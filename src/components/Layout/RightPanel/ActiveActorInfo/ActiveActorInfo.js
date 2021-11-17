@@ -9,6 +9,7 @@ import TradeButton from './TradeButton/TradeButton';
 import TalkButton from './TalkButton/TalkButton';
 import InspectButton from './InspectButton/InspectButton';
 import AddToFriendsButton from './AddToFriendsButton/AddToFriendsButton';
+import EvadeButton from './EvadeButton/EvadeButton';
 
 function ActiveActorInfo(props) {
   const combatObject = useSelector((state) => state.combat);
@@ -68,9 +69,9 @@ function ActiveActorInfo(props) {
   );
 
   const evadeButton = (
-    <button key={'evadeButton'} className={styles.actionButton}>
-      <FontAwesomeIcon icon={['fas', 'shoe-prints']} /> Evade
-    </button>
+    <EvadeButton key={'evadeButton'}
+    activeActor={props.activeActor}
+    className={styles.actionButton}/>
   );
 
   const buttons = [

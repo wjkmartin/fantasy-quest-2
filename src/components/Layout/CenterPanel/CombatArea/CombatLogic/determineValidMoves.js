@@ -103,8 +103,6 @@ export function determineValidMoves(
     actorCoordsById
   );
 
-  console.log(validMovesBeforePathing);
-
   let graphDiagonal = new Graph(passableMap, { diagonal: true });
   actorsInCombatById.forEach((actorId) => {
     graphDiagonal.grid[actorCoordsById[actorId].x][
