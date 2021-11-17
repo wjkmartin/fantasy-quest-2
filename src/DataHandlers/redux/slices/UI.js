@@ -5,6 +5,7 @@ const initialState = {
     {
       message:
         'Welcome to RHO! Please check your codex for important information.',
+      styleType: 'info',
     },
   ],
   inConversation: false,
@@ -40,9 +41,10 @@ const UISlice = createSlice({
     },
     addMessageToActivityLog: (state, action) => {
       // payload: message: string, styleType: string
+      const { message, styleType } = action.payload;
       state.activityLog.push({
-        message: action.payload,
-        styleType: action.styleType || 'normal',
+        message: message,
+        styleType: styleType || 'normal',
       });
     },
     addToCurrentDialogueText: (state, action) => {

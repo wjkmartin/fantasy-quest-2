@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 
-
-
 import UI from '../../../../DataHandlers/redux/slices/UI';
 import locationSlice from '../../../../DataHandlers/redux/slices/locations';
 
@@ -40,7 +38,14 @@ const MinimapStyled = styled.div`
   }
 `;
 
-function populateNodes(currentLocation, locations, mapWidth, dispatch, actorsById) {
+function populateNodes(
+  currentLocation,
+  locations,
+  mapWidth,
+  dispatch,
+  actorsById,
+  didEvadeEnemiesAtCurrentLocation
+) {
   const nodes = locations.map((location, index) => {
     if (location === undefined || location.isDiscovered === false)
       return (
@@ -54,7 +59,7 @@ function populateNodes(currentLocation, locations, mapWidth, dispatch, actorsByI
         <MinimapNode
           icon={location.icon}
           onClick={
-            isTravelAllowed(currentLocation, location, mapWidth, actorsById)
+            isTravelAllowed(currentLocation, location, mapWidth, actorsById, didEvadeEnemiesAtCurrentLocation)
               ? () => onClickNode(location, locations, mapWidth, dispatch)
               : undefined
           }
@@ -67,14 +72,15 @@ function populateNodes(currentLocation, locations, mapWidth, dispatch, actorsByI
   return nodes;
 }
 
-function isTravelAllowed(currentLocation, location, mapWidth, actorsById) {
+function isTravelAllowed(currentLocation, location, mapWidth, actorsById, didEvadeEnemiesAtCurrentLocation) {
   const aggressiveActorsHere = actorsById.some(
     (actor) =>
       actor.location === currentLocation.name &&
       actor.isAggressive &&
       !actor.isDead
   );
-  if (aggressiveActorsHere) {
+
+  if (aggressiveActorsHere && !didEvadeEnemiesAtCurrentLocation) {
     return false;
   } else if (isNeighbor(currentLocation.id, location.id, mapWidth)) {
     return true;
@@ -87,8 +93,9 @@ function onClickNode(location, locations, mapWidth, dispatch) {
 
 function loadLocation(location, locations, mapWidth, dispatch) {
   discoverAdjacentNodes(location, locations, mapWidth, dispatch);
-  dispatch(locationSlice.actions.setCurrentLocationById({id: location.id}));
-  dispatch(UI.actions.setActiveItemOrNpcTarget({type: null, id: null}));
+  dispatch(locationSlice.actions.didEvadeEnemiesAtCurrentLocation(false));
+  dispatch(locationSlice.actions.setCurrentLocationById({ id: location.id }));
+  dispatch(UI.actions.setActiveItemOrNpcTarget({ type: null, id: null }));
 }
 
 function discoverAdjacentNodes(location, locations, mapWidth, dispatch) {
@@ -109,9 +116,10 @@ function discoverAdjacentNodes(location, locations, mapWidth, dispatch) {
   const dirs = [topId, leftId, rightId, bottomId];
 
   dirs.forEach((dir) => {
-    const id =  locations[dir]?.id
+    const id = locations[dir]?.id;
     if (locations[dir]) {
-      if (!locations[dir].isDiscovered) dispatch(locationSlice.actions.setIsDiscovered({id: id}));
+      if (!locations[dir].isDiscovered)
+        dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
     }
   });
 }
@@ -154,6 +162,7 @@ function Minimap() {
   const inConversation = useSelector((state) => state.UI.inConversation);
   const actorsById = useSelector((state) => state.actors.actorsById);
   const inTrade = useSelector((state) => state.items.inTrade);
+  const didEvadeEnemiesAtCurrentLocation = useSelector((state) => state.locations.didEvadeEnemiesAtCurrentLocation)
 
   const dispatch = useDispatch();
 
@@ -169,12 +178,16 @@ function Minimap() {
     Object.values(locations),
     minimap.nodes[0].length,
     dispatch,
-    actorsById
+    actorsById,
+    didEvadeEnemiesAtCurrentLocation
   ).map((node) => node);
 
   return (
     <MinimapStyled minimap={minimap}>
-      {currentLocation.type === 'top' && !inTrade && !inCombat && !inConversation
+      {currentLocation.type === 'top' &&
+      !inTrade &&
+      !inCombat &&
+      !inConversation
         ? mapNodes
         : ''}{' '}
     </MinimapStyled>

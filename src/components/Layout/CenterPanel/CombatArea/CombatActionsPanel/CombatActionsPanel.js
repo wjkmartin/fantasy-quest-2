@@ -58,8 +58,8 @@ export default function CombatActionsPanel() {
         );
       } else
         dispatch(
-          UI.actions.addMessageToActivityLog(
-            "You've used all your movement for this round."
+          UI.actions.addMessageToActivityLog({
+           message: "You've used all your movement for this round."}
           )
         );
     } else {
@@ -84,9 +84,8 @@ export default function CombatActionsPanel() {
         );
       } else {
         dispatch(
-          UI.actions.addMessageToActivityLog(
-            "You've already attacked this round!"
-          )
+          UI.actions.addMessageToActivityLog({message:
+            "You've already attacked this round!", styleType: 'italic'})
         );
       }
     } else {

@@ -22,8 +22,8 @@ export default function RequestDuelButton(props) {
         dispatch(combat.actions.addActorToCombatById(actor.id)); 
       } else if (actor.id === props.activeActor.id) {
         dispatch(
-          UI.actions.addMessageToActivityLog(
-            `${actorsById[0].actorName} has started a duel with ${props.activeActor.actorName}`, 'red')
+          UI.actions.addMessageToActivityLog({
+            message: `${actorsById[0].actorName} has started a duel with ${props.activeActor.actorName}`, styleType: 'red'})
         );
         dispatch(combat.actions.addActorToCombatById(actor.id));
         dispatch(combat.actions.setIsDuel(true));
@@ -31,7 +31,7 @@ export default function RequestDuelButton(props) {
     });
     if (!isDuel) {
       dispatch(
-        UI.actions.addMessageToActivityLog(`${actorsById[0].actorName} is in a fight to the death!`, 'red'
+        UI.actions.addMessageToActivityLog({message: `${actorsById[0].actorName} is in a fight to the death!`, styleType:'red'}
         )
       );
     }

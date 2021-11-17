@@ -34,9 +34,9 @@ export default function TradeArea() {
         dispatch(itemSlice.actions.addItemToTrade(item.id));
       } else {
         if (actorsById[actorInTradeById].responses?.tradeItemTypeFail) {
-          dispatch(UISlice.actions.addMessageToActivityLog(`${actorsById[actorInTradeById].actorName}: ${actorsById[actorInTradeById].responses.tradeItemTypeFail}`));
+          dispatch(UISlice.actions.addMessageToActivityLog({message: `${actorsById[actorInTradeById].actorName}: ${actorsById[actorInTradeById].responses.tradeItemTypeFail}`, styleType: 'italic'}));
         } else {
-          dispatch(UISlice.actions.addMessageToActivityLog(`${actorsById[actorInTradeById].actorName}: I don't want to buy your ${itemsById[item.id].name.toLowerCase()}.`));
+          dispatch(UISlice.actions.addMessageToActivityLog({message: `${actorsById[actorInTradeById].actorName}: I don't want to buy your ${itemsById[item.id].name.toLowerCase()}.`, styleType: 'italic'}));
         }
       }
     },
@@ -98,7 +98,7 @@ export default function TradeArea() {
   function finalizeTrade() {
     if (balanceOwing !== 0) {
       if (actorsById[0].gold <= balanceOwing) {
-        dispatch(UISlice.actions.addMessageToActivityLog(`You don't have enough gold to complete this trade.`));
+        dispatch(UISlice.actions.addMessageToActivityLog({message: `You don't have enough gold to complete this trade.`, styleType: 'red'}));
       } else {
         dispatch(itemSlice.actions.doTrade());
         dispatch(

@@ -30,6 +30,7 @@ const initialState = {
     sewerDungeon: sewerDungeon,
     burrowDungeon: burrowDungeon,
   },
+  didEvadeEnemiesAtCurrentLocation: false,
 };
 
 const locationSlice = createSlice({
@@ -82,9 +83,12 @@ const locationSlice = createSlice({
             const location = state.locations.find(location => location.id === id);
             location[property] = value;
         },
+        didEvadeEnemiesAtCurrentLocation: (state, action) => {
+            state.didEvadeEnemiesAtCurrentLocation = action.payload;
+        }
     }
 });
 
-export const {setCurrentLocationById, setSubLocationByName, setMap, setIsDiscovered, setIsVisited, saveCurrentMapState, loadSavedMapState, modifyLocationPropertyById} = locationSlice.actions;
+export const {setCurrentLocationById, setSubLocationByName, setMap, setIsDiscovered, setIsVisited, saveCurrentMapState, loadSavedMapState, modifyLocationPropertyById, didEvadeEnemiesAtCurrentLocation} = locationSlice.actions;
 
 export default locationSlice;

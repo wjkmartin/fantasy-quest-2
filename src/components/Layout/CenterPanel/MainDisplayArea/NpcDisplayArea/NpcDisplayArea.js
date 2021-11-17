@@ -26,11 +26,11 @@ const NpcDisplayArea = () => {
     );
   });
 
-  console.log(currentActors);
-
   const aggressiveActorHere = currentActors.some((actor) => {
     return actor.isAggressive;
   });
+
+  const didEvadeEnemiesAtCurrentLocation = useSelector((state) => state.locations.didEvadeEnemiesAtCurrentLocation)
 
   const setActiveActorInfoWindowById = useCallback(
     (id) => dispatch(UI.actions.setActiveItemOrNpcTarget({type: 'actor', id: id})),
@@ -65,7 +65,7 @@ const NpcDisplayArea = () => {
           {currentActors !== undefined ? currentActorsButtonsList : " "}
         </ul>
       </div>
-      {aggressiveActorHere ? (
+      {aggressiveActorHere && !didEvadeEnemiesAtCurrentLocation ? (
         <div className={styles.aggressiveNpcsNotification}>
           <p>
             You can't go anywhere until you deal with the above aggressives or

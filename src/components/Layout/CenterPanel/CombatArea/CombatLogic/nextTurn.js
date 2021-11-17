@@ -67,8 +67,8 @@ export default function nextTurn() {
 
       store.dispatch(
         UI.actions.addMessageToActivityLog(
-          `${_npcObject.actorName} attacks and deals ${attack.damage} to ${_playerObject.actorName}`,
-          'orange'
+          {message: `${_npcObject.actorName} attacks and deals ${attack.damage} to ${_playerObject.actorName}`,
+          styleType: 'orange'}
         )
       );
       if (_playerObject.health - attack.damage <= 0) {
@@ -82,7 +82,7 @@ export default function nextTurn() {
           })
         );
         store.dispatch(
-          UI.actions.addMessageToActivityLog(`You've lost the fight!`)
+          UI.actions.addMessageToActivityLog({message: `You've lost the fight!`, styleType: 'red'})
         );
         store.dispatch(locations.actions.setMap({mapName: 'city', startLocationName:'centralSquare'}));
         store.dispatch(locations.actions.loadSavedMapState({mapName: 'city'}));
@@ -90,9 +90,9 @@ export default function nextTurn() {
           UI.actions.setActiveItemOrNpcTarget({ type: 'null', id: null })
         );
         store.dispatch(
-          UI.actions.addMessageToActivityLog(
-            'In a sudden flash of light, you feel yourself dematerialize and a moment later you find yourself in front of the obelisk in the center of the city.',
-            'italic'
+          UI.actions.addMessageToActivityLog({
+            message: 'In a sudden flash of light, you feel yourself dematerialize and a moment later you find yourself in front of the obelisk in the center of the city.',
+            styleType:'italic'}
           )
         );
       }
@@ -113,7 +113,7 @@ export default function nextTurn() {
   if (isEqual(combatData.actorsInCombatById, [0])) {
     //only player is alive
     store.dispatch(combat.actions.endCombat());
-    store.dispatch(UI.actions.addMessageToActivityLog(`You've won!`, 'green'));
+    store.dispatch(UI.actions.addMessageToActivityLog({message: `You've won the fight!`, styleType:'green'}));
   } else if (combatData.inCombat) {
     if (actorsById[currentActorTurnId].isDead === true) {
       //actor is dead, end their turn and go to next
@@ -122,8 +122,8 @@ export default function nextTurn() {
       return;
     } else if (currentActorTurnId !== 0) {
       store.dispatch(
-        UI.actions.addMessageToActivityLog(
-          `${actorsById[currentActorTurnId].actorName} is taking their turn.`
+        UI.actions.addMessageToActivityLog({message:
+          `${actorsById[currentActorTurnId].actorName} is taking their turn.`}
         )
       );
 
@@ -186,8 +186,8 @@ export default function nextTurn() {
     } else if (combatData.inCombat) {
       store.dispatch(UI.actions.setPlayerCombatButtonsHidden(false));
       store.dispatch(
-        UI.actions.addMessageToActivityLog(
-          `${actorsById[currentActorTurnId].actorName} is taking their turn.`
+        UI.actions.addMessageToActivityLog({message:
+          `${actorsById[currentActorTurnId].actorName} is taking their turn.`}
         )
       );
     }

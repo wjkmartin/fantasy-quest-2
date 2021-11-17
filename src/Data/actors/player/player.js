@@ -15,7 +15,7 @@ export default {
   dodge: undefined,
   focus: undefined,
   strength: 30,
-  dexterity: 10,
+  dexterity: 100,
   constitution: 10,
   charisma: 10,
   wisdom: 10,

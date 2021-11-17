@@ -9,7 +9,7 @@ export default {
       'Take a look around for herbs': {
         type: 'justButton',
         onPress: (dispatch, state) => {
-          dispatch(UISlice.actions.addMessageToActivityLog('You take a look around the copse and find a few herbs.'));
+          dispatch(UISlice.actions.addMessageToActivityLog({message: 'You take a look around the copse and find a few herbs.', styleType: 'green'}));
           dispatch(
             itemSlice.actions.createNewItem({
               itemType: 'consumable',
