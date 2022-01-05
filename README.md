@@ -23,6 +23,6 @@ Currently looks best with chrome - other browser support will be added later. So
 * Recieve one of several different temporary blessings from the local cleric of Rolep, if you can afford it.
 * ... and much more!
 
-#### More info on my development journey can be found here, on my website: www.willmartin.ca/portfolio (please feed the dog on the home page, thanks 🐕)
+#### More info on my development journey can be found here, on my website: www.willmartin.ca/portfolio 
 
 
