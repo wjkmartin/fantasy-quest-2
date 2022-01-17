@@ -3,13 +3,12 @@ import logger from 'redux-logger';
 
 import { combineReducers } from 'redux';
 
-import quests from './reducers/quests';
-
 import locationSlice from './slices/locations';
 import combatSlice from './slices/combat';
 import UISlice from './slices/UI';
 import itemSlice from './slices/items';
 import actorSlice from './slices/actors';
+import questSlice from './slices/quests';
 
 const rootReducer = combineReducers({
   locations: locationSlice.reducer,
@@ -17,7 +16,7 @@ const rootReducer = combineReducers({
   items: itemSlice.reducer,
   combat: combatSlice.reducer,
   UI: UISlice.reducer,
-  quests: quests,
+  quests: questSlice.reducer,
 });
 
 // const persistentState = localStorage.getItem('state')

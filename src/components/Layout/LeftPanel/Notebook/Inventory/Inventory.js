@@ -43,6 +43,7 @@ export default function Inventory() {
       >
         {playerInventory.map((item) => (
           <Item
+            active={activeItem?.id === item.id}
             key={`item-${item.id}`}
             setActiveItem={setActiveItem}
             item={item}

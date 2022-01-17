@@ -8,6 +8,8 @@ import locations from '../../../../../DataHandlers/redux/slices/locations';
 import monsterData from '../../../../../Data/actors/monsters/monsterList';
 import miniMaps from '../../../../../Data/minimaps/miniMaps';
 
+import styles from "./LocationButton.module.css";
+
 export default function LocationButton(props) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
@@ -66,6 +68,7 @@ export default function LocationButton(props) {
 
   return (
     <button
+    className={styles.LocationButton}
       onClick={() => {
         handleActionButton(props.action, currentLocation);
       }}

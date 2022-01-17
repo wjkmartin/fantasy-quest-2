@@ -36,13 +36,16 @@ export default function ActiveItemArea(props) {
     props.item.type === 'consumable' ? useButton : equipButton;
 
   const dropItemButton = <button
-  onClick={() =>
+  onClick={() => {
     dispatch(
       itemSlice.actions.dropItemFromInventory({
         itemId: props.item.id,
         locationName: currentLocationName,
       })
     )
+    props.setActiveItem(undefined);  
+  }
+    
   }
   className={styles.ActiveItemArea_buttons_button}
 >

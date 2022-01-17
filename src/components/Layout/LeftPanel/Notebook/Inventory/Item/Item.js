@@ -37,7 +37,7 @@ export default function Item(props) {
       className={`${styles.Item}`}
       onClick={props.onClick}
     >
-      <div className={`${itemIsinTrade ? styles.inTrade : ''} ${styles.Item__itemLine}`}>
+      <div className={`${itemIsinTrade ? styles.inTrade : ''} ${styles.Item__itemLine} ${props.active ? styles.active : ''}`}>
         <i
           className={`${styles.Item__itemIcon} ${
             styles[itemColorClass(props.item.rarity)]

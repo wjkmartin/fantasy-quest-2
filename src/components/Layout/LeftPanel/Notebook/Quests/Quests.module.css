@@ -4,12 +4,16 @@
 
 .Quests__active_completed_filter_buttons {
     display: flex;
-    background-color: gainsboro;
     margin-top: 2px;
 }
 
 .Quests__filterButton {
     margin: 2%;
+}
+
+.Quests__filterButton:hover {
+    cursor: pointer;
+    filter: opacity(0.8);
 }
 
 .Quests__noQuest {

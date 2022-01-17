@@ -1,0 +1,10 @@
+.LocationButton {
+    width: 80%;
+    margin-top: 6px;
+    padding: 2px;
+}
+
+.LocationButton:hover {
+    filter: opacity(0.8);
+    
+}

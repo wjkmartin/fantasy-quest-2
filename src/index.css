@@ -31,7 +31,6 @@ button {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  max-height: 25px;
   line-height: 120% !important;
   font-weight: 550;
 }

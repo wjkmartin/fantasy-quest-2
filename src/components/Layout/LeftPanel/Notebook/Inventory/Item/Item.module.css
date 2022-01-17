@@ -1,3 +1,7 @@
+.Item {
+  display: initial;
+}
+
 .Item__itemLine {
   max-height: 4rem;
   min-height: 3.5rem;
@@ -71,6 +75,10 @@
 
 .inTrade {
   background-color: rgba(82, 82, 82, 0.637);
+}
+
+.active {
+  border: 2px solid rgba(82, 82, 82, 0.9);
 }
 
 .rarity-poor {
