@@ -1,7 +1,5 @@
 .CombatArea {
   height: 100%;
-  border: 4px solid #160f0f;
-  background-color: rgba(8, 8, 8, 0);
 }
 
 .combatGridWrapper {
