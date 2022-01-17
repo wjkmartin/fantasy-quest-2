@@ -7,7 +7,7 @@ import styles from "./EquippedItemSlot.module.css";
 export default function EquippedItemSlot(props) {
 
   return (
-    <div onClick={props.onClick} className={styles.itemSlot}>
+    <div onClick={props.onClick} className={`${props.slot !== undefined ? styles.itemSlotHidden : styles.itemSlotHover} ${styles.itemSlot}`}>
       <i
         className={`${props.slot !== undefined ? styles[itemColorClass(props.slot.rarity)] : ''} ${styles.itemIcon} fas ${props.slot !== undefined ? props.slot.icon : ""} fa-4x`}
       ></i>

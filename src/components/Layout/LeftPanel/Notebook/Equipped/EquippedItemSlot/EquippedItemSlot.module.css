@@ -1,70 +1,76 @@
 /* the circles here are offset.. */
 
 .itemSlot {
-    position: relative;
-    width: 2rem;
-    height: 2rem;
-    border: 2px solid rgba(255, 255, 255, 0.384);
-    background-color: rgba(226, 220, 220, 0.185);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .itemSlot::before {
-    position: absolute;
-    width: 2.5rem;
-    height: 2.5rem;
-    content: " ";
-    border: 4px solid gainsboro;
-    z-index: -1;
-    border-radius: 50%;
-    right: -0.4rem;
-    bottom: -0.39rem;
-  }
-  
-  .itemSlot:hover {
-    position: relative;
-    width: 2rem;
-    height: 2rem;
-    border: 2px solid rgba(255, 255, 255, 0.404);
-    background-color: rgba(169, 169, 169, 0.26);
-    border-radius: 50%;
-  }
-  
-  .itemSlot:hover::before {
-    position: absolute;
-    width: 2.5rem;
-    height: 2.5rem;
-    content: " ";
-    border: 4px solid darkgray;
-    z-index: -1;
-    border-radius: 50%;
-    right: -0.4rem;
-    bottom: -0.39rem;
-  }
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  border: 2px dashed rgba(37, 35, 35, 0.384);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .itemIcon {
-    text-align: center;
-    line-height: .6;
-  }
+.itemSlot::before {
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  content: ' ';
+  z-index: -1;
+  border-radius: 50%;
+  right: -0.4rem;
+  bottom: -0.39rem;
+}
 
-  .rarity-poor {
-    color: grey;
-  }
-  .rarity-common {
-    color: black;
-  }
-  .rarity-uncommon {
-    color: green;
-  }
-  .rarity-rare {
-    color: blue;
-  }
-  .rarity-very-rare {
-    color: purple;
-  }
-  .rarity-legendary {
-    color: orange;
-  }
+.itemSlotHover:hover {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  border: 2px dashed rgba(37, 35, 35, 0.836);
+  border-radius: 50%;
+}
+
+.itemSlot:hover::before {
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  content: ' ';
+  border: 4px solid darkgray;
+  z-index: -1;
+  border-radius: 50%;
+  right: -0.4rem;
+  bottom: -0.39rem;
+}
+
+.itemIcon {
+  text-align: center;
+  line-height: 0.6;
+}
+
+.itemIcon:hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+}
+
+.itemSlotHidden {
+  border: none;
+}
+
+.rarity-poor {
+  color: grey;
+}
+.rarity-common {
+  color: black;
+}
+.rarity-uncommon {
+  color: green;
+}
+.rarity-rare {
+  color: blue;
+}
+.rarity-very-rare {
+  color: purple;
+}
+.rarity-legendary {
+  color: orange;
+}
