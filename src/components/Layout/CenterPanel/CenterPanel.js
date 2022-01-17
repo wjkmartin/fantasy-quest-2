@@ -16,15 +16,12 @@ import NpcDisplayArea from './NpcDisplayArea/NpcDisplayArea';
 import LocalItemDisplayArea from './LocalItemDisplayArea/LocalItemDisplayArea';
 
 function nonCombat(props) {
-  const currentLocation = useSelector(
-    (state) => state.locations.currentLocation
-  );
   return (
     <>
       <div className={props.className}>
         <div className={styles.displayAreaNPCsItems}>
-          <NpcDisplayArea currentLocation={currentLocation} />
-          <LocalItemDisplayArea currentLocation={currentLocation} />
+          <NpcDisplayArea />
+          <LocalItemDisplayArea />
         </div>
         <div className={styles.mainDisplayAreaContainer}>
           <MainDisplayArea className={styles.MainDisplayArea} />

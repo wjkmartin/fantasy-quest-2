@@ -7,6 +7,7 @@ import UI from '../../../../DataHandlers/redux/slices/UI';
 import itemSlice from '../../../../DataHandlers/redux/slices/items';
 
 import { itemColorClass } from '../../LeftPanel/Notebook/Inventory/util';
+import { itemRarityName } from '../../LeftPanel/Notebook/Inventory/util';
 
 import styles from './ActiveItemInfo.module.css';
 
@@ -37,11 +38,12 @@ function ActiveItemInfo(props) {
         <i
           className={`${styles[itemColorClass(item?.rarity)]} ${
             styles.icon
-          } fas ${item?.icon} fa-3x`}
+          } fas ${item?.icon} fa-4x`}
         />
-        <h2>{item?.name}</h2>
+        <div className={styles.itemName}>{item?.name}</div>
       </div>
       <div className={styles.descContainer}>
+        <p className={`${styles[itemColorClass(item?.rarity)]} ${styles.itemRarityDesc}`}>{itemRarityName(item?.rarity)} rarity</p>
         <p className={styles.itemDesc}>{item?.desc}</p>
         <p className={styles.itemDesc__details}>{item?.descDetails}</p>
       </div>

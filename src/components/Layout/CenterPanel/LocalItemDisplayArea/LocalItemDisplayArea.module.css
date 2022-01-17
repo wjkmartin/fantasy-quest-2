@@ -7,7 +7,7 @@
 .itemList {
   width: 90%;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 33% 33% 33%;
   overflow-x: hidden;
   overflow-y: auto;
   margin-bottom: 0;
@@ -18,8 +18,9 @@
   display: inline;
   cursor: pointer;
   font-family: 'Cardo', sans-serif;
+  overflow: hidden;
   font-weight: 650;
-  font-size: 1.25rem;
+  font-size: 0.6vw;
   text-shadow: 0.05em 0 black, 0 0.05em black, -0.05em 0 black, 0 -0.05em black;
   border: none;
   background-color: transparent !important;

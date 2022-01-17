@@ -34,6 +34,7 @@
 }
 
 .actorName {
+    color: rgb(110, 111, 112);
     font-family: "Cardo", sans-serif;
     font-weight: 800;
     font-size: 2em;

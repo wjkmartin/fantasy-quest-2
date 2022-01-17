@@ -9,16 +9,30 @@ import styles from './LocalItemDisplayArea.module.css';
 function LocalItemDisplayArea(props) {
   let currentItemsButtonList = [];
   const dispatch = useDispatch();
+
+  const currentSuperLocation = useSelector(
+    (state) => state.locations.currentLocation
+  );
+
+  const currentSubLocation = useSelector(
+    (state) => state.locations.currentSubLocation
+  );
+
+  const currentLocation =
+    currentSubLocation === undefined
+      ? currentSuperLocation
+      : currentSubLocation;
+
   const currentItems = useSelector((state) =>
     state.items.itemsById.filter(
-      (item) => item.location === props.currentLocation.name
+      (item) => item.location === currentLocation.name
     )
   );
 
-  console.log(currentItems);
+  
 
   function onItemClick(item) {
-    console.log(item.name);
+    // console.log(item.name);
   }
 
   currentItems.forEach((item) => {

@@ -13,10 +13,17 @@
 }
 
 .NpcList {
-  list-style: none;
-  padding-left: 1rem !important;
-  margin: 0 !important;
-  height: 100%;
+  color: rgb(110, 111, 112);
+  display: inline;
+  cursor: pointer;
+  font-family: 'Cardo', sans-serif;
+  overflow: hidden;
+  font-weight: 650;
+  font-size: 0.6vw;
+  text-shadow: 0.05em 0 black, 0 0.05em black, -0.05em 0 black, 0 -0.05em black;
+  border: none;
+  background-color: transparent !important;
+  padding: 0 5px;
 }
 
 .Npc {
