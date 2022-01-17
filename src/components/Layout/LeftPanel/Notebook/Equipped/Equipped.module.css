@@ -51,18 +51,20 @@
 }
 
 .Equipped__itemInfoArea_info_rarity {
+  font-size: 1rem;
   padding-left: 1rem;
 }
 
 .Equipped__itemInfoArea_info_flavor {
   font-style: italic;
-  font-size: .7rem;
+  font-size: .8rem;
   padding: .2rem 1rem 0 1rem;
   line-height: 1.2;
 }
 
 .Equipped__itemInfoArea_info_details {
   padding: .75rem 0 0 1rem;
+  font-size: .8rem;
 }
 
 .Equipped__itemInfoArea_buttons {
@@ -76,7 +78,6 @@
 
 .Equipped__itemInfoArea_buttons_button {
   border: none;
-  background-color: gainsboro;
   display: inline-block;
   margin: 0.5rem;
   width: 6rem;
@@ -84,7 +85,7 @@
 }
 
 .Equipped__itemInfoArea_buttons_button:hover {
-  background-color: darkgray;
+  
 }
 
 .rarity-poor {
