@@ -3,14 +3,10 @@
     margin: .25rem 0 !important;
 }
 
-
-.ConversationButton:focus {
-    outline: none;
-}
-
 .inactive {
-    background-color: rgba(197, 197, 197, 0.658) !important;
-    color: rgba(151, 151, 151, 0.658) !important;;
+    background-color: rgba(255, 241, 179, 0.658)mportant;
+    color: rgba(105, 103, 103, 0.658) !important;
+    cursor: not-allowed;
 }
 
 .hide {
