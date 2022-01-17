@@ -1,7 +1,11 @@
 # ~ Fantasy Quest 2 ~ 
 ### A web RPG built with React and Redux Toolkit. 
 
+![A screenshot of the game](/docs/screenshot.png)
+
 A classic sword ⚔ and sorcery 🧙‍♂️ experience! Where is Fantasy Quest 1? It's archived! ...and not worth playing.
+
+If you see grey, that's unfinished UI! Still a WIP!
 
 Try it here: https://fantasy-quest-game.herokuapp.com/ - If it doesn't load at first, please just reload as the free dyno needs a second to wake up.
 
@@ -19,6 +23,6 @@ Currently looks best with chrome - other browser support will be added later. So
 * Recieve one of several different temporary blessings from the local cleric of Rolep, if you can afford it.
 * ... and much more!
 
-#### More info on my development journey can be found here, on my website: www.willmartin.ca/portfolio (please feed the dog on the home page, thanks 🐕)
+#### More info on my development journey can be found here, on my website: www.willmartin.ca/portfolio 
 
 
