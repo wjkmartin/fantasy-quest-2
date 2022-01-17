@@ -11,6 +11,7 @@ export default function TradeButton(props) {
     }
 
     return (
-        <button onClick={() => handleClick()} className={props.className}>Trade</button>
+        <button onClick={() => handleClick()} className={props.className}>
+            <span><i className="fas fa-balance-scale" />Trade</span></button>
     )
 }

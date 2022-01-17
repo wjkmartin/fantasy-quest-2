@@ -1,5 +1,15 @@
 .actionButton {
     margin-top: 5px;
+    min-width: 10rem;
+    max-width: 12rem;
+    align-self: flex-start;
+}
+
+.actionButton > span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
 }
 
 .actionButton:focus {
@@ -24,17 +34,18 @@
 }
 
 .actorName {
-    font-family:fantasy;
-    font-weight: 400;
-    font-size: 1.5rem;
+    font-family: "Cardo", sans-serif;
+    font-weight: 800;
+    font-size: 2em;
     padding: 0 .5rem;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.836);
 }
 
 .actorTitle {
     font-size: .8rem;
     align-self: center;
-    font-weight: 300;
-    font-family: fantasy;
+    font-weight: 400;
+    font-family: "Dosis", cursive;
     text-align: center;
     padding: 0 .5rem;
 }
@@ -65,6 +76,8 @@
     float: left;
     display: block;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    outline: 4px solid rgba(0, 0, 0, 0.692);
+    border-radius: 5%;
 }
 
 .alignRight {

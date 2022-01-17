@@ -1,7 +1,7 @@
 import React from 'react';
 
-import NpcDisplayArea from './NpcDisplayArea/NpcDisplayArea';
-import LocalItemDisplayArea from './LocalItemDisplayArea/LocalItemDisplayArea';
+import NpcDisplayArea from '../NpcDisplayArea/NpcDisplayArea';
+import LocalItemDisplayArea from '../LocalItemDisplayArea/LocalItemDisplayArea';
 
 import images from '../../../../Assets/locationImageList';
 
@@ -33,10 +33,7 @@ export default function MainDisplayArea(props) {
 
   return (
     <div className={styles.MainDisplayArea}>
-      <div className={styles.MainDisplayArea__header}>
-        <NpcDisplayArea currentLocation={currentLocation}/>
-        <LocalItemDisplayArea currentLocation={currentLocation}/>
-      </div>
+      
       <div className={styles.imageContainer}>
       {image !== undefined ? (
         <img className={styles.mainImage} alt={'location'} src={image} />

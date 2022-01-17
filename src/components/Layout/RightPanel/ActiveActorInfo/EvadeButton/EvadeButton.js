@@ -76,7 +76,7 @@ export default function EvadeButton(props) {
   }
   return (
     <button disabled={didEvadeEnemiesAtCurrentLocation} onClick={() => handleClick()} className={`${didEvadeEnemiesAtCurrentLocation ? styles.didEvade : ''} ${props.className}`}>
-      <i className="fas fa-shoe-prints" /> Evade
+      <span><i className="fas fa-shoe-prints" /> Evade</span>
     </button>
   );
 }

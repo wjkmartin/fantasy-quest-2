@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Cardo&family=Metamorphous&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cardo&family=Metamorphous&family=Dosis&family=OpenSans&display=swap');
+
 
 p {
   margin-bottom: 0 !important;
@@ -37,6 +37,15 @@ button {
 
 button:active {
   box-shadow: #422800 1px 1px 0 0;
+}
+
+::-webkit-scrollbar {
+  width: 3px; /* Remove scrollbar space */
+  background: rgb(167, 141, 111)
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(58, 49, 38)
 }
 
 .button:hover {

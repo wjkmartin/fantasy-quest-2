@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import styles from "./NpcDisplayArea.module.css";
+import styles from './NpcDisplayArea.module.css';
 
-import UI from "../../../../../DataHandlers/redux/slices/UI";
+import UI from '../../../../DataHandlers/redux/slices/UI';
 
 const NpcDisplayArea = () => {
   const dispatch = useDispatch();
@@ -17,23 +17,26 @@ const NpcDisplayArea = () => {
     (state) => state.locations.currentSubLocation
   );
 
-  const currentLocation = (currentSubLocation === undefined ? currentSuperLocation : currentSubLocation);
+  const currentLocation =
+    currentSubLocation === undefined
+      ? currentSuperLocation
+      : currentSubLocation;
 
   const currentActors = actorsById.filter((actor) => {
-    return (
-      actor.location === currentLocation.name &&
-      !actor.isDead
-    );
+    return actor.location === currentLocation.name && !actor.isDead;
   });
 
   const aggressiveActorHere = currentActors.some((actor) => {
     return actor.isAggressive;
   });
 
-  const didEvadeEnemiesAtCurrentLocation = useSelector((state) => state.locations.didEvadeEnemiesAtCurrentLocation)
+  const didEvadeEnemiesAtCurrentLocation = useSelector(
+    (state) => state.locations.didEvadeEnemiesAtCurrentLocation
+  );
 
   const setActiveActorInfoWindowById = useCallback(
-    (id) => dispatch(UI.actions.setActiveItemOrNpcTarget({type: 'actor', id: id})),
+    (id) =>
+      dispatch(UI.actions.setActiveItemOrNpcTarget({ type: 'actor', id: id })),
     [dispatch]
   );
 
@@ -43,9 +46,9 @@ const NpcDisplayArea = () => {
         className={`${styles.Npc} ${
           actor.isAggressive === true
             ? styles.aggressive
-            : actor.type === "hunter"
+            : actor.type === 'hunter'
             ? styles.hunter
-            : ""
+            : ''
         } `}
         key={`${actor.actorName}${actor.actorName}`}
         onClick={() => setActiveActorInfoWindowById(actor.id)}
@@ -56,13 +59,11 @@ const NpcDisplayArea = () => {
   });
 
   return (
-    <div className={styles.container}>
+    <div style={{ height: '100%', width: '50%' }}>
       <div className={styles.NpcDisplayArea}>
-        <div className={styles.npcsHereLabel}>
-          PEOPLE<br></br>HERE
-        </div>
+        <div className={styles.npcsHereLabel}>PEOPLE HERE</div>
         <ul className={styles.NpcList}>
-          {currentActors !== undefined ? currentActorsButtonsList : " "}
+          {currentActors !== undefined ? currentActorsButtonsList : ' '}
         </ul>
       </div>
       {aggressiveActorHere && !didEvadeEnemiesAtCurrentLocation ? (
@@ -73,7 +74,7 @@ const NpcDisplayArea = () => {
           </p>
         </div>
       ) : (
-        ""
+        ''
       )}
     </div>
   );

@@ -1,25 +1,39 @@
-import React from "react";
-import styles from "./CenterPanel.module.css";
+import React from 'react';
+import styles from './CenterPanel.module.css';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import MainDisplayArea from "./MainDisplayArea/MainDisplayArea";
-import TextDisplayArea from "./TextDisplayArea/TextDisplayArea";
-import ButtonArea from "./ButtonArea/ButtonArea";
+import MainDisplayArea from './MainDisplayArea/MainDisplayArea';
+import TextDisplayArea from './TextDisplayArea/TextDisplayArea';
+import ButtonArea from './ButtonArea/ButtonArea';
 // import ExpBar from "./ExpBar/ExpBar";
 // import HotBar from "./Hotbar/HotBar";
-import CombatArea from "./CombatArea/CombatArea";
-import ConversationArea from "./ConversationArea/ConversationArea";
-import TradeArea from "./TradeArea/TradeArea";
+import CombatArea from './CombatArea/CombatArea';
+import ConversationArea from './ConversationArea/ConversationArea';
+import TradeArea from './TradeArea/TradeArea';
+
+import NpcDisplayArea from './NpcDisplayArea/NpcDisplayArea';
+import LocalItemDisplayArea from './LocalItemDisplayArea/LocalItemDisplayArea';
 
 function nonCombat(props) {
+  const currentLocation = useSelector(
+    (state) => state.locations.currentLocation
+  );
   return (
-    <div className={props.className}>
-      <MainDisplayArea className={styles.MainDisplayArea} />
-      <TextDisplayArea className={styles.TextDisplayArea} />
-      <ButtonArea className={styles.ButtonArea} />
-      {/* <ExpBar className={styles.ExpBar} /> */}
-    </div>
+    <>
+      <div className={props.className}>
+        <div className={styles.displayAreaNPCsItems}>
+          <NpcDisplayArea currentLocation={currentLocation} />
+          <LocalItemDisplayArea currentLocation={currentLocation} />
+        </div>
+        <div className={styles.mainDisplayAreaContainer}>
+          <MainDisplayArea className={styles.MainDisplayArea} />
+          <TextDisplayArea className={styles.TextDisplayArea} />
+          <ButtonArea className={styles.ButtonArea} />
+          {/* <ExpBar className={styles.ExpBar} /> */}
+        </div>
+      </div>
+    </>
   );
 }
 

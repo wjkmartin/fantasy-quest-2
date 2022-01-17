@@ -9,7 +9,7 @@ export default function RequestDuelButton(props) {
   }
   return (
     <button onClick={() => handleClick()} className={props.className}>
-      Talk
+      <span><i className="fas fa-comment" />Talk</span>
     </button>
   );
 }

@@ -11,7 +11,7 @@ export default function AddToFriendsButton(props) {
   }
   return (
     <button onClick={() => handleClick()} className={props.className}>
-      Add to Friends
+      <span><i className="fas fa-plus" />Add to Friends</span>
     </button>
   );
   // TODO: Handle this button press

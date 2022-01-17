@@ -11,7 +11,7 @@ export default function RequestDuelButton(props) {
   }
   return (
     <button onClick={() => handleClick()} className={props.className}>
-      Inspect
+      <span><i className="fas fa-search" />Inspect</span>
     </button>
   );
 }
