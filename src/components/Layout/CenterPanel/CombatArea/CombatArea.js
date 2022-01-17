@@ -183,7 +183,6 @@ function CombatArea() {
   }
 
   function updateMap(mapData, items) {
-    console.log('updateMap');
     const rowLength = mapData.width;
     let combatMap = [];
     const flatMap = [...mapData.passableMap].flat();

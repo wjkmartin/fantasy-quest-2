@@ -5,6 +5,7 @@ class Location {
   constructor(id, locationData) {
     this.id = id;
     this.isDiscovered = false;
+    this.type = 'hidden';
     Object.assign(this, locationData);
     if (typeof locationData?.description1 === 'function') {
       this.description1 = locationData.description1();

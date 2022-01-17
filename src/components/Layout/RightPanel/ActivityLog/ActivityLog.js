@@ -6,7 +6,6 @@ import styles from "./ActivityLog.module.css";
 
 export default function ActivityLog(props) {
   const activityLogItems = useSelector((state) => state.UI.activityLog);
-  console.log(activityLogItems);
 
   const logItems = activityLogItems.map(({ message, styleType }, index) => (
     <p key={`__ACTIVITY_LOG__ ${index}`} className={`${styles.activityLogItem} ${styles[styleType]}`}>

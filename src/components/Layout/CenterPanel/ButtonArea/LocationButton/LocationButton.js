@@ -17,7 +17,6 @@ export default function LocationButton(props) {
   const currentLocation = locationState.currentLocation;
 
   function handleActionButton(action, currentLocation) {
-    console.log(action);
     if (action === undefined) return;
     dispatch(UI.actions.setActiveItemOrNpcTarget({ id: null, type: null }));
     if (action === 'top') {

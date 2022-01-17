@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
@@ -59,7 +59,13 @@ function populateNodes(
         <MinimapNode
           icon={location.icon}
           onClick={
-            isTravelAllowed(currentLocation, location, mapWidth, actorsById, didEvadeEnemiesAtCurrentLocation)
+            isTravelAllowed(
+              currentLocation,
+              location,
+              mapWidth,
+              actorsById,
+              didEvadeEnemiesAtCurrentLocation
+            )
               ? () => onClickNode(location, locations, mapWidth, dispatch)
               : undefined
           }
@@ -72,7 +78,13 @@ function populateNodes(
   return nodes;
 }
 
-function isTravelAllowed(currentLocation, location, mapWidth, actorsById, didEvadeEnemiesAtCurrentLocation) {
+function isTravelAllowed(
+  currentLocation,
+  location,
+  mapWidth,
+  actorsById,
+  didEvadeEnemiesAtCurrentLocation
+) {
   const aggressiveActorsHere = actorsById.some(
     (actor) =>
       actor.location === currentLocation.name &&
@@ -124,6 +136,112 @@ function discoverAdjacentNodes(location, locations, mapWidth, dispatch) {
   });
 }
 
+// get arrow key presses
+const handleArrowKeyPresses = (
+  e,
+  currentLocation,
+  locations,
+  mapWidth,
+  actorsById,
+  dispatch
+) => {
+  const key = e.keyCode;
+  const arrowKeys = [37, 38, 39, 40];
+
+  if (arrowKeys.includes(key)) {
+    e.preventDefault();
+
+    switch (key) {
+      case 37:
+        // left
+        if (currentLocation.id % mapWidth !== 0) {
+          const leftId = currentLocation.id - 1;
+          const leftLocation = locations[leftId];
+          if (leftLocation.type !== 'hidden') {
+            if (
+              isTravelAllowed(
+                currentLocation,
+                leftLocation,
+                mapWidth,
+                actorsById,
+                dispatch
+              )
+            )
+              if (!leftLocation.isDiscovered)
+                dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
+            loadLocation(leftLocation, locations, mapWidth, dispatch);
+          }
+        }
+        break;
+      case 38:
+        // up
+        if (currentLocation.id > mapWidth) {
+          const topId = currentLocation.id - mapWidth;
+          const topLocation = locations[topId];
+          if (topLocation.type !== 'hidden') {
+            if (
+              isTravelAllowed(
+                currentLocation,
+                topLocation,
+                mapWidth,
+                actorsById,
+                dispatch
+              )
+            )
+              if (!topLocation.isDiscovered)
+                dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
+            loadLocation(topLocation, locations, mapWidth, dispatch);
+          }
+        }
+        break;
+      case 39:
+        // right
+        if (currentLocation.id % mapWidth !== mapWidth - 1) {
+          const rightId = currentLocation.id + 1;
+          const rightLocation = locations[rightId];
+          if (rightLocation.type !== 'hidden') {
+            if (
+              isTravelAllowed(
+                currentLocation,
+                rightLocation,
+                mapWidth,
+                actorsById,
+                dispatch
+              )
+            )
+              if (!rightLocation.isDiscovered)
+                dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
+            loadLocation(rightLocation, locations, mapWidth, dispatch);
+          }
+        }
+        break;
+      case 40:
+        // down
+        if (currentLocation.id + mapWidth < locations.length) {
+          const bottomId = currentLocation.id + mapWidth;
+          const bottomLocation = locations[bottomId];
+          if (bottomLocation.type !== 'hidden') {
+            if (
+              isTravelAllowed(
+                currentLocation,
+                bottomLocation,
+                mapWidth,
+                actorsById,
+                dispatch
+              )
+            )
+              if (!bottomLocation.isDiscovered)
+                dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
+            loadLocation(bottomLocation, locations, mapWidth, dispatch);
+          }
+        }
+        break;
+      default:
+        break;
+    }
+  }
+};
+
 function isNeighbor(currentLocationId, locationId, mapWidth) {
   if (
     currentLocationId - 1 === locationId &&
@@ -162,7 +280,9 @@ function Minimap() {
   const inConversation = useSelector((state) => state.UI.inConversation);
   const actorsById = useSelector((state) => state.actors.actorsById);
   const inTrade = useSelector((state) => state.items.inTrade);
-  const didEvadeEnemiesAtCurrentLocation = useSelector((state) => state.locations.didEvadeEnemiesAtCurrentLocation)
+  const didEvadeEnemiesAtCurrentLocation = useSelector(
+    (state) => state.locations.didEvadeEnemiesAtCurrentLocation
+  );
 
   const dispatch = useDispatch();
 
@@ -181,6 +301,24 @@ function Minimap() {
     actorsById,
     didEvadeEnemiesAtCurrentLocation
   ).map((node) => node);
+
+  useEffect(() => {
+    function handleKeyDown(e) {
+      handleArrowKeyPresses(
+        e,
+        currentLocation,
+        locations,
+        minimap.nodes[0].length,
+        actorsById,
+        dispatch
+      );
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentLocation, locations, minimap.nodes[0].length, actorsById]);
 
   return (
     <MinimapStyled minimap={minimap}>

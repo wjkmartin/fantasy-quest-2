@@ -15,7 +15,6 @@ export default function ConversationButton(props) {
   let player = state.actors.actorsById[0];
   const dialogueBranch = Object.keys(props.buttonData)[0];
   const values = Object.values(props.buttonData)[0];
-  console.log(values)
 
   let active = true;
   let visible = true;

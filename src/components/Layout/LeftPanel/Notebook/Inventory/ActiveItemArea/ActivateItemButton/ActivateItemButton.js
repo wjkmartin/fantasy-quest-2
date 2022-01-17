@@ -14,7 +14,6 @@ export default function EquipButton(props) {
 
   function onClickButton(itemId) {
     let item = playerInventory.find((item) => item.id === itemId);
-    console.log(item)
     item.effectFunction(playerObject, dispatch)
     props.setActiveItem(undefined)
     dispatch(itemSlice.actions.removeItemFromPlayerInventory({itemId: item.id, locationName:currentLocationName}))

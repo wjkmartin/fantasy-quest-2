@@ -81,10 +81,10 @@ export function determineValidMoves(
   ) {
     let validSquares2 = arrayOrig;
     actorsInCombatById.forEach((actorId) => {
-      console.log(actorCoordsById[actorId])
+
       const actor_x = actorCoordsById[actorId].x;
       const actor_y = actorCoordsById[actorId].y;
-      console.log(validSquares2)
+
       const index = validSquares2.findIndex(
         (elem) => elem[0] === actor_x && elem[1] === actor_y
       );
@@ -139,7 +139,7 @@ export function getPath(
   _actorCoordsById
 ) {
   let graphDiagonal = new Graph([..._passableMap], { diagonal: true });
-  console.log(_actorCoordsById);
+ 
   _actorsInCombatById.forEach((actorId) => {
     if (actorId !== 0) {
       graphDiagonal.grid[_actorCoordsById[actorId].x][

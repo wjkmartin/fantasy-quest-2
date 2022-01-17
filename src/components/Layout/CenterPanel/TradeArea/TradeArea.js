@@ -28,8 +28,6 @@ export default function TradeArea() {
   const [collectedProps, drop] = useDrop(() => ({
     accept: 'item',
     drop: (item) => {
-      console.log(rarityActorWillBuy)
-      console.log(itemsById[item.id].rarity >= rarityActorWillBuy)
       if (itemTypesActorWillBuy.includes(itemsById[item.id].type) && itemsById[item.id].rarity >= rarityActorWillBuy) {
         dispatch(itemSlice.actions.addItemToTrade(item.id));
       } else {
