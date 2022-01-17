@@ -54,8 +54,8 @@ export default function Quests() {
   return (
     <div className={styles.Quests}>
       <div className={styles.Quests__active_completed_filter_buttons}>
-        <button className={styles.Quests__filterButton} onClick={() => setCurrentWindow("active")}>Active</button>
-        <button className={styles.Quests__filterButton} onClick={() => setCurrentWindow("completed")}>Completed</button>
+        <button className={`${currentWindow === "active" ? styles.Quests__filterButtonActive : ''} ${styles.Quests__filterButton}`} onClick={() => setCurrentWindow("active")}>Active</button>
+        <button className={`${currentWindow === "completed" ? styles.Quests__filterButtonActive : ''} ${styles.Quests__filterButton}`} onClick={() => setCurrentWindow("completed")}>Completed</button>
       </div>
       <div>{currentWindow === "active" ? activeQuests() : completedQuests()}</div>
     </div>

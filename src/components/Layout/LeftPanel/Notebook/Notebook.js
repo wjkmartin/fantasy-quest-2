@@ -9,7 +9,7 @@ import Powers from "./Powers/Powers"
 import Quests from "./Quests/Quests"
 import Codex from "./Codex/Codex"
 import Skills from "./Skills/Skills"
-//Friends
+import Friends from "./Friends/Friends"
 import System from "./System/System"
 
 export default function Notebook(props) {
@@ -35,7 +35,7 @@ export default function Notebook(props) {
             <Quests />
           </Tab>
           <Tab eventKey="friends" title="Friends">
-            <p>Not implemented</p>
+            <Friends />
           </Tab>
           <Tab eventKey="system" title="System">
             <System />

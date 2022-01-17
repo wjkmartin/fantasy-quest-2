@@ -2,10 +2,6 @@
     margin-top: 5px;
 }
 
-.actionButton:hover {
-    background-color: rgb(197, 219, 247);
-}
-
 .actionButton:focus {
     outline: none !important;
 }

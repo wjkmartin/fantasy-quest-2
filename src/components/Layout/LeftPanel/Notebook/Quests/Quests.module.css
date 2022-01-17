@@ -9,11 +9,15 @@
 
 .Quests__filterButton {
     margin: 2%;
+    padding: .5rem;
+    font-size: .7rem;
+    font-weight: 800;
 }
 
-.Quests__filterButton:hover {
-    cursor: pointer;
-    filter: opacity(0.8);
+
+
+.Quests__filterButtonActive {
+    box-shadow: #422800 1px 1px 0 0;
 }
 
 .Quests__noQuest {
