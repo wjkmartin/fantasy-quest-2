@@ -5,7 +5,7 @@ const randomString = () => {
       case 2:
         return 'A stench pervades here... blood mixed with manure. It causes you to retch more than once.';
       case 3:
-        return 'The tunnel narrows here, forcing you to slide through a narrow crevice sidelong. You feel your heartbeat race against the earth.';
+        return 'The tunnel narrows here, forcing you to slide through a narrow crevice sidelong. You feel your heartbeat race against the compacted earth.';
       case 4:
         return 'There are long, bloody scratches in the walls here. It was either the goblins, or their victims. The thought of the latter gives you the chills.';
       case 5:

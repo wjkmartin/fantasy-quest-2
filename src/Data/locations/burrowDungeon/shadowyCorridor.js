@@ -1,4 +1,5 @@
 import questSlice from '../../../DataHandlers/redux/slices/quests';
+import locationSlice from '../../../DataHandlers/redux/slices/locations';
 import UISlice from '../../../DataHandlers/redux/slices/UI';
 import { useSelector } from 'react-redux';
 
@@ -14,9 +15,10 @@ const buttonsDarkness = [
       type: 'justButton',
       onPress: (dispatch, state) => {
         dispatch(
-          UISlice.actions.addMessageToActivityLog(
-            {message: 'You enter the darkness, but a few moments later find yourself exiting exactly where you entered. It would seem passage further is impossible.'}
-          )
+          UISlice.actions.addMessageToActivityLog({
+            message:
+              'You enter the darkness, but a few moments later find yourself exiting exactly where you entered. It would seem passage further is impossible.',
+          })
         );
       },
     },
@@ -25,21 +27,23 @@ const buttonsDarkness = [
     'Attempt to dispel the obviously magical darkness.': {
       type: 'justButton',
       onPress: (dispatch, state) => {
-        if (state.actors.actorsById[0].intelligence > 20) {
+        if (state.actors.actorsById[0].intelligence >= 20) {
           dispatch(
-            UISlice.actions.addMessageToActivityLog(
-              {message: 'Summoning your magic, you cast a spell that dispels the darkness, watching as it fades like melting fog in the sun. The passage is now clear.'}
-            )
+            UISlice.actions.addMessageToActivityLog({
+              message:
+                'Summoning your magic, you cast a spell that dispels the darkness, watching as it fades like melting fog in the sun. The passage is now clear.',
+            })
           );
           dispatch(
-            questSlice.actions.updateQuestStageUntracked(
-              { id: 1, stage: 1 },
-            ))
+            questSlice.actions.setQuestStageUntracked({ id: 1, stage: 1 })
+          );
+          dispatch(locationSlice.actions.unHideLocationById({ id: 73 }));
         } else {
           dispatch(
-            UISlice.actions.addMessageToActivityLog(
-              {message: "You attempt to dispel the darkness, but your magic is too weak. You beat yourself up a little before finally settling on the thought that you must just be having an off day. The passage is still blocked by the shadows."}
-            )
+            UISlice.actions.addMessageToActivityLog({
+              message:
+                'You attempt to dispel the darkness, but your magic is too weak. You beat yourself up a little before finally settling on the thought that you must just be having an off day. The passage is still blocked by the shadows.',
+            })
           );
         }
       },

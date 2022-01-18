@@ -4,6 +4,7 @@ import burrowTunnel from '../locations/burrowDungeon/burrowTunnel';
 import GM_NODE_1 from '../locations/burrowDungeon/GM_NODE_1';
 import deadEndShop from '../locations/burrowDungeon/deadEndShop';
 import burrowCells from '../locations/burrowDungeon/burrowCells';
+import burrowTunnelStartHidden from '../locations/burrowDungeon/burrowTunnelStartHidden';
 import shadowyCorridor from '../locations/burrowDungeon/shadowyCorridor';
 
 export default {
@@ -20,7 +21,7 @@ export default {
     [undefined, undefined , burrowTunnel, undefined, burrowTunnel, burrowTunnel,burrowTunnel, undefined],
     [undefined, burrowTunnel, burrowTunnel, undefined, undefined, undefined, undefined, undefined,],
     [undefined, shadowyCorridor, undefined, burrowTunnel, burrowTunnel, burrowTunnel, undefined, GM_NODE_1,],
-    [undefined, burrowTunnel, burrowTunnel, burrowTunnel, undefined, burrowTunnel, undefined, burrowTunnel,],
+    [undefined, burrowTunnelStartHidden, burrowTunnel, burrowTunnel, undefined, burrowTunnel, undefined, burrowTunnel,],
     [undefined, burrowTunnel, undefined, undefined, undefined, burrowTunnel, undefined, burrowTunnel,],
     [burrowTunnel, burrowTunnel, burrowTunnel, undefined, burrowTunnel, burrowTunnel, burrowTunnel, burrowTunnel,],
   ],

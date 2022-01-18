@@ -13,17 +13,13 @@
 }
 
 .NpcList {
-  color: rgb(110, 111, 112);
-  display: inline;
-  cursor: pointer;
-  font-family: 'Cardo', sans-serif;
-  overflow: hidden;
-  font-weight: 650;
-  font-size: 0.6vw;
-  text-shadow: 0.05em 0 black, 0 0.05em black, -0.05em 0 black, 0 -0.05em black;
-  border: none;
-  background-color: transparent !important;
-  padding: 0 5px;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-bottom: 0;
+  padding: 10px 0;
 }
 
 .Npc {
@@ -64,11 +60,3 @@
                                     supported by Chrome, Edge, Opera and Firefox */
 }
 
-.aggressiveNpcsNotification {
-  text-align: center;
-  padding: 3px;
-  background-color: lightcoral;
-  color: white;
-  font-weight: 550;
-  font-family: 'Cardo', sans-serif;
-}

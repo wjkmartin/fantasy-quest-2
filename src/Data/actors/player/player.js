@@ -19,7 +19,7 @@ export default {
   constitution: 10,
   charisma: 10,
   wisdom: 10,
-  intelligence: 10,
+  intelligence: 20,
   isDead: false,
   hasFocusSpell: false,
   location: '',

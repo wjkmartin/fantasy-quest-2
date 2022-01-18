@@ -85,10 +85,15 @@ const locationSlice = createSlice({
         },
         didEvadeEnemiesAtCurrentLocation: (state, action) => {
             state.didEvadeEnemiesAtCurrentLocation = action.payload;
-        }
+        },
+        unHideLocationById: (state, action) => {
+            const { id } = action.payload;
+            const location = state.locations.find(location => location.id === id);
+            location.type = 'top';
+        },
     }
 });
 
-export const {setCurrentLocationById, setSubLocationByName, setMap, setIsDiscovered, setIsVisited, saveCurrentMapState, loadSavedMapState, modifyLocationPropertyById, didEvadeEnemiesAtCurrentLocation} = locationSlice.actions;
+export const {setCurrentLocationById, setSubLocationByName, setMap, setIsDiscovered, setIsVisited, saveCurrentMapState, loadSavedMapState, modifyLocationPropertyById, didEvadeEnemiesAtCurrentLocation, unHideLocationById} = locationSlice.actions;
 
 export default locationSlice;

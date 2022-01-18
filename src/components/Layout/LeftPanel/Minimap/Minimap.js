@@ -8,6 +8,8 @@ import locationSlice from '../../../../DataHandlers/redux/slices/locations';
 
 import MinimapNode from './MinimapNode/MinimapNode';
 
+import styles from './Minimap.module.css';
+
 const MinimapStyled = styled.div`
   & {
     z-index: 99;
@@ -143,101 +145,104 @@ const handleArrowKeyPresses = (
   locations,
   mapWidth,
   actorsById,
-  dispatch
+  dispatch,
+  aggressiveActorHere,
+  didEvadeEnemiesAtCurrentLocation
 ) => {
   const key = e.keyCode;
   const arrowKeys = [37, 38, 39, 40];
 
   if (arrowKeys.includes(key)) {
     e.preventDefault();
-
-    switch (key) {
-      case 37:
-        // left
-        if (currentLocation.id % mapWidth !== 0) {
-          const leftId = currentLocation.id - 1;
-          const leftLocation = locations[leftId];
-          if (leftLocation.type !== 'hidden') {
-            if (
-              isTravelAllowed(
-                currentLocation,
-                leftLocation,
-                mapWidth,
-                actorsById,
-                dispatch
+    if (!aggressiveActorHere || didEvadeEnemiesAtCurrentLocation) {
+      switch (key) {
+        case 37:
+          // left
+          if (currentLocation.id % mapWidth !== 0) {
+            const leftId = currentLocation.id - 1;
+            const leftLocation = locations[leftId];
+            if (leftLocation.type !== 'hidden') {
+              if (
+                isTravelAllowed(
+                  currentLocation,
+                  leftLocation,
+                  mapWidth,
+                  actorsById,
+                  dispatch
+                )
               )
-            )
-              if (!leftLocation.isDiscovered)
-                dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
-            loadLocation(leftLocation, locations, mapWidth, dispatch);
+                if (!leftLocation.isDiscovered)
+                  dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
+              loadLocation(leftLocation, locations, mapWidth, dispatch);
+            }
           }
-        }
-        break;
-      case 38:
-        // up
-        if (currentLocation.id > mapWidth) {
-          const topId = currentLocation.id - mapWidth;
-          const topLocation = locations[topId];
-          if (topLocation.type !== 'hidden') {
-            if (
-              isTravelAllowed(
-                currentLocation,
-                topLocation,
-                mapWidth,
-                actorsById,
-                dispatch
+          break;
+        case 38:
+          // up
+          if (currentLocation.id > mapWidth) {
+            const topId = currentLocation.id - mapWidth;
+            const topLocation = locations[topId];
+            if (topLocation.type !== 'hidden') {
+              if (
+                isTravelAllowed(
+                  currentLocation,
+                  topLocation,
+                  mapWidth,
+                  actorsById,
+                  dispatch
+                )
               )
-            )
-              if (!topLocation.isDiscovered)
-                dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
-            loadLocation(topLocation, locations, mapWidth, dispatch);
+                if (!topLocation.isDiscovered)
+                  dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
+              loadLocation(topLocation, locations, mapWidth, dispatch);
+            }
           }
-        }
-        break;
-      case 39:
-        // right
-        if (currentLocation.id % mapWidth !== mapWidth - 1) {
-          const rightId = currentLocation.id + 1;
-          const rightLocation = locations[rightId];
-          if (rightLocation.type !== 'hidden') {
-            if (
-              isTravelAllowed(
-                currentLocation,
-                rightLocation,
-                mapWidth,
-                actorsById,
-                dispatch
+          break;
+        case 39:
+          // right
+          if (currentLocation.id % mapWidth !== mapWidth - 1) {
+            const rightId = currentLocation.id + 1;
+            const rightLocation = locations[rightId];
+            if (rightLocation.type !== 'hidden') {
+              if (
+                isTravelAllowed(
+                  currentLocation,
+                  rightLocation,
+                  mapWidth,
+                  actorsById,
+                  dispatch
+                )
               )
-            )
-              if (!rightLocation.isDiscovered)
-                dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
-            loadLocation(rightLocation, locations, mapWidth, dispatch);
+                if (!rightLocation.isDiscovered)
+                  dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
+              loadLocation(rightLocation, locations, mapWidth, dispatch);
+            }
           }
-        }
-        break;
-      case 40:
-        // down
-        if (currentLocation.id + mapWidth < locations.length) {
-          const bottomId = currentLocation.id + mapWidth;
-          const bottomLocation = locations[bottomId];
-          if (bottomLocation.type !== 'hidden') {
-            if (
-              isTravelAllowed(
-                currentLocation,
-                bottomLocation,
-                mapWidth,
-                actorsById,
-                dispatch
+          break;
+        case 40:
+          // down
+          if (currentLocation.id + mapWidth < locations.length) {
+            const bottomId = currentLocation.id + mapWidth;
+            const bottomLocation = locations[bottomId];
+            if (bottomLocation.type !== 'hidden') {
+              if (
+                isTravelAllowed(
+                  currentLocation,
+                  bottomLocation,
+                  mapWidth,
+                  actorsById,
+                  dispatch
+                )
               )
-            )
-              if (!bottomLocation.isDiscovered)
-                dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
-            loadLocation(bottomLocation, locations, mapWidth, dispatch);
+                if (!bottomLocation.isDiscovered)
+                  dispatch(locationSlice.actions.setIsDiscovered({ id: id }));
+              loadLocation(bottomLocation, locations, mapWidth, dispatch);
+            }
           }
-        }
-        break;
-      default:
-        break;
+          break;
+        default:
+          break;
+      }
     }
   }
 };
@@ -284,6 +289,27 @@ function Minimap() {
     (state) => state.locations.didEvadeEnemiesAtCurrentLocation
   );
 
+  const currentActors = actorsById.filter((actor) => {
+    return actor.location === currentLocation.name && !actor.isDead;
+  });
+
+  const aggressiveActorHere = currentActors.some((actor) => {
+    return actor.isAggressive;
+  });
+
+  const blockingConditionElement = () => {
+    if (inCombat) {
+      return <p>You can't travel in combat!</p>;
+    } else if (inConversation) {
+      return <p>You can't travel while in conversation!</p>;
+    } else if (inTrade) {
+      return <p>You can't travel while in a trade!</p>;
+    } else if (aggressiveActorHere && !didEvadeEnemiesAtCurrentLocation) {
+      return <p>There's an <span style={{color: '#DB1730'}}>aggressive enemy</span> here! 
+        Evade or fight them to move on!</p>;
+    }
+  };
+
   const dispatch = useDispatch();
 
   discoverAdjacentNodes(
@@ -310,7 +336,9 @@ function Minimap() {
         locations,
         minimap.nodes[0].length,
         actorsById,
-        dispatch
+        dispatch,
+        aggressiveActorHere,
+        didEvadeEnemiesAtCurrentLocation
       );
     }
 
@@ -320,16 +348,21 @@ function Minimap() {
     };
   }, [currentLocation, locations, minimap.nodes[0].length, actorsById]);
 
-  return (
-    <MinimapStyled minimap={minimap}>
-      {currentLocation.type === 'top' &&
-      !inTrade &&
-      !inCombat &&
-      !inConversation
-        ? mapNodes
-        : ''}{' '}
-    </MinimapStyled>
-  );
+  if (
+    currentLocation.type === 'top' &&
+    !inTrade &&
+    !inCombat &&
+    !inConversation &&
+    !aggressiveActorHere
+  ) {
+    return <MinimapStyled minimap={minimap}>{mapNodes}</MinimapStyled>;
+  } else {
+    return (
+      <div className={styles.blockingConditionElement}>
+        {blockingConditionElement()}
+      </div>
+    );
+  }
 }
 
 export default Minimap;
