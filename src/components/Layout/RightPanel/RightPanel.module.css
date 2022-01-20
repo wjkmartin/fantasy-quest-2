@@ -43,14 +43,8 @@
 }
 
 .noTarget {
-    height: 28%;
-    border: 2px solid black;
-    margin: 1rem !important;
-    background-color: #e7dace;
-    box-shadow: 2px 3px 20px black, 0 0 60px #8a4d0f inset !important;
-    padding: 1rem;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+
 }
