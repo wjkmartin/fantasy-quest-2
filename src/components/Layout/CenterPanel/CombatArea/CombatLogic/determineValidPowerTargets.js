@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-export const determineValidAttacks = (actorsInCombatById, distance, actorCoords) => {
+export const determineValidPowerTargets = (actorsInCombatById, powerRange, actorCoords) => {
   let validEnemyTargets = [];
 
   const playerX = actorCoords[0].x;
@@ -13,11 +13,11 @@ export const determineValidAttacks = (actorsInCombatById, distance, actorCoords)
     }
   })
   
-  const nodeStartX = playerX - distance < 0 ? 0 : playerX - distance;
-  const nodeStartY = playerY - distance < 0 ? 0 : playerY - distance;
+  const nodeStartX = playerX - powerRange < 0 ? 0 : playerX - powerRange;
+  const nodeStartY = playerY - powerRange < 0 ? 0 : playerY - powerRange;
 
-  const nodeEndX = playerX + distance < 0 ? 0 : playerX + distance;
-  const nodeEndY = playerY + distance < 0 ? 0 : playerY + distance;
+  const nodeEndX = playerX + powerRange < 0 ? 0 : playerX + powerRange;
+  const nodeEndY = playerY + powerRange < 0 ? 0 : playerY + powerRange;
 
   for (let y = nodeStartY; y <= nodeEndY; y++) {
     for (let x = nodeStartX; x <= nodeEndX; x++) {

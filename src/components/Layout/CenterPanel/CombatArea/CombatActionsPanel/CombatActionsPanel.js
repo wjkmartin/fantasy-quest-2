@@ -3,16 +3,19 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 
+
 import UI from '../../../../../DataHandlers/redux/slices/UI';
 import combat from '../../../../../DataHandlers/redux/slices/combat';
 import actors from '../../../../../DataHandlers/redux/slices/actors';
+import powers from '../../../../../DataHandlers/redux/slices/powers';
 
 import styles from './CombatActionsPanel.module.css';
 
 import { determineValidMoves } from '../CombatLogic/determineValidMoves';
-import { determineValidAttacks } from '../CombatLogic/determineValidBasicAttack';
+import { determineValidPowerTargets } from '../CombatLogic/determineValidPowerTargets';
 
 import nextTurn from '../CombatLogic/nextTurn';
+import PowerButton from './PowerButton/PowerButton';
 
 export default function CombatActionsPanel() {
   const dispatch = useDispatch();
@@ -42,7 +45,8 @@ export default function CombatActionsPanel() {
 
   function onClickMoveButton() {
     if (!combatMoveButtonSelected) {
-      if (combatBasicAttackButtonSelected) dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
+      if (combatBasicAttackButtonSelected)
+        dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
       if (actorsById[0].movementRemaining > 0) {
         toggleMoveClick();
         dispatch(
@@ -59,8 +63,8 @@ export default function CombatActionsPanel() {
       } else
         dispatch(
           UI.actions.addMessageToActivityLog({
-           message: "You've used all your movement for this round."}
-          )
+            message: "You've used all your movement for this round.",
+          })
         );
     } else {
       toggleMoveClick();
@@ -69,13 +73,15 @@ export default function CombatActionsPanel() {
 
   function onClickBasicAttackButton() {
     if (!combatBasicAttackButtonSelected) {
-      if (combatMoveButtonSelected) dispatch(UI.actions.toggleCombatMoveButtonSelected());
+      if (combatMoveButtonSelected)
+        dispatch(UI.actions.toggleCombatMoveButtonSelected());
       if (!actorsById[0].actionUsed) {
         toggleAttackClick();
+        dispatch(powers.actions.setActivePowerById({ actorId: 0, powerId: 0 }));
         dispatch(
           combat.actions.setValidAttackTargetsById({
             actorId: 0,
-            validTargets: determineValidAttacks(
+            validTargets: determineValidPowerTargets(
               actorsInCombatById,
               1,
               combatState.actorCoordsById
@@ -84,8 +90,10 @@ export default function CombatActionsPanel() {
         );
       } else {
         dispatch(
-          UI.actions.addMessageToActivityLog({message:
-            "You've already attacked this round!", styleType: 'italic'})
+          UI.actions.addMessageToActivityLog({
+            message: "You've already attacked this round!",
+            styleType: 'italic',
+          })
         );
       }
     } else {
@@ -95,12 +103,38 @@ export default function CombatActionsPanel() {
 
   function onClickEndTurnButton() {
     dispatch(UI.actions.setPlayerCombatButtonsHidden(true));
-    if (combatMoveButtonSelected) dispatch(UI.actions.toggleCombatMoveButtonSelected());
-    if (combatBasicAttackButtonSelected) dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
-    dispatch(actors.actions.setActorAttributeByActorId({ actorId: 0, attribute: 'actionUsed', value: false }));
-    dispatch(actors.actions.setActorAttributeByActorId({ actorId: 0, attribute: 'movementRemaining', value: actorsById[0].speed }));
+    if (combatMoveButtonSelected)
+      dispatch(UI.actions.toggleCombatMoveButtonSelected());
+    if (combatBasicAttackButtonSelected)
+      dispatch(UI.actions.toggleCombatBasicAttackButtonSelected());
+    dispatch(
+      actors.actions.setActorAttributeByActorId({
+        actorId: 0,
+        attribute: 'actionUsed',
+        value: false,
+      })
+    );
+    dispatch(
+      actors.actions.setActorAttributeByActorId({
+        actorId: 0,
+        attribute: 'movementRemaining',
+        value: actorsById[0].speed,
+      })
+    );
     dispatch(combat.actions.endTurn());
     nextTurn();
+  }
+
+  const powerBarChildren = () => {
+    const unlockedPowersById = useSelector(state => state.powers.unlockedPowersById);
+    return unlockedPowersById.map((powerId, i) => {
+      return (
+        <PowerButton
+          key={'__powerButton__', i}
+          powerId={powerId}
+        />
+      );
+    })
   }
 
   return (
@@ -109,31 +143,31 @@ export default function CombatActionsPanel() {
         styles.panel
       }`}
     >
-      {actorsById[0].movementRemaining > 0 ? (
-        <button
-          className={styles.combatActionButton}
-          onClick={() => {
-            onClickMoveButton();
-          }}
-        >
-          Move
-        </button>
-      ) : (
-        ''
-      )}
-      {!actorsById[0].actionUsed ? (
-        <button // eventually make this "use selected ability"
-          className={styles.combatActionButton}
-          onClick={() => {
-            onClickBasicAttackButton();
-          }}
-        >
-          Basic Attack
-        </button>
-      ) : (
-        ''
-      )}
+      <div className={styles.powersBar}>
 
+        <PowerButton powerId={1} />
+      </div>
+      <div > 
+      <button
+        className={`${
+          actorsById[0].movementRemaining > 0 ? '' : styles.hidden
+        } ${styles.combatActionButton}`}
+        onClick={() => {
+          onClickMoveButton();
+        }}
+      >
+        Move
+      </button>
+      <button // eventually make this "use selected ability"
+        className={`${styles.combatActionButton} ${
+          !actorsById[0].actionUsed ? '' : styles.hidden
+        }`}
+        onClick={() => {
+          onClickBasicAttackButton();
+        }}
+      >
+        Basic Attack
+      </button>
       <button
         className={styles.combatActionButton}
         onClick={() => {
@@ -142,6 +176,7 @@ export default function CombatActionsPanel() {
       >
         End Turn
       </button>
+      </div>
     </div>
   );
 }

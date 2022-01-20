@@ -7,7 +7,7 @@ const actors = loadActors();
 
 const initialState = {
   actorsById: actors,
-  powersById: { 0: [] },
+
 };
 
 const actorSlice = createSlice({

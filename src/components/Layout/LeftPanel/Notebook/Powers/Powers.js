@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 import Power from "./Power/Power";
 
 export default function Powers(props) { 
-  let powers = useSelector((state) => state.actors.powersById)[0] || [];
+  // to do: add a tab for active vs passive powers
+  let powers = useSelector((state) => state.powers.unlockedPowersById)[0] || [];
   let powersComponents = undefined;
 
   if (powers.length > 0) {

@@ -1,0 +1,16 @@
+.PowerButton {  
+    cursor: pointer;
+}
+
+.PowerButton > img {
+    max-height: 50px;
+    max-width: 50px;
+}
+
+.disabled {
+    filter: grayscale(100%);
+}
+
+.selected {
+    background-color: #f0f0f0;
+}

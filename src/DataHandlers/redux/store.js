@@ -9,6 +9,7 @@ import UISlice from './slices/UI';
 import itemSlice from './slices/items';
 import actorSlice from './slices/actors';
 import questSlice from './slices/quests';
+import powersSlice from './slices/powers';
 
 const rootReducer = combineReducers({
   locations: locationSlice.reducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   combat: combatSlice.reducer,
   UI: UISlice.reducer,
   quests: questSlice.reducer,
+  powers: powersSlice.reducer,
 });
 
 // const persistentState = localStorage.getItem('state')
@@ -26,7 +28,7 @@ const rootReducer = combineReducers({
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: true }).concat(logger),
+    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
   devTools: process.env.NODE_ENV !== 'production',
   // preloadedState: persistentState,
 });
