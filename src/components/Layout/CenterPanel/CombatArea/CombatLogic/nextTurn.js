@@ -12,6 +12,7 @@ import { areCoordsAdjacent } from './util';
 
 import { isEqual } from 'underscore';
 import { getPath } from './determineValidMoves';
+import powerSlice from '../../../../../DataHandlers/redux/slices/powers';
 
 export default function nextTurn() {
   function npcTryAttack(_npcObject, _playerObject, actorCoords) {
@@ -110,8 +111,12 @@ export default function nextTurn() {
 
   let npcDidAttack = false;
 
+  store.dispatch(powerSlice.actions.reduceAllPowersOnCooldownTurnsRemaining())
+
+
   if (isEqual(combatData.actorsInCombatById, [0])) {
     //only player is alive
+    store.dispatch(powerSlice.actions.clearPowersOnCooldown())
     store.dispatch(combat.actions.endCombat());
     store.dispatch(UI.actions.addMessageToActivityLog({message: `You've won the fight!`, styleType:'green'}));
   } else if (combatData.inCombat) {

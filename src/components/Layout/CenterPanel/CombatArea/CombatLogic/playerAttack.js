@@ -42,6 +42,7 @@ export function resolveCombatPower(dispatch, state, target) {
 
   console.log(state.combat.actorCoordsById);
   let damage = 0;
+  // todo: add in the ability to have multiple damage types instead of them being added together
   if (power.type === 'attack') {
     if (power.id === 0) {
       // basic melee attack

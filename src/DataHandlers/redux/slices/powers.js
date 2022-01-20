@@ -33,17 +33,22 @@ const powerSlice = createSlice({
         );
       });
     },
+    clearPowersOnCooldown: (state, action) => {
+      state.combatPowersOnCooldownByActorId = {
+        0: {},
+      };
+    },
     setActivePowerById: (state, action) => {
       const { actorId, powerId } = action.payload;
       state.activePowersById[actorId] = powerId;
     },
-    setUnlockedPowerById: (state, action) => {
+    addUnlockedPowerById: (state, action) => {
       const { powerId } = action.payload;
       state.unlockedPowersById.push(powerId);
     }
   },
 });
 
-export const { addPowerToCooldown, reduceAllPowersOnCooldownTurnsRemaining, setActivePowerById} =
+export const { addPowerToCooldown, reduceAllPowersOnCooldownTurnsRemaining, clearPowersOnCooldown, setActivePowerById, addUnlockedPowerById} =
   powerSlice.actions;
 export default powerSlice;
