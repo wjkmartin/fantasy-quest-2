@@ -1,10 +1,12 @@
 .PowerButton {  
     cursor: pointer;
+    margin: 2px;
 }
 
 .PowerButton > img {
     max-height: 50px;
     max-width: 50px;
+    border-radius: 15px;
 }
 
 .disabled {
