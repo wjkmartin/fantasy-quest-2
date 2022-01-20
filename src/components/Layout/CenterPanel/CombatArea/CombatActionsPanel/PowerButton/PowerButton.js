@@ -77,8 +77,8 @@ const PowerButton = ({ powerId }) => {
 
   const onClick = () => {
     if (isSelected) {
+      usePower(powerId);
       setIsSelected(false);
-      dispatch(UISlice.actions.toggleCombatBasicAttackButtonSelected());
     } else {
       usePower(powerId);
       setIsSelected(true);
@@ -109,6 +109,7 @@ const PowerButton = ({ powerId }) => {
       if (power.areaOfEffect > 0) {
         // highlight all possible targets
       } else {
+        
         dispatch(UISlice.actions.toggleCombatBasicAttackButtonSelected());
         dispatch(
           powerSlice.actions.setActivePowerById({ actorId: 0, powerId: powerId })

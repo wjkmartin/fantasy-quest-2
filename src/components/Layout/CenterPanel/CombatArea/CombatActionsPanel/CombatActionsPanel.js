@@ -144,8 +144,8 @@ export default function CombatActionsPanel() {
       }`}
     >
       <div className={styles.powersBar}>
-
-        <PowerButton powerId={1} />
+        {powerBarChildren()}
+        {/* <PowerButton powerId={1} /> */}
       </div>
       <div > 
       <button

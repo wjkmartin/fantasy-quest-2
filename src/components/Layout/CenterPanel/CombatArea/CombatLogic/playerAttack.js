@@ -8,6 +8,7 @@ import powerSlice from '../../../../../DataHandlers/redux/slices/powers';
 
 import Item from '../../../../../Entities/Item/Item';
 import { addXP } from './experience';
+import diceRoll from '../../../../../util/diceRoll';
 
 function calcAnimDir(sourceCoords, targetCoords) {
   const angle = Math.atan2(
@@ -40,9 +41,8 @@ export function resolveCombatPower(dispatch, state, target) {
   const player = state.actors.actorsById[0];
 
   console.log(state.combat.actorCoordsById);
-
+  let damage = 0;
   if (power.type === 'attack') {
-    let damage;
     if (power.id === 0) {
       // basic melee attack
       damage = Math.floor((player.strength - 10) / 2);
@@ -63,10 +63,15 @@ export function resolveCombatPower(dispatch, state, target) {
       damage -= target.armor;
     } else {
       // spell
-      
+      power.damage.forEach((damageSource) => {
+        const diceRollResult = diceRoll(
+          `${damageSource.diceNumber}d${damageSource.diceSides}`
+        );
+        damage += diceRollResult;
+        // subtract target relevant resistances when implemented
+        // i.e switch (damageSource.type) etc
+      });
       //todo: ADD SPELL DAMAGE CALCULATION
-
-
     }
 
     // to do: magic weapon overcomes physical resistance
