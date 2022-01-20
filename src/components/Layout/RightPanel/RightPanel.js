@@ -11,13 +11,13 @@ import PlayerInfo from './PlayerInfo/PlayerInfo';
 
 const rightPanel = (props) => {
   const actorsById = useSelector((state) => state.actors.actorsById);
-  const itemsById = useSelector(
-    (state) => state.items.itemsById
-  );
+  const itemsById = useSelector((state) => state.items.itemsById);
   const currentLocation = useSelector(
     (state) => state.locations.currentLocation
   );
-  const itemsAtCurrentLocation = itemsById.filter((item) => item.location === currentLocation.name);
+  const itemsAtCurrentLocation = itemsById.filter(
+    (item) => item.location === currentLocation.name
+  );
   const activeTarget = useSelector((state) => state.UI.activeTarget);
 
   return (
@@ -30,15 +30,15 @@ const rightPanel = (props) => {
       ) : activeTarget.type === 'item' ? (
         <ActiveItemInfo
           locationName={currentLocation.name}
-          activeItem={itemsAtCurrentLocation.find(
-            (item) => {
-              return item.id === activeTarget.id;
-            }
-          )}
+          activeItem={itemsAtCurrentLocation.find((item) => {
+            return item.id === activeTarget.id;
+          })}
           className={styles.ActiveItemInfo}
         />
       ) : (
-        <p className={styles.noTarget}> No active target </p>
+        <div className={`${styles.noTarget} ${styles.ActiveActorInfo}`}>
+          <p> No active target </p>
+        </div>
       )}
       <ActivityLog className={styles.ActivityLog} />
       <PlayerInfo className={styles.PlayerInfo} />
