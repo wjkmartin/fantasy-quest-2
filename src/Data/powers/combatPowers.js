@@ -52,7 +52,7 @@ export default {
     range: 3,
     areaOfEffect: 0,
     duration: 0,
-    cooldown: 1,
+    cooldown: 2,
     mpCost: 20,
     hpCost: 0,
     hpHealed: 0,

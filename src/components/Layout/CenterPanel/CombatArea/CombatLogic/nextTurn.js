@@ -111,7 +111,7 @@ export default function nextTurn() {
 
   let npcDidAttack = false;
 
-  store.dispatch(powerSlice.actions.reduceAllPowersOnCooldownTurnsRemaining())
+  
 
 
   if (isEqual(combatData.actorsInCombatById, [0])) {
@@ -189,6 +189,7 @@ export default function nextTurn() {
         nextTurn();
       }, 500 + 250 * path.length);
     } else if (combatData.inCombat) {
+      store.dispatch(powerSlice.actions.reduceAllPowersOnCooldownTurnsRemaining())
       store.dispatch(UI.actions.setPlayerCombatButtonsHidden(false));
       store.dispatch(
         UI.actions.addMessageToActivityLog({message:

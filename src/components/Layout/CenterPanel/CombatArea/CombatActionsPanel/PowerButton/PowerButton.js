@@ -67,16 +67,6 @@ const PowerButton = ({ powerId }) => {
   const combatPowersOnCooldownPlayer = combatPowersOnCooldownByActorId[0];
   const power = combatPowersById[powerId];
 
-  const isOnCooldown = (powerId) => {
-    if (combatPowersOnCooldownPlayer[powerId] === undefined) {
-      return true;
-    } else if (combatPowersOnCooldownByActorId[0][powerId] === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   const onClick = () => {
     if (isSelected) {
       usePower(powerId);
@@ -84,6 +74,14 @@ const PowerButton = ({ powerId }) => {
     } else {
       usePower(powerId);
       setIsSelected(true);
+    }
+  };
+
+  const onCooldown = () => {
+    if (typeof combatPowersOnCooldownPlayer[powerId] !== 'undefined' && combatPowersOnCooldownPlayer[powerId] > 0) {
+      return true;
+    } else {
+      return false;
     }
   };
 
@@ -97,7 +95,7 @@ const PowerButton = ({ powerId }) => {
     // if is a single target, then all entities of the correct type
     // within range are possible targets
 
-    if (typeof combatPowersOnCooldownPlayer[powerId] !== 'undefined') {
+    if (onCooldown()) {
       dispatch(
         UISlice.actions.addMessageToActivityLog({
           message: `${power.name} is on cooldown!`,
@@ -147,9 +145,16 @@ const PowerButton = ({ powerId }) => {
     <div
       onClick={onClick}
       className={`${isSelected ? styles.selected : ''} ${
-        isOnCooldown(powerId) ? '' : styles.disabled
+        onCooldown()
+          ? styles.disabled
+          : ''
       } ${styles.PowerButton}`}
     >
+      <p className={styles.cooldownTurnsLabel}>
+        {onCooldown()
+          ? combatPowersOnCooldownPlayer[powerId] 
+          : ''}
+      </p>
       <img src={powerImages[power.icon]} alt={power.name} />
     </div>
   );
