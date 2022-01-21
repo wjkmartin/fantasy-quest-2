@@ -39,6 +39,7 @@ export function resolveCombatPower(dispatch, state, target) {
   const powerId = state.powers.activePowersById[0];
   const power = state.powers.combatPowersById[powerId];
   const player = state.actors.actorsById[0];
+  const isDuel = state.combat.isDuel;
 
   console.log(state.combat.actorCoordsById);
   let damage = 0;
@@ -94,6 +95,8 @@ export function resolveCombatPower(dispatch, state, target) {
         message: `Your attack deals ${damage} damage!`,
       })
     );
+    console.log('health: ', target.health);
+    console.log('damage: ', damage);
 
     if (target.health - damage <= 0 && !isDuel) {
       // kill enemy logic
