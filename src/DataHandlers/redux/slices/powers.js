@@ -5,6 +5,7 @@ import combatPowerData from '../../../Data/powers/combatPowers';
 import passivePowerData from '../../../Data/powers/powers';
 
 const initialState = {
+  activePowersById: { 0: [] },
   combatPowersById: loadCombatPowerData(combatPowerData),
   unlockedCombatPowersById: [1],
   combatPowersOnCooldownByActorId: {

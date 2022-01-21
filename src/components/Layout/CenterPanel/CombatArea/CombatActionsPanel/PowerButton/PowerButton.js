@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './PowerButton.module.css';
 
-import powerImages from '../../../../../../Assets/img/power_icons/power_icons'
+import powerImages from '../../../../../../Assets/img/power_icons/power_icons';
 
 import powerSlice from '../../../../../../DataHandlers/redux/slices/powers';
 import combatSlice from '../../../../../../DataHandlers/redux/slices/combat';
@@ -54,6 +54,8 @@ const PowerButton = ({ powerId }) => {
   const actorsInCombatById = useSelector(
     (state) => state.combat.actorsInCombatById
   );
+  const actorsById = useSelector((state) => state.actors.actorsById);
+
   const actorCoordsById = useSelector((state) => state.combat.actorCoordsById);
 
   const combatPowersById = useSelector(
@@ -103,16 +105,26 @@ const PowerButton = ({ powerId }) => {
         })
       );
       return;
+    } else if (actorsById[0].actionUsed) {
+      dispatch(
+        UISlice.actions.addMessageToActivityLog({
+          message: `You've already used your action to attack!`,
+          styleType: 'italic',
+        })
+      );
+      return;
     } else {
       // highlight targets in range
 
       if (power.areaOfEffect > 0) {
         // highlight all possible targets
       } else {
-        
         dispatch(UISlice.actions.toggleCombatBasicAttackButtonSelected());
         dispatch(
-          powerSlice.actions.setActivePowerById({ actorId: 0, powerId: powerId })
+          powerSlice.actions.setActivePowerById({
+            actorId: 0,
+            powerId: powerId,
+          })
         );
         dispatch(
           combatSlice.actions.setValidAttackTargetsById({
@@ -124,11 +136,9 @@ const PowerButton = ({ powerId }) => {
             ),
           })
         );
-        
       }
       console.log('using power!');
       if (power.cooldown > 0) {
-        
       }
     }
   };
@@ -136,11 +146,11 @@ const PowerButton = ({ powerId }) => {
   return (
     <div
       onClick={onClick}
-      className={`${isSelected ? styles.selected : ''} ${isOnCooldown(powerId) ? '' : styles.disabled} ${
-        styles.PowerButton
-      }`}
-    > 
-    <img src={powerImages[power.icon]} alt={power.name} />
+      className={`${isSelected ? styles.selected : ''} ${
+        isOnCooldown(powerId) ? '' : styles.disabled
+      } ${styles.PowerButton}`}
+    >
+      <img src={powerImages[power.icon]} alt={power.name} />
     </div>
   );
 };
