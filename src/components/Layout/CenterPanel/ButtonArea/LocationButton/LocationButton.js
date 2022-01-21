@@ -8,13 +8,14 @@ import locations from '../../../../../DataHandlers/redux/slices/locations';
 import monsterData from '../../../../../Data/actors/monsters/monsterList';
 import miniMaps from '../../../../../Data/minimaps/miniMaps';
 
-import styles from "./LocationButton.module.css";
+import styles from './LocationButton.module.css';
 
 export default function LocationButton(props) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const locationState = useSelector((state) => state.locations);
   const currentLocation = locationState.currentLocation;
+  const questState = useSelector((state) => state.quests.questState);
 
   function handleActionButton(action, currentLocation) {
     if (action === undefined) return;
@@ -64,15 +65,18 @@ export default function LocationButton(props) {
       }
     }
   }
-
-  return (
+  
+  return questState[props.action.displayConditionQuestId] ===
+    props.action.displayConditionValue ? (
     <button
-    className={styles.LocationButton}
+      className={styles.LocationButton}
       onClick={() => {
         handleActionButton(props.action, currentLocation);
       }}
     >
       {props.label}
     </button>
+  ) : (
+    ''
   );
 }

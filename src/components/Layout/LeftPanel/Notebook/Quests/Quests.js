@@ -25,7 +25,7 @@ const TEST_QUEST_DATA = {
 export default function Quests() {
   let [currentWindow, setCurrentWindow] = useState("active");
 
-  const questState = useSelector((state) => state.quests.questState);
+  const questState = useSelector((state) => state.quests.playerActiveQuests);
   // const questState = TEST_QUESTS_STATE;
 
   let quests = questState.map((quest) => {

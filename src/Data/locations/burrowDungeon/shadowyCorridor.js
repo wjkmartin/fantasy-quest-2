@@ -1,17 +1,13 @@
 import questSlice from '../../../DataHandlers/redux/slices/quests';
 import locationSlice from '../../../DataHandlers/redux/slices/locations';
 import UISlice from '../../../DataHandlers/redux/slices/UI';
-import { useSelector } from 'react-redux';
-
-const shadowyCorridor = () => {
-  return useSelector((state) => state.quests.questStateUntracked).filter(
-    (quest) => quest.id === 1
-  )[0];
-};
+import store from '../../../DataHandlers/redux/store';
 
 const buttonsDarkness = [
   {
     'Attempt to press on through the darkness.': {
+      displayConditionQuestId: 300,
+      displayConditionValue: 0,
       type: 'justButton',
       onPress: (dispatch, state) => {
         dispatch(
@@ -25,6 +21,8 @@ const buttonsDarkness = [
   },
   {
     'Attempt to dispel the obviously magical darkness.': {
+      displayConditionQuestId: 300,
+      displayConditionValue: 0,
       type: 'justButton',
       onPress: (dispatch, state) => {
         if (state.actors.actorsById[0].intelligence >= 20) {
@@ -35,7 +33,7 @@ const buttonsDarkness = [
             })
           );
           dispatch(
-            questSlice.actions.setQuestStageUntracked({ id: 1, stage: 1 })
+            questSlice.actions.setQuestStage({ questId: 300, stage: 1 })
           );
           dispatch(locationSlice.actions.unHideLocationById({ id: 73 }));
         } else {
@@ -54,8 +52,8 @@ const buttonsDarkness = [
 export default {
   name: 'shadowyCorridor',
   icon: 'grip-lines',
-  buttons: shadowyCorridor.stage ? [] : buttonsDarkness,
-  description1: shadowyCorridor.stage
+  buttons: buttonsDarkness,
+  description1: 0 // TO DO : add way to change description based on quest state
     ? 'The shadows that once pervaded the air here are all but gone now, with only a few wisps visible in the corners of the corridor.'
     : 'A malevolent inky blackness fills the corridor, making it impossible to see beyond. The darkness absorbs the surrounding light, and the longer you state at the swirling nothingness the more you feel an overpowering sense of dread.',
   prettyName: 'Shadowy Corridor',

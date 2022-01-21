@@ -1,37 +1,25 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    questState: [
-        {
-            id: 1,
-            stage: 0,
-        }
-    ],
-    questStateUntracked: [
-        {
-            // Tracks the shadow blocking the passage in the goblin burrow
-            id: 1,
-            stage: 0,
-            // 0 = not cleared, 1 = cleared
-        }
-    ]
-
+  // 1 - 199 are regular tracked quests
+  // 300 - 499 are untracked quests (like the shadowy corridor state)
+  questState: {
+    1: 0,
+    300: 0,
+  },
+  playerActiveQuests: [],
 };
 
 const locationSlice = createSlice({
-    name: 'quests',
-    initialState: initialState,
-    reducers: {
-        setQuestStage: (state, action) => {
-            const {questId, stage} = action.payload;
-            state[questId] = stage;
-        },
-        setQuestStageUntracked: (state, action) => {
-            const {questId, stage} = action.payload;
-            state[questId] = stage;
-        },
+  name: 'quests',
+  initialState: initialState,
+  reducers: {
+    setQuestStage: (state, action) => {
+      const { questId, stage } = action.payload;
+      state.questState[questId] = stage;
     },
+  },
 });
 
-export const {setQuestStage, setQuestStageUntracked} = locationSlice.actions;
+export const { setQuestStage } = locationSlice.actions;
 export default locationSlice;
