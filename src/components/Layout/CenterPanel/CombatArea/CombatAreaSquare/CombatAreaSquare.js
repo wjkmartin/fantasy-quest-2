@@ -20,16 +20,6 @@ export default function CombatAreaSquare(props) {
   const combatMoveButtonSelected = useSelector(
     (state) => state.UI.combatMoveButtonSelected
   );
-  const currentLocation = useSelector(
-    (state) => state.locations.currentLocation
-  );
-  const isDuel = useSelector((state) => state.combat.isDuel);
-  const activePowerId = useSelector(
-    (state) => state.powers.activePowersById[0]
-  );
-  const combatPowersById = useSelector(
-    (state) => state.powers.combatPowersById
-  );
   let moveStyle,
     attackStyle = '';
 
@@ -95,16 +85,6 @@ export default function CombatAreaSquare(props) {
           : props.isActorHereThatIsValidAttackTarget
           ? () => {
               resolveCombatPower(dispatch, state, props.actorHere);
-              // onClickAttackSquare(
-              //   dispatch,
-              //   props.actorsById[0],
-              //   props.items,
-              //   props.actorHere,
-              //   combat.actorCoordsById,
-              //   currentLocation,
-              //   isDuel,
-              //   combatPowersById[activePowerId]
-              // );
             }
           : props.actorHere &&
             !combatMoveButtonSelected &&
