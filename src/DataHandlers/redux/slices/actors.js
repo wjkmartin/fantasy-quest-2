@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { loadActors, loadSingleActorFromData } from '../../loadActorData';
-import powers from '../../../Data/powers/powers';
+
 
 const actors = loadActors();
 
 const initialState = {
   actorsById: actors,
-
 };
 
 const actorSlice = createSlice({
@@ -36,23 +35,7 @@ const actorSlice = createSlice({
       newActor.location = location;
       state.actorsById[newActor.id] = newActor;
     },
-    addPowerToActorByDataRefAndActorId: (state, action) => {
-      const { actorId, powerDataRef } = action.payload;
-      const power = powers[powerDataRef];
-      state.powersById[actorId].push(power);
-    },
-    removePowerFromActorByDataRefAndActorId: (state, action) => {
-      const { actorId, ref } = action.payload;
-      return {
-        actorsById: state.actorsById,
-        powersById: {
-          ...state.powersById,
-          [actorId]: state.powersById[actorId].filter(
-            (power) => power.ref !== ref
-          ),
-        },
-      };
-    },
+    
   },
 });
 

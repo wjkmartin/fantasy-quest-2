@@ -1,5 +1,4 @@
 import { immerable } from "@reduxjs/toolkit/node_modules/immer";
-import basicAttack from "../CombatAbilities/basicAttack";
 
 class Actor {
   [immerable] = true
@@ -11,7 +10,9 @@ class Actor {
     this.dodge = Math.floor(actorData.dexterity / 10);
     this.focus = Math.floor(actorData.wisdom * 2.5);
     this.movementRemaining = this.speed;
-    this.abilities = { basicAttack: basicAttack };
+    this.abilities = { basicAttack: {
+      damage: 5
+    } };
     this.dialogueState = "meet";
     this.xp = 0;
     this.xpToNextLevel = 100;

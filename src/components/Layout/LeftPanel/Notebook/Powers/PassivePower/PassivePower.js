@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Power.module.css';
+import styles from '../Power.module.css';
 
 import { useDispatch } from 'react-redux';
 import actor from '../../../../../../DataHandlers/redux/slices/actors';
+import powers from '../../../../../../DataHandlers/redux/slices/powers';
 
 export default function Power(props) {
   const power = props.powerData;
@@ -32,8 +33,8 @@ export default function Power(props) {
       clearInterval(myInterval);
       if (durationRemainingSeconds === 1) {
         dispatch(
-          actor.actions.removePowerFromActorByDataRefAndActorId({
-            ref: power.ref,
+          powers.actions.removePassivePowerFromActorById({
+            powerId: power.id,
             actorId: 0,
           })
         );

@@ -6,11 +6,12 @@ import { useSelector, useDispatch } from "react-redux";
 import actors from "../../../../../DataHandlers/redux/slices/actors";
 import items from "../../../../../DataHandlers/redux/slices/items";
 import UI from '../../../../../DataHandlers/redux/slices/UI'
+import powers from '../../../../../DataHandlers/redux/slices/powers'
 
 
 export default function ConversationButton(props) {
   const dispatch = useDispatch();
-  const actions = {actors, items, UI};
+  const actions = {actors, items, UI, powers};
   let state = useSelector((state) => state);
   let player = state.actors.actorsById[0];
   const dialogueBranch = Object.keys(props.buttonData)[0];

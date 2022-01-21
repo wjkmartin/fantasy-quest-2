@@ -1,15 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { loadCombatPowerData } from '../../loadPowerData';
+import { loadCombatPowerData, loadPassivePowerData } from '../../loadPowerData';
 import combatPowerData from '../../../Data/powers/combatPowers';
+import passivePowerData from '../../../Data/powers/powers';
 
 const initialState = {
+  combatPowersById: loadCombatPowerData(combatPowerData),
+  unlockedCombatPowersById: [1],
   combatPowersOnCooldownByActorId: {
     0: {},
   },
-  combatPowersById: loadCombatPowerData(combatPowerData),
-  activePowersById: {},
-  unlockedPowersById: [1],
+  passivePowersById: loadPassivePowerData(passivePowerData),
+  passivePowersOnActorById: {
+    0: [],
+  },
 };
 
 const powerSlice = createSlice({
@@ -44,11 +48,36 @@ const powerSlice = createSlice({
     },
     addUnlockedPowerById: (state, action) => {
       const { powerId } = action.payload;
-      state.unlockedPowersById.push(powerId);
-    }
+      state.unlockedCombatPowersById.push(powerId);
+    },
+    addPassivePowerToActorById: (state, action) => {
+      const { actorId, powerId } = action.payload;
+      state.passivePowersOnActorById[actorId].push(powerId);
+    },
+    addPassivePowerToActorByRef: (state, action) => {
+      const { actorId, powerRef } = action.payload;
+      const powerId = Object.values(state.passivePowersById).find(
+        (power) => power.ref === powerRef
+      ).id;
+      console.log('powerId', powerId);
+      state.passivePowersOnActorById[actorId].push(powerId);
+    },
+    removePassivePowerFromActorById: (state, action) => {
+      const { actorId, powerId } = action.payload;
+      const index = state.passivePowersOnActorById[actorId].indexOf(powerId);
+      state.passivePowersOnActorById[actorId].splice(index, 1);
+    },
   },
 });
 
-export const { addPowerToCooldown, reduceAllPowersOnCooldownTurnsRemaining, clearPowersOnCooldown, setActivePowerById, addUnlockedPowerById} =
-  powerSlice.actions;
+export const {
+  addPowerToCooldown,
+  reduceAllPowersOnCooldownTurnsRemaining,
+  clearPowersOnCooldown,
+  setActivePowerById,
+  addUnlockedPowerById,
+  addPassivePowerToActorById,
+  addPassivePowerToActorByRef,
+  removePassivePowerFromActorById,
+} = powerSlice.actions;
 export default powerSlice;

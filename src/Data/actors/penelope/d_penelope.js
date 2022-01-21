@@ -53,8 +53,8 @@ export default {
             {
               check: (state) => {
                 return (
-                  !state.actors.powersById[0].some(
-                    (power) => power.ref === 'rolep_strength'
+                  !state.powers.passivePowersOnActorById[0].some(
+                    (powerId) => powerId === 0
                   )
                 );
               },
@@ -69,8 +69,8 @@ export default {
               })
             );
             dispatch(
-              actions.actors.actions.addPowerToActorByDataRefAndActorId({
-                powerDataRef: 'rolep_strength',
+              actions.powers.actions.addPassivePowerToActorByRef({
+                powerRef: 'rolep_strength',
                 actorId: 0,
               })
             );
@@ -85,7 +85,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  !state.actors.powersById[0].some((power) => power.ref === 'rolep_dexterity')
+                  !state.powers.passivePowersOnActorById[0].some((powerId) => powerId === 1)
                 )
               },
             },
@@ -99,8 +99,8 @@ export default {
               })
             );
             dispatch(
-              actions.actors.actions.addPowerToActorByDataRefAndActorId({
-                powerDataRef: 'rolep_dexterity',
+              actions.powers.actions.addPassivePowerToActorByRef({
+                powerRef: 'rolep_dexterity',
                 actorId: 0,
               })
             );
@@ -115,7 +115,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  !state.actors.powersById[0].some((power) => power.ref === 'rolep_constitution')
+                  !state.powers.passivePowersOnActorById[0].some((powerId) => powerId === 2)
                 );
               },
             },
@@ -129,8 +129,8 @@ export default {
               })
             );
             dispatch(
-              actions.actors.actions.addPowerToActorByDataRefAndActorId({
-                powerDataRef: 'rolep_constitution',
+              actions.powers.actions.addPassivePowerToActorByRef({
+                powerRef: 'rolep_constitution',
                 actorId: 0,
               })
             );
@@ -145,7 +145,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  !state.actors.powersById[0].some((power) => power.ref === 'rolep_charisma')
+                  !state.powers.passivePowersOnActorById[0].some((powerId) => powerId === 3)
                 );
               },
             },
@@ -159,8 +159,8 @@ export default {
               })
             );
             dispatch(
-              actions.actors.actions.addPowerToActorByDataRefAndActorId({
-                powerDataRef: 'rolep_charisma',
+              actions.powers.actions.addPassivePowerToActorByRef({
+                powerRef: 'rolep_charisma',
                 actorId: 0,
               })
             );
@@ -175,7 +175,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  !state.actors.powersById[0].some((power) => power.ref === 'rolep_wisdom')
+                  !state.powers.passivePowersOnActorById[0].some((powerId) => powerId === 4)
                 );
               },
             },
@@ -189,8 +189,8 @@ export default {
               })
             );
             dispatch(
-              actions.actors.actions.addPowerToActorByDataRefAndActorId({
-                powerDataRef: 'rolep_wisdom',
+              actions.powers.actions.addPassivePowerToActorByRef({
+                powerRef: 'rolep_wisdom',
                 actorId: 0,
               })
             );
@@ -205,7 +205,7 @@ export default {
             {
               check: (state) => {
                 return (
-                  !state.actors.powersById[0].some((power) => power.ref === 'rolep_intelligence')
+                  !state.powers.passivePowersOnActorById[0].some((powerId) => powerId === 5)
                 );
               },
             },
@@ -219,8 +219,8 @@ export default {
               })
             );
             dispatch(
-              actions.actors.actions.addPowerToActorByDataRefAndActorId({
-                powerDataRef: 'rolep_intelligence',
+              actions.powers.actions.addPassivePowerToActorByRef({
+                powerRef: 'rolep_intelligence',
                 actorId: 0,
               })
             );

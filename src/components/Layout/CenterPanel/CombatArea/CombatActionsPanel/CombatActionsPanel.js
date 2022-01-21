@@ -126,8 +126,8 @@ export default function CombatActionsPanel() {
   }
 
   const powerBarChildren = () => {
-    const unlockedPowersById = useSelector(state => state.powers.unlockedPowersById);
-    return unlockedPowersById.map((powerId, i) => {
+    const unlockedCombatPowersById = useSelector(state => state.powers.unlockedCombatPowersById);
+    return unlockedCombatPowersById.map((powerId, i) => {
       return (
         <PowerButton
           key={'__powerButton__', i}
